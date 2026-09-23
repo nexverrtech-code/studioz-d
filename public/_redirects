@@ -1,3 +1,0 @@
-# SPA history fallback — every unknown path must serve index.html, or deep
-# links (e.g. /works/the-beginning) return 404 on a static host.
-/*    /index.html   200
