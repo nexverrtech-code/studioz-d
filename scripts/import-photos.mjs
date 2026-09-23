@@ -1,0 +1,160 @@
+/**
+ * Photograph import pipeline.
+ *
+ * Turns a folder of raw client photographs into everything the site needs:
+ * responsive AVIF + WebP variants at each breakpoint, plus a ready-to-paste
+ * data snippet carrying the real dimensions and aspect ratio.
+ *
+ *   npm run photos -- <source-folder> <category>
+ *
+ *   npm run photos -- ./incoming/wedding-ravi works
+ *   npm run photos -- ./incoming/frames gifts
+ *
+ * `category` is the folder under `public/assets/images/` (works, gifts,
+ * services, journal, about).
+ *
+ * WHAT IT PRODUCES, per photograph:
+ *   studioz-d-<name>.webp              ← the path you put in the data file
+ *   studioz-d-<name>-{480…1920}.webp   ← picked up automatically by srcSet
+ *   studioz-d-<name>-{480…1920}.avif
+ *
+ * `OptimizedImage` emits the AVIF/WebP <source> entries and the width-based
+ * srcSet on its own (see src/utils/images.js) — it only needs the variants to
+ * exist beside the original. Nothing in the components changes.
+ *
+ * Filenames are slugified and prefixed for SEO, so `IMG_3948.JPG` becomes
+ * `studioz-d-img-3948.webp`. Pass meaningful filenames in and you get
+ * meaningful, descriptive image URLs out.
+ */
+
+import { mkdir, readdir, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+/** Must match RESPONSIVE_WIDTHS in src/utils/images.js. */
+const WIDTHS = [480, 640, 960, 1280, 1600, 1920];
+
+/** Aspect ratios the gallery and data model understand. */
+const RATIOS = [
+  ['1/1', 1], ['4/5', 0.8], ['3/4', 0.75], ['2/3', 0.667],
+  ['4/3', 1.333], ['3/2', 1.5], ['16/9', 1.778], ['21/9', 2.333],
+];
+
+const SOURCE_EXT = /\.(jpe?g|png|webp|avif|tiff?)$/i;
+
+const slugify = (name) =>
+  name
+    .replace(SOURCE_EXT, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+/** Snaps the true ratio to the nearest supported one, for the data file. */
+const nearestRatio = (width, height) => {
+  const actual = width / height;
+  let best = RATIOS[0];
+  for (const entry of RATIOS) {
+    if (Math.abs(entry[1] - actual) < Math.abs(best[1] - actual)) best = entry;
+  }
+  return best[0];
+};
+
+const run = async () => {
+  const [source, category = 'works'] = process.argv.slice(2);
+
+  if (!source) {
+    console.error('Usage: npm run photos -- <source-folder> [category]');
+    console.error('  e.g. npm run photos -- ./incoming/wedding-ravi works');
+    process.exitCode = 1;
+    return;
+  }
+
+  const outDir = path.join(ROOT, 'public', 'assets', 'images', category);
+  await mkdir(outDir, { recursive: true });
+
+  let entries;
+  try {
+    entries = (await readdir(source, { withFileTypes: true }))
+      .filter((entry) => entry.isFile() && SOURCE_EXT.test(entry.name))
+      .map((entry) => entry.name)
+      .sort();
+  } catch (error) {
+    console.error(`Could not read ${source}: ${error.message}`);
+    process.exitCode = 1;
+    return;
+  }
+
+  if (entries.length === 0) {
+    console.error(`No importable images in ${source} (jpg, png, webp, avif, tiff).`);
+    process.exitCode = 1;
+    return;
+  }
+
+  console.log(`Importing ${entries.length} photograph(s) → public/assets/images/${category}/\n`);
+
+  const records = [];
+
+  for (const name of entries) {
+    const file = path.join(source, name);
+    const slug = `studioz-d-${slugify(name)}`;
+
+    const image = sharp(file, { failOn: 'none' }).rotate(); // honour EXIF orientation
+    const meta = await image.metadata();
+    const width = meta.width ?? 0;
+    const height = meta.height ?? 0;
+
+    if (!width || !height) {
+      console.warn(`  ! skipped ${name} — could not read dimensions`);
+      continue;
+    }
+
+    // Primary file: the path that goes in the data file.
+    await image
+      .clone()
+      .resize({ width: Math.min(width, 1920), withoutEnlargement: true })
+      .webp({ quality: 82 })
+      .toFile(path.join(outDir, `${slug}.webp`));
+
+    // Responsive variants — never upscale past the original.
+    for (const target of WIDTHS) {
+      if (target > width) continue;
+      const resized = image.clone().resize({ width: target, withoutEnlargement: true });
+      await resized.clone().webp({ quality: 80 }).toFile(path.join(outDir, `${slug}-${target}.webp`));
+      await resized.clone().avif({ quality: 62 }).toFile(path.join(outDir, `${slug}-${target}.avif`));
+    }
+
+    const aspect = nearestRatio(width, height);
+    records.push({ slug, width, height, aspect, original: name });
+    console.log(`  ✓ ${name}  →  ${slug}.webp  (${width}×${height}, ${aspect})`);
+  }
+
+  /* --- Paste-ready data snippet ---------------------------------------- */
+  const snippet = records
+    .map(
+      (r) =>
+        `  img('${r.slug}.webp', '${r.aspect}', 'DESCRIBE THIS PHOTOGRAPH — who or what is in it, and where'),`
+    )
+    .join('\n');
+
+  const outFile = path.join(ROOT, `import-${category}-snippet.txt`);
+  await writeFile(
+    outFile,
+    `// Generated by: npm run photos -- ${source} ${category}\n` +
+      `// Paste into the matching entry's \`images: [...]\` array in src/data/${category}.js\n` +
+      `// Replace every ALT-TEXT placeholder — alt text is not optional.\n\n` +
+      `${snippet}\n`,
+    'utf8'
+  );
+
+  console.log(`\n${records.length} imported.`);
+  console.log(`Data snippet written to import-${category}-snippet.txt`);
+  console.log('Next: paste it into the data file and write real alt text for each frame.');
+};
+
+run().catch((error) => {
+  console.error('Photo import failed:', error);
+  process.exitCode = 1;
+});

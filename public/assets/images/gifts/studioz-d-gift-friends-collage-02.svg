@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1400" width="1400" height="1400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+  <title>Studioz D — placeholder</title>
+
+    <defs>
+      <linearGradient id="layers-1gt71r" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#2A2522"/>
+        <stop offset="55%" stop-color="#B4704F"/>
+        <stop offset="100%" stop-color="#2A2522"/>
+      </linearGradient>
+    </defs>
+    <rect width="1400" height="1400" fill="url(#layers-1gt71r)"/>
+    <path d="M0 168.02149544097483 L1400 129.52857529912143 L1400 272.3066469885409 L0 310.7995671303943 Z" fill="#F8F4EC" opacity="0.24"/>
+    <path d="M0 364.69374672509736 L1400 325.9793650908396 L1400 524.0533564770594 L0 562.7677381113172 Z" fill="#DCAA90" opacity="0.25"/>
+    <path d="M0 601.5029625762254 L1400 551.8655238913373 L1400 740.0619997911156 L0 789.6994384760037 Z" fill="#F8F4EC" opacity="0.34"/>
+    <path d="M0 854.8590837009251 L1400 849.9563847737387 L1400 1020.9736961781979 L0 1025.8763951053843 Z" fill="#DCAA90" opacity="0.20"/>
+    <path d="M0 1071.9933149889112 L1400 1051.8121965169908 L1400 1252.649318111688 L0 1272.8304365836084 Z" fill="#F8F4EC" opacity="0.24"/>
+</svg>

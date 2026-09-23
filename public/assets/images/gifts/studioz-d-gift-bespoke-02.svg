@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1400" width="1400" height="1400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+  <title>Studioz D — placeholder</title>
+
+    <defs>
+      <linearGradient id="bg-mlwbn8" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#F8F4EC"/>
+        <stop offset="100%" stop-color="#DCAA90"/>
+      </linearGradient>
+      <linearGradient id="obj-mlwbn8" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#B4704F"/>
+        <stop offset="100%" stop-color="#2A2522"/>
+      </linearGradient>
+      <linearGradient id="shade-mlwbn8" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#2A2522" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="#2A2522" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <rect width="1400" height="1400" fill="url(#bg-mlwbn8)"/>
+    <rect y="952.0000000000001" width="1400" height="447.9999999999999" fill="#B4704F" opacity="0.28"/>
+    <ellipse cx="873.3696476452053" cy="958.0000000000001" rx="299.45666411444546" ry="39.2" fill="url(#shade-mlwbn8)"/>
+    <rect x="542.3912294134498" y="510.54035508446407" width="315.21754117310047" height="441.45964491553605" rx="3" fill="url(#obj-mlwbn8)"/>
+    <rect x="573.9129835307598" y="554.6863195760177" width="56.73915741115808" height="353.16771593242885" fill="#F8F4EC" opacity="0.14"/>
+</svg>

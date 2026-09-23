@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1600" width="1280" height="1600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+  <title>Studioz D — placeholder</title>
+
+    <defs>
+      <radialGradient id="key-rdwzvs" cx="65.172304129228%" cy="26%" r="78%">
+        <stop offset="0%" stop-color="#F8F4EC"/>
+        <stop offset="52%" stop-color="#B4704F"/>
+        <stop offset="100%" stop-color="#2A2522"/>
+      </radialGradient>
+      <linearGradient id="figure-rdwzvs" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2A2522" stop-opacity="0.82"/>
+        <stop offset="100%" stop-color="#2A2522" stop-opacity="0.96"/>
+      </linearGradient>
+    </defs>
+    <rect width="1280" height="1600" fill="url(#key-rdwzvs)"/>
+    <circle cx="666.7620112419129" cy="490.5576026439666" r="153.6" fill="url(#figure-rdwzvs)"/>
+    <path d="M344.2020112419129 1600
+             C359.5620112419129 828.4776026439666,
+              490.1220112419129 651.8376026439666,
+              666.7620112419129 647.2296026439666
+             C843.4020112419129 651.8376026439666,
+              973.9620112419129 828.4776026439666,
+              989.3220112419128 1600 Z"
+          fill="url(#figure-rdwzvs)"/>
+</svg>

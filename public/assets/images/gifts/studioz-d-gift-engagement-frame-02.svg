@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1400" width="1400" height="1400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+  <title>Studioz D — placeholder</title>
+
+    <defs>
+      <radialGradient id="key-i4cbpg" cx="59.47526678442955%" cy="26%" r="78%">
+        <stop offset="0%" stop-color="#F1EADF"/>
+        <stop offset="52%" stop-color="#8D7046"/>
+        <stop offset="100%" stop-color="#2A2522"/>
+      </radialGradient>
+      <linearGradient id="figure-i4cbpg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2A2522" stop-opacity="0.82"/>
+        <stop offset="100%" stop-color="#2A2522" stop-opacity="0.96"/>
+      </linearGradient>
+    </defs>
+    <rect width="1400" height="1400" fill="url(#key-i4cbpg)"/>
+    <circle cx="916.6028521209954" cy="491.32223546877503" r="168" fill="url(#figure-i4cbpg)"/>
+    <path d="M563.8028521209953 1400
+             C580.6028521209954 860.922235468775,
+              723.4028521209955 667.722235468775,
+              916.6028521209954 662.682235468775
+             C1109.8028521209953 667.722235468775,
+              1252.6028521209955 860.922235468775,
+              1269.4028521209955 1400 Z"
+          fill="url(#figure-i4cbpg)"/>
+</svg>

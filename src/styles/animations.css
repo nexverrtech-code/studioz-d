@@ -1,0 +1,184 @@
+/* ==========================================================================
+   Studioz D — motion primitives
+   Only transform/opacity/clip-path animate, so nothing here can cause a
+   layout shift or steal a frame from scrolling.
+   ========================================================================== */
+
+/* --- Image reveal --------------------------------------------------------
+   A clip-path wipe used for editorial image entrances. The element occupies
+   its final box from the first frame; only the mask moves. */
+@keyframes sd-reveal-up {
+  from {
+    clip-path: inset(100% 0 0 0);
+    transform: translate3d(0, 24px, 0) scale(1.04);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes sd-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes sd-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- Slow cinematic drift for hero stills -------------------------------- */
+@keyframes sd-ken-burns {
+  from {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.12) translate3d(0, -1.2%, 0);
+  }
+}
+
+/* --- Skeleton shimmer ---------------------------------------------------- */
+@keyframes sd-shimmer {
+  from {
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+/* --- Scroll cue ---------------------------------------------------------- */
+@keyframes sd-scroll-cue {
+  0% {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+  45% {
+    transform: scaleY(1);
+    transform-origin: top;
+  }
+  55% {
+    transform: scaleY(1);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: scaleY(0);
+    transform-origin: bottom;
+  }
+}
+
+/* --- Applied classes ----------------------------------------------------- */
+.sd-reveal-up {
+  animation: sd-reveal-up var(--sd-dur-slow) var(--sd-ease) both;
+}
+
+.sd-fade-up {
+  animation: sd-fade-up var(--sd-dur) var(--sd-ease) both;
+}
+
+.sd-fade-in {
+  animation: sd-fade-in var(--sd-dur) var(--sd-ease) both;
+}
+
+.sd-ken-burns {
+  animation: sd-ken-burns 14s var(--sd-ease) both;
+}
+
+.sd-scroll-cue {
+  animation: sd-scroll-cue 2.4s var(--sd-ease) infinite;
+}
+
+/* Skeleton block used while imagery and data resolve. */
+.sd-skeleton {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--sd-ivory-200);
+}
+.sd-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 100%
+  );
+  animation: sd-shimmer 1.6s ease-in-out infinite;
+}
+
+/* Blur-up: the tiny preview sharpens into the full image, no size change. */
+.sd-blur-up {
+  filter: blur(18px);
+  transform: scale(1.04);
+  transition:
+    filter var(--sd-dur-slow) var(--sd-ease),
+    transform var(--sd-dur-slow) var(--sd-ease);
+}
+.sd-blur-up[data-loaded='true'] {
+  filter: blur(0);
+  transform: scale(1);
+}
+
+/* Film-grain overlay. Purely decorative, never interactive. */
+.sd-grain::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: repeating-conic-gradient(
+    var(--sd-ink-900) 0% 25%,
+    transparent 0% 50%
+  );
+  background-size: 3px 3px;
+  animation: grain-shift 8s steps(6) infinite;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   REDUCED MOTION
+   Honour the OS setting globally. Content still appears — only the movement
+   is removed, so nothing ends up permanently invisible.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .sd-reveal-up,
+  .sd-fade-up,
+  .sd-fade-in {
+    animation: none;
+    opacity: 1;
+    clip-path: none;
+    transform: none;
+  }
+
+  .sd-ken-burns,
+  .sd-grain::after,
+  .sd-skeleton::after {
+    animation: none;
+  }
+
+  .sd-blur-up {
+    filter: none;
+    transform: none;
+  }
+}

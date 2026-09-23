@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Frontend-only admin surface — no customer value in search results.
+Disallow: /admin
+Disallow: /admin/
+
+Sitemap: https://studiozd.com/sitemap.xml

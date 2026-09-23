@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1400" width="1400" height="1400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+  <title>Studioz D — placeholder</title>
+
+    <defs>
+      <radialGradient id="key-cbitjr" cx="69.3187337834388%" cy="26%" r="78%">
+        <stop offset="0%" stop-color="#F8F4EC"/>
+        <stop offset="52%" stop-color="#B4704F"/>
+        <stop offset="100%" stop-color="#2A2522"/>
+      </radialGradient>
+      <linearGradient id="figure-cbitjr" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2A2522" stop-opacity="0.82"/>
+        <stop offset="100%" stop-color="#2A2522" stop-opacity="0.96"/>
+      </linearGradient>
+    </defs>
+    <rect width="1400" height="1400" fill="url(#key-cbitjr)"/>
+    <circle cx="596.6774104088545" cy="525.0838150754571" r="168" fill="url(#figure-cbitjr)"/>
+    <path d="M243.87741040885447 1400
+             C260.6774104088545 894.6838150754571,
+              403.4774104088545 701.4838150754571,
+              596.6774104088545 696.4438150754571
+             C789.8774104088545 701.4838150754571,
+              932.6774104088545 894.6838150754571,
+              949.4774104088544 1400 Z"
+          fill="url(#figure-cbitjr)"/>
+</svg>

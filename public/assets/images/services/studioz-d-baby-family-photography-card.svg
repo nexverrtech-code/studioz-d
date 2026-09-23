@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1600" width="1280" height="1600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+  <title>Studioz D — placeholder</title>
+
+    <defs>
+      <radialGradient id="pool-q7lliq" cx="63.35520135052502%" cy="51.7541076624766%" r="62%">
+        <stop offset="0%" stop-color="#D8CBB8"/>
+        <stop offset="34%" stop-color="#C4B49D"/>
+        <stop offset="100%" stop-color="#3C3531"/>
+      </radialGradient>
+      <linearGradient id="vignette-q7lliq" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3C3531" stop-opacity="0.45"/>
+        <stop offset="45%" stop-color="#3C3531" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#3C3531" stop-opacity="0.6"/>
+      </linearGradient>
+    </defs>
+    <rect width="1280" height="1600" fill="url(#pool-q7lliq)"/>
+    <rect width="1280" height="1600" fill="url(#vignette-q7lliq)"/>
+    <rect x="102.4" y="128" width="1075.2" height="1344" fill="none" stroke="#FDFBF7" stroke-opacity="0.1" stroke-width="1.5"/>
+</svg>

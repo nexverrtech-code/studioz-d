@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+  <title>Studioz D — placeholder</title>
+
+    <defs>
+      <radialGradient id="key-5wpllc" cx="52.67427251674235%" cy="26%" r="78%">
+        <stop offset="0%" stop-color="#F1EADF"/>
+        <stop offset="52%" stop-color="#766B63"/>
+        <stop offset="100%" stop-color="#0B0908"/>
+      </radialGradient>
+      <linearGradient id="figure-5wpllc" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#0B0908" stop-opacity="0.82"/>
+        <stop offset="100%" stop-color="#0B0908" stop-opacity="0.96"/>
+      </linearGradient>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#key-5wpllc)"/>
+    <circle cx="1257.1336824417112" cy="346.94034945890303" r="129.6" fill="url(#figure-5wpllc)"/>
+    <path d="M984.9736824417112 1080
+             C997.9336824417112 632.060349458903,
+              1108.0936824417113 483.02034945890307,
+              1257.1336824417112 479.13234945890304
+             C1406.1736824417112 483.02034945890307,
+              1516.3336824417113 632.060349458903,
+              1529.2936824417113 1080 Z"
+          fill="url(#figure-5wpllc)"/>
+</svg>

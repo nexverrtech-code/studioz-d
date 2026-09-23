@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1600" width="1280" height="1600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+  <title>Studioz D — placeholder</title>
+
+    <defs>
+      <radialGradient id="key-aobcgi" cx="57.79437851160765%" cy="26%" r="78%">
+        <stop offset="0%" stop-color="#F1EADF"/>
+        <stop offset="52%" stop-color="#9A8F86"/>
+        <stop offset="100%" stop-color="#2A2522"/>
+      </radialGradient>
+      <linearGradient id="figure-aobcgi" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2A2522" stop-opacity="0.82"/>
+        <stop offset="100%" stop-color="#2A2522" stop-opacity="0.96"/>
+      </linearGradient>
+    </defs>
+    <rect width="1280" height="1600" fill="url(#key-aobcgi)"/>
+    <circle cx="672.7555590629578" cy="548.9183441400528" r="153.6" fill="url(#figure-aobcgi)"/>
+    <path d="M350.1955590629578 1600
+             C365.5555590629578 886.8383441400529,
+              496.1155590629578 710.1983441400528,
+              672.7555590629578 705.5903441400528
+             C849.3955590629578 710.1983441400528,
+              979.9555590629577 886.8383441400529,
+              995.3155590629578 1600 Z"
+          fill="url(#figure-aobcgi)"/>
+</svg>

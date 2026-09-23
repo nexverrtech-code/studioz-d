@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+  <title>Studioz D — placeholder</title>
+
+    <defs>
+      <linearGradient id="sky-j77ll0" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2A2522"/>
+        <stop offset="58%" stop-color="#8D7046"/>
+        <stop offset="100%" stop-color="#D8C09A"/>
+      </linearGradient>
+      <linearGradient id="ground-j77ll0" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2A2522" stop-opacity="0.92"/>
+        <stop offset="100%" stop-color="#2A2522"/>
+      </linearGradient>
+      <radialGradient id="sun-j77ll0" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#F1EADF" stop-opacity="0.9"/>
+        <stop offset="100%" stop-color="#F1EADF" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <rect width="1920" height="1080" fill="url(#sky-j77ll0)"/>
+    <circle cx="617.1692050695419" cy="578.8127496606857" r="405.8238995604962" fill="url(#sun-j77ll0)"/>
+    <circle cx="617.1692050695419" cy="578.8127496606857" r="119.35997045896949" fill="#F1EADF" opacity="0.5"/>
+    <path d="M0 626.5567378442735 L1920 588.963333573617 L1920 1080 L0 1080 Z" fill="url(#ground-j77ll0)"/>
+</svg>

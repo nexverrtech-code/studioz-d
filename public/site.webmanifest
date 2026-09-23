@@ -1,0 +1,15 @@
+{
+  "name": "Studioz D — Photography & Personalized Gifts",
+  "short_name": "Studioz D",
+  "description": "Creative photography, films and personalized gifts by Studioz D.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FDFBF7",
+  "theme_color": "#14110F",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

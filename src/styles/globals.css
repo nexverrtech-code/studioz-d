@@ -1,0 +1,558 @@
+@import './variables.css';
+@import './animations.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    min-width: 0; /* stops flex/grid children forcing their parent wider */
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: auto; /* Lenis owns smooth scrolling */
+    tab-size: 4;
+    /* Reserves the scrollbar's width permanently, so opening a modal (which
+       hides overflow) cannot shift the layout sideways. */
+    scrollbar-gutter: stable;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--sd-surface);
+    color: var(--sd-text);
+    font-family: theme('fontFamily.sans');
+    font-size: clamp(0.94rem, 0.9rem + 0.22vw, 1.06rem);
+    line-height: 1.7;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* The single global overflow guard. Every component is still authored to
+       fit on its own; this only catches sub-pixel rounding, never a
+       structural layout bug. */
+    overflow-x: clip;
+  }
+
+  /* Belt-and-braces: nothing may push the document wider than the viewport. */
+  html,
+  body {
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: theme('fontFamily.display');
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  /* Media never exceeds its container, and never collapses layout. */
+  img,
+  picture,
+  video,
+  canvas,
+  svg,
+  iframe {
+    display: block;
+    max-width: 100%;
+  }
+
+  img,
+  video {
+    height: auto;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+    letter-spacing: inherit;
+  }
+
+  button {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Visible, brand-consistent focus for every keyboard user. */
+  :focus-visible {
+    outline: 2px solid var(--sd-accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  [data-surface='admin'] :focus-visible {
+    outline-color: var(--sd-champagne-500);
+  }
+
+  ::selection {
+    background-color: var(--sd-champagne-300);
+    color: var(--sd-ink-900);
+  }
+
+  /* Scrollbars — subtle, never neon. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--sd-ink-200) transparent;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--sd-ink-200);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 999px;
+  }
+}
+
+/* ==========================================================================
+   COMPONENTS
+   ========================================================================== */
+@layer components {
+  /* --- Shell ----------------------------------------------------------- */
+  /* The one container rule for the whole site. Content never stretches past
+     1400px, and never touches the viewport edge. */
+  .shell {
+    width: min(100% - (var(--sd-gutter) * 2), var(--sd-shell-max));
+    margin-inline: auto;
+  }
+
+  .shell-wide {
+    width: min(100% - (var(--sd-gutter) * 2), 1720px);
+    margin-inline: auto;
+  }
+
+  .shell-narrow {
+    width: min(100% - (var(--sd-gutter) * 2), 880px);
+    margin-inline: auto;
+  }
+
+  /* Full-bleed band that still respects the scrollbar. */
+  .bleed {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .section {
+    padding-block: theme('spacing.section');
+  }
+
+  .section-sm {
+    padding-block: theme('spacing.section-sm');
+  }
+
+  /* --- Type ------------------------------------------------------------ */
+  .eyebrow {
+    font-family: theme('fontFamily.sans');
+    font-size: clamp(0.62rem, 0.58rem + 0.16vw, 0.72rem);
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--sd-text-muted);
+  }
+
+  .display-line {
+    display: block;
+    font-family: theme('fontFamily.display');
+  }
+
+  .lede {
+    font-size: clamp(1.02rem, 0.96rem + 0.3vw, 1.22rem);
+    line-height: 1.66;
+    color: var(--sd-ink-500);
+    max-width: 62ch;
+  }
+
+  .rule {
+    height: 1px;
+    width: 100%;
+    background-color: var(--sd-line);
+    border: 0;
+  }
+
+  /* --- Buttons --------------------------------------------------------- */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    /* Never shrinks below a comfortable tap target. */
+    min-height: 48px;
+    padding: 0.85rem 1.6rem;
+    font-size: clamp(0.72rem, 0.69rem + 0.12vw, 0.8rem);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition:
+      background-color var(--sd-dur-fast) var(--sd-ease),
+      color var(--sd-dur-fast) var(--sd-ease),
+      border-color var(--sd-dur-fast) var(--sd-ease),
+      transform var(--sd-dur-fast) var(--sd-ease);
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .btn:disabled,
+  .btn[aria-disabled='true'] {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .btn-solid {
+    background-color: var(--sd-ink-900);
+    color: var(--sd-ivory-100);
+    border: 1px solid var(--sd-ink-900);
+  }
+  .btn-solid:hover:not(:disabled) {
+    background-color: var(--sd-ink-700);
+    border-color: var(--sd-ink-700);
+  }
+
+  .btn-outline {
+    background-color: transparent;
+    color: var(--sd-ink-900);
+    border: 1px solid var(--sd-line-strong);
+  }
+  .btn-outline:hover:not(:disabled) {
+    border-color: var(--sd-ink-900);
+    background-color: rgba(20, 17, 15, 0.04);
+  }
+
+  .btn-ghost-light {
+    background-color: transparent;
+    color: var(--sd-ivory-100);
+    border: 1px solid var(--sd-line-inverse);
+  }
+  .btn-ghost-light:hover:not(:disabled) {
+    border-color: var(--sd-ivory-100);
+    background-color: rgba(248, 244, 236, 0.08);
+  }
+
+  .btn-light {
+    background-color: var(--sd-ivory-100);
+    color: var(--sd-ink-900);
+    border: 1px solid var(--sd-ivory-100);
+  }
+  .btn-light:hover:not(:disabled) {
+    background-color: #ffffff;
+  }
+
+  .btn-accent {
+    background-color: var(--sd-champagne-600);
+    color: var(--sd-ink-950);
+    border: 1px solid var(--sd-champagne-600);
+  }
+  .btn-accent:hover:not(:disabled) {
+    background-color: var(--sd-champagne-500);
+    border-color: var(--sd-champagne-500);
+  }
+
+  /* --- Link with an editorial underline -------------------------------- */
+  .link-underline {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--sd-dur) var(--sd-ease);
+  }
+  .link-underline:hover::after,
+  .link-underline:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* --- Form controls --------------------------------------------------- */
+  .field-label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sd-ink-400);
+    margin-bottom: 0.55rem;
+  }
+
+  .field-control {
+    display: block;
+    width: 100%;
+    min-height: 50px;
+    padding: 0.8rem 0.95rem;
+    background-color: var(--sd-surface-raised);
+    border: 1px solid var(--sd-line-strong);
+    border-radius: 2px;
+    font-size: 0.98rem;
+    color: var(--sd-ink-900);
+    transition:
+      border-color var(--sd-dur-fast) var(--sd-ease),
+      box-shadow var(--sd-dur-fast) var(--sd-ease);
+  }
+  .field-control::placeholder {
+    color: var(--sd-ink-300);
+  }
+  .field-control:hover {
+    border-color: var(--sd-ink-300);
+  }
+  .field-control:focus {
+    outline: none;
+    border-color: var(--sd-champagne-600);
+    box-shadow: 0 0 0 3px rgba(201, 168, 118, 0.22);
+  }
+  .field-control[aria-invalid='true'] {
+    border-color: var(--sd-terracotta-500);
+  }
+  .field-control[aria-invalid='true']:focus {
+    box-shadow: 0 0 0 3px rgba(180, 112, 79, 0.2);
+  }
+
+  textarea.field-control {
+    min-height: 148px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  select.field-control {
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 0.95rem center;
+    background-size: 14px 9px;
+    padding-right: 2.6rem;
+  }
+
+  .field-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    margin-top: 0.45rem;
+    font-size: 0.8rem;
+    color: var(--sd-terracotta-500);
+  }
+
+  /* --- Chips / pills --------------------------------------------------- */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+    min-height: 40px;
+    padding: 0.5rem 1rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border: 1px solid var(--sd-line-strong);
+    border-radius: 999px;
+    color: var(--sd-ink-500);
+    background-color: transparent;
+    transition:
+      background-color var(--sd-dur-fast) var(--sd-ease),
+      color var(--sd-dur-fast) var(--sd-ease),
+      border-color var(--sd-dur-fast) var(--sd-ease);
+  }
+  .chip:hover {
+    border-color: var(--sd-ink-400);
+    color: var(--sd-ink-900);
+  }
+  .chip[aria-pressed='true'],
+  .chip[data-active='true'] {
+    background-color: var(--sd-ink-900);
+    border-color: var(--sd-ink-900);
+    color: var(--sd-ivory-100);
+  }
+
+  /* --- Editorial card -------------------------------------------------- */
+  .card-surface {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--sd-surface-raised);
+    border: 1px solid var(--sd-line);
+    border-radius: 2px;
+    overflow: hidden; /* clips child media to the card, by design */
+    height: 100%;
+  }
+
+  /* --- Horizontal rails ------------------------------------------------ */
+  /* Only the rail scrolls — never the page. */
+  .rail {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+  .rail > * {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+
+  /* --- Skip link ------------------------------------------------------- */
+  .skip-link {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: var(--z-cursor);
+    padding: 0.75rem 1.25rem;
+    background-color: var(--sd-ink-900);
+    color: var(--sd-ivory-100);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transform: translateY(calc(-100% - 1rem));
+    transition: transform var(--sd-dur-fast) var(--sd-ease);
+  }
+  .skip-link:focus-visible {
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   UTILITIES
+   ========================================================================== */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Truncate to N lines without breaking the grid row height. */
+  .clamp-1,
+  .clamp-2,
+  .clamp-3,
+  .clamp-4 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .clamp-1 {
+    -webkit-line-clamp: 1;
+  }
+  .clamp-2 {
+    -webkit-line-clamp: 2;
+  }
+  .clamp-3 {
+    -webkit-line-clamp: 3;
+  }
+  .clamp-4 {
+    -webkit-line-clamp: 4;
+  }
+
+  /* Any long unbroken string (emails, URLs) wraps instead of overflowing. */
+  .break-anywhere {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Reserves room for the fixed mobile contact dock so nothing hides under it. */
+  .pb-dock {
+    padding-bottom: calc(var(--sd-dock-h) + var(--sd-safe-b));
+  }
+
+  .pt-header {
+    padding-top: var(--sd-header-h);
+  }
+
+  .scroll-mt-header {
+    scroll-margin-top: calc(var(--sd-header-h) + 1rem);
+  }
+
+  .gpu {
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  .mask-fade-r {
+    -webkit-mask-image: linear-gradient(to right, #000 82%, transparent 100%);
+    mask-image: linear-gradient(to right, #000 82%, transparent 100%);
+  }
+}

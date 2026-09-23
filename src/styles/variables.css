@@ -1,0 +1,115 @@
+/* ==========================================================================
+   Studioz D — design tokens
+   Single source of truth for colour, rhythm, elevation and motion.
+   Tailwind mirrors these values; raw CSS consumes them directly.
+   ========================================================================== */
+
+:root {
+  /* --- Surface & ink --------------------------------------------------- */
+  --sd-ink-950: #0b0908;
+  --sd-ink-900: #14110f;
+  --sd-ink-800: #1d1917;
+  --sd-ink-700: #2a2522;
+  --sd-ink-600: #3c3531;
+  --sd-ink-500: #554c46;
+  --sd-ink-400: #766b63;
+  --sd-ink-300: #9a8f86;
+  --sd-ink-200: #bfb5ac;
+
+  --sd-ivory-50: #fdfbf7;
+  --sd-ivory-100: #f8f4ec;
+  --sd-ivory-200: #f1eadf;
+  --sd-ivory-300: #e6dccd;
+  --sd-ivory-400: #d8cbb8;
+
+  --sd-champagne-300: #e4d3b8;
+  --sd-champagne-500: #c9a876;
+  --sd-champagne-600: #b08e5c;
+
+  --sd-terracotta-500: #b4704f;
+  --sd-rose-400: #c9a4a4;
+  --sd-olive-400: #8e9070;
+
+  /* --- Brand, sampled from the studio logo ----------------------------- */
+  /* The round badge uses a teal script and an orange ring. These are the
+     measured values, kept as tokens so anything sitting next to the logo can
+     match it exactly instead of approximating. Used as secondary accents —
+     the charcoal/ivory/champagne system remains the primary palette. */
+  --sd-brand-teal: #028e93;
+  --sd-brand-teal-light: #30a4a9;
+  --sd-brand-orange: #f28c47;
+  --sd-brand-orange-light: #eea678;
+
+  /* --- Semantic -------------------------------------------------------- */
+  --sd-surface: var(--sd-ivory-50);
+  --sd-surface-raised: #ffffff;
+  --sd-surface-sunken: var(--sd-ivory-100);
+  --sd-surface-inverse: var(--sd-ink-900);
+  --sd-text: var(--sd-ink-900);
+  --sd-text-muted: var(--sd-ink-400);
+  --sd-text-inverse: var(--sd-ivory-100);
+  --sd-accent: var(--sd-champagne-600);
+  --sd-line: rgba(20, 17, 15, 0.1);
+  --sd-line-strong: rgba(20, 17, 15, 0.2);
+  --sd-line-inverse: rgba(248, 244, 236, 0.16);
+
+  /* --- Layout ---------------------------------------------------------- */
+  --sd-shell-max: 1400px;
+  --sd-gutter: 1rem; /* 320–639px  */
+  --sd-header-h: 64px;
+  --sd-dock-h: 0px; /* set by the mobile contact dock when mounted */
+  --sd-safe-b: env(safe-area-inset-bottom, 0px);
+  --sd-safe-t: env(safe-area-inset-top, 0px);
+
+  /* --- Motion ---------------------------------------------------------- */
+  --sd-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --sd-ease-in: cubic-bezier(0.62, 0.05, 0.36, 1);
+  --sd-dur-fast: 180ms;
+  --sd-dur: 420ms;
+  --sd-dur-slow: 820ms;
+
+  /* --- Elevation ------------------------------------------------------- */
+  --sd-shadow-lift: 0 18px 48px -24px rgba(11, 9, 8, 0.45);
+  --sd-shadow-lift-lg: 0 34px 80px -32px rgba(11, 9, 8, 0.55);
+
+  /* --- Stacking order (documented, never ad-hoc) ----------------------- */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-sticky: 40;
+  --z-dock: 55;
+  --z-header: 60;
+  --z-drawer: 70;
+  --z-lightbox: 90;
+  --z-cursor: 100;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --sd-gutter: 1.5rem;
+    --sd-header-h: 72px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --sd-gutter: 2rem;
+    --sd-header-h: 78px;
+  }
+}
+
+@media (min-width: 1700px) {
+  :root {
+    --sd-gutter: 3rem;
+  }
+}
+
+/* The admin surface flips to a darker, denser working environment. */
+[data-surface='admin'] {
+  --sd-surface: #12100f;
+  --sd-surface-raised: #1b1816;
+  --sd-surface-sunken: #0b0908;
+  --sd-text: var(--sd-ivory-100);
+  --sd-text-muted: var(--sd-ink-300);
+  --sd-line: rgba(248, 244, 236, 0.1);
+  --sd-line-strong: rgba(248, 244, 236, 0.2);
+}
