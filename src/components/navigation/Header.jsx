@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Menu, Search, ArrowUpRight } from 'lucide-react';
-import { primaryNav, navFlyouts } from '@/data/navigation';
+import { navForWorld, navFlyouts } from '@/data/navigation';
+import { useWorld, WORLDS } from '@/hooks/useWorld';
 import { Logo } from './Logo';
 import { MobileDrawer } from './MobileDrawer';
 import { NavFlyout } from './NavFlyout';
@@ -29,6 +30,14 @@ export const Header = ({ transparent = false }) => {
   const [flyout, setFlyout] = useState(null);
   const canHover = useCanHover();
   const location = useLocation();
+
+  /**
+   * The bar shows the navigation for the world the visitor is in. Putting
+   * twelve photography services and thirty gift categories in one menu helps
+   * nobody, and the label tells them which side of the studio they are on.
+   */
+  const world = useWorld();
+  const primaryNav = navForWorld(world);
 
   // Any navigation closes every overlay — otherwise the drawer survives a
   // route change and traps the user.
@@ -60,7 +69,21 @@ export const Header = ({ transparent = false }) => {
           className="shell flex items-center justify-between gap-4"
           style={{ minHeight: 'var(--sd-header-h)' }}
         >
-          <Logo tone={overHero ? 'light' : 'dark'} />
+          <div className="flex min-w-0 items-center gap-3">
+            <Logo tone={overHero ? 'light' : 'dark'} />
+            {world !== WORLDS.LANDING && (
+              <span
+                className={cn(
+                  'hidden shrink-0 border-l pl-3 text-[0.58rem] font-semibold uppercase tracking-widest-xl transition-colors duration-300 sm:inline-block',
+                  overHero
+                    ? 'border-ivory-100/25 text-ivory-100/70'
+                    : 'border-ink-200 text-ink-400'
+                )}
+              >
+                {world === WORLDS.GIFTS ? 'Gifts' : 'Photography'}
+              </span>
+            )}
+          </div>
 
           {/* Desktop navigation */}
           <nav aria-label="Primary" className="hidden lg:block">

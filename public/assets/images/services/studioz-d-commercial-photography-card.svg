@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1600" width="1280" height="1600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" width="1600" height="1067" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
   <title>Studioz D — placeholder</title>
 
     <defs>
@@ -16,8 +16,8 @@
         <stop offset="100%" stop-color="#F1EADF" stop-opacity="0"/>
       </radialGradient>
     </defs>
-    <rect width="1280" height="1600" fill="url(#sky-mxtqrd)"/>
-    <circle cx="672.892053425312" cy="1012.7182577848434" r="347.91440734267235" fill="url(#sun-mxtqrd)"/>
-    <circle cx="672.892053425312" cy="1012.7182577848434" r="102.32776686549187" fill="#F1EADF" opacity="0.5"/>
-    <path d="M0 1053.6493645310402 L1280 990.4304026591777 L1280 1600 L0 1600 Z" fill="url(#ground-mxtqrd)"/>
+    <rect width="1600" height="1067" fill="url(#sky-mxtqrd)"/>
+    <circle cx="841.11506678164" cy="668.532505207425" r="290.01927549580574" fill="url(#sun-mxtqrd)"/>
+    <circle cx="841.11506678164" cy="668.532505207425" r="85.29978691053111" fill="#F1EADF" opacity="0.5"/>
+    <path d="M0 702.6524199716374 L1600 660.4932747733392 L1600 1067 L0 1067 Z" fill="url(#ground-mxtqrd)"/>
 </svg>

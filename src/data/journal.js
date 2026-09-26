@@ -223,8 +223,8 @@ export const journal = [
       {
         type: 'callout',
         text: 'See how a full day comes together, from the quiet morning through to the last car leaving.',
-        linkLabel: 'The Beginning — a wedding story',
-        linkTo: '/works/the-beginning',
+        linkLabel: 'The Vow Made Aloud — a wedding story',
+        linkTo: '/works/the-vow-made-aloud',
       },
     ],
     relatedServices: ['wedding-photography', 'cinematic-films'],

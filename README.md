@@ -28,6 +28,8 @@ Open http://localhost:5173.
 | `npm run lint` | ESLint + the Tailwind class check |
 | `npm run brand` | Regenerate logo/favicon/OG assets from `brand/logo-master.png` |
 | `npm run photos -- <folder> <category>` | Import real photographs → responsive AVIF/WebP + a data snippet |
+| `npm run gifts -- <folder>` | Import gift product photography → responsive AVIF/WebP + real dimensions |
+| `npm run mockups` | Regenerate the framed-print gift composites |
 | `npm run images` | Generate any missing placeholder images |
 | `npm run sitemap` | Regenerate `sitemap.xml` and `robots.txt` |
 | `npm run check:css` | Catch Tailwind classes that silently emit no CSS |
@@ -98,6 +100,22 @@ snippet leaves a loud placeholder so it cannot be forgotten.
 `OptimizedImage` picks up the AVIF/WebP `<source>` entries and the width-based
 `srcSet` automatically from the naming convention. No component changes.
 
+#### Gift imagery is real, with two composites left
+
+The studio supplied 20 product photographs, imported with `npm run gifts`. All
+22 products and all 33 gift categories now use real imagery — there is not a
+single generated placeholder left anywhere in `src/data/gifts.js`.
+
+Five files in `public/assets/images/gifts/` are still composites, produced by
+`npm run mockups`: they place **the studio's own photographs into a frame on a
+wall**, which is literally what the gifting service does with them. They cover
+the framed-print products and the landing page's gifts panel, where a square
+product photograph would not fit the shape. Not invented products, not stock,
+not AI.
+
+Every ratio the site uses, every file location, and everything still missing is
+documented in [`docs/IMAGE-SPEC.md`](docs/IMAGE-SPEC.md).
+
 ### 2b. The logo says something the site does not
 
 The supplied logo reads **"StudiozD — The Wedding Planner"**, in teal and
@@ -158,6 +176,51 @@ advice and do not cover jurisdiction, entity details or commercial terms.
 See **Admin console** below.
 
 ---
+
+## Two creative worlds
+
+Studioz D is one brand running two businesses. The site is structured around
+that rather than flattening it into a single menu.
+
+```
+                        /  (gateway)
+                             │
+          ┌──────────────────┴──────────────────┐
+          │                                     │
+   PHOTOGRAPHY                          CUSTOMIZED GIFTS
+   "Capture it."                        "Keep it."
+          │                                     │
+   /services  (world landing)           /gifts  (world landing)
+   /works · /works/:slug                /gifts/:category
+   /journal · /about                    /gifts/product/:slug
+```
+
+**The landing page is a gateway, not a summary.** It does four things and
+stops: says who the studio is, asks which world you want, shows six real works
+as proof, and offers a way in. It was previously thirteen sections carrying the
+whole services grid and the whole gift taxonomy, which meant scrolling past one
+business to reach the other.
+
+| Page | Before | After |
+| --- | --- | --- |
+| `/` | 13,445px (15 viewports) | **4,411px (4.9)** |
+| `/works` | 17,953px | **8,666px** |
+
+The photography detail moved to `/services`, which is now the photography world
+landing — approach, full service range, real work, process, journal, contact.
+
+**Navigation follows the world you are in** (`hooks/useWorld.js`, derived from
+the route so it survives refresh, deep links and the back button):
+
+| Where | Nav |
+| --- | --- |
+| `/`, `/contact`, legal | Photography · Gifts · Works · About · Contact |
+| Photography world | Photography · Works · About · Journal · **Gifts** |
+| Gifts world | Gifts · Occasions · Creations · Personalized · **Photography** |
+
+Each world nav ends with a link across to the other one, and the header shows a
+small world label beside the logo so it is never ambiguous which side you are
+on.
 
 ## Architecture
 
@@ -327,6 +390,20 @@ fails the build with the file, line and a suggested fix.
 Adding a new named token means adding it in **two** places, which the check
 enforces: `tailwind.config.js` (for the class) and `styles/variables.css`
 (for the `--z-*` documentation of what the layer is for).
+
+### Missing responsive variants
+
+`npm run build` also fails if a referenced raster image is missing the
+responsive siblings `OptimizedImage` will ask for.
+
+This one is nastier than it sounds. The component derives an AVIF/WebP `srcSet`
+purely from the filename, so a `.webp` shipped without its `-640.webp` siblings
+makes the browser pick a candidate that 404s — and **a failed srcSet candidate
+does not fall back to `src`**. The image renders blank, with no error in the
+console and nothing in the network tab that looks fatal. That shipped once, on
+the landing page's gifts panel.
+
+SVGs and social share cards are exempt: neither is ever given a srcSet.
 
 ---
 

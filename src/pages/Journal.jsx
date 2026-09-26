@@ -62,6 +62,9 @@ export const Journal = () => {
         eyebrow="The Journal"
         title="Things worth knowing first."
         lede="Practical writing from the studio — how to prepare, what to expect, and how to choose well. No filler, no keyword padding."
+        accent="worth knowing"
+        railLabel="Journal"
+        facets={['Preparing', 'Choosing', 'Behind the work']}
         breadcrumbs={trail}
         variant="plain"
       />

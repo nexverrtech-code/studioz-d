@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1600" width="1280" height="1600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" width="1600" height="1067" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
   <title>Studioz D — placeholder</title>
 
     <defs>
@@ -12,14 +12,14 @@
         <stop offset="100%" stop-color="#0B0908" stop-opacity="0.96"/>
       </linearGradient>
     </defs>
-    <rect width="1280" height="1600" fill="url(#key-1x0oxa)"/>
-    <circle cx="555.4555519104005" cy="575.9937861561775" r="153.6" fill="url(#figure-1x0oxa)"/>
-    <path d="M232.89555191040046 1600
-             C248.25555191040047 913.9137861561776,
-              378.8155519104005 737.2737861561775,
-              555.4555519104005 732.6657861561775
-             C732.0955519104004 737.2737861561775,
-              862.6555519104004 913.9137861561776,
-              878.0155519104005 1600 Z"
+    <rect width="1600" height="1067" fill="url(#key-1x0oxa)"/>
+    <circle cx="694.3194398880006" cy="384.11585614290084" r="128.04" fill="url(#figure-1x0oxa)"/>
+    <path d="M425.4354398880006 1067
+             C438.2394398880006 665.8038561429008,
+              547.0734398880006 518.5578561429008,
+              694.3194398880006 514.7166561429008
+             C841.5654398880006 518.5578561429008,
+              950.3994398880006 665.8038561429008,
+              963.2034398880006 1067 Z"
           fill="url(#figure-1x0oxa)"/>
 </svg>

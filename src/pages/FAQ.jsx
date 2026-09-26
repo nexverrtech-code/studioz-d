@@ -34,6 +34,9 @@ export const FAQ = () => {
         eyebrow="FAQ"
         title="Straight answers, before you ask."
         lede="Booking, shoot days, editing, delivery and gifting. Where a number depends on the project, we say so rather than inventing one."
+        accent="before you ask"
+        railLabel="Questions"
+        facets={['Booking', 'Shoot day', 'Editing', 'Delivery', 'Gifting']}
         breadcrumbs={trail}
         variant="plain"
       />

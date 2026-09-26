@@ -16,9 +16,21 @@ import { cn } from '@/utils/cn';
  * Sizing: the whole card is fluid and `h-full`, so a two-up mobile grid at
  * 320px still produces readable cards rather than crushed ones.
  */
+/**
+ * How far from square an image may be before the card stops cropping it.
+ *
+ * The supplied product photography is 1800x1776 — 1.4% off square, which a
+ * square tile crops invisibly. Anything further out (a 3:4 standee, a 4:3
+ * framed print) is letterboxed onto the card's own ivory instead, so the grid
+ * still aligns and no product is ever shown with a quarter of it missing.
+ */
+const SQUARE_TOLERANCE = 0.15;
+
 export const GiftCard = ({ gift, priority = false, className, dense = false }) => {
   const tier = priceTiers.find((entry) => entry.id === gift.priceTier);
   const image = gift.images[0];
+  const ratio = image?.width && image?.height ? image.width / image.height : 1;
+  const fitsSquare = Math.abs(ratio - 1) <= SQUARE_TOLERANCE;
 
   return (
     <Link
@@ -34,6 +46,7 @@ export const GiftCard = ({ gift, priority = false, className, dense = false }) =
           width={image?.width}
           height={image?.height}
           aspect="1/1"
+          objectFit={fitsSquare ? 'cover' : 'contain'}
           sizes={SIZES.quarter}
           priority={priority}
           className="w-full bg-ivory-100"

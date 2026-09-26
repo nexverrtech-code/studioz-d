@@ -55,6 +55,18 @@ export const GiftCategory = () => {
     { name: category.label, path: `/gifts/${category.slug}` },
   ];
 
+  /**
+   * The hero leads with the first two pieces in the collection, at their own
+   * aspect ratios. Nothing is cropped to a banner shape.
+   */
+  const heroMedia = items
+    .slice(0, 2)
+    .map((gift) => gift.images[0])
+    .filter(Boolean);
+
+  /** Signposts the object types inside this collection, not marketing copy. */
+  const heroFacets = [...new Set(items.map((gift) => gift.category))].slice(0, 4);
+
   return (
     <>
       <Seo
@@ -81,7 +93,10 @@ export const GiftCategory = () => {
         title={category.headline}
         lede={category.blurb}
         breadcrumbs={trail}
-        variant="plain"
+        railLabel="Gifts"
+        railIndex={String(items.length).padStart(2, '0')}
+        media={heroMedia}
+        facets={heroFacets}
       />
 
       <section className="section-sm" aria-labelledby="gift-category-items">

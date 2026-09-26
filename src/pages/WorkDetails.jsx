@@ -59,6 +59,9 @@ export const WorkDetails = () => {
         lede={work.description}
         image={work.coverImage}
         imageAlt={`${work.title} — ${work.category} photography by Studioz D`}
+        layout="immersive"
+        railLabel={work.category}
+        railIndex={work.year}
         breadcrumbs={trail}
         minHeight="46svh"
       />

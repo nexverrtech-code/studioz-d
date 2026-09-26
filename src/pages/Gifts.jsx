@@ -10,7 +10,7 @@ import { EmptyState } from '@/components/common/States';
 import { CtaSection } from '@/components/sections/CtaSection';
 import { ProcessSteps } from '@/components/sections/ProcessSteps';
 import { RevealGroup, RevealItem } from '@/components/motion/Reveal';
-import { filterGifts, gifts, giftCategories } from '@/data/gifts';
+import { filterGifts, getGiftBySlug, gifts, giftCategories } from '@/data/gifts';
 import { breadcrumbSchema, collectionPageSchema } from '@/utils/seo';
 import { trackFilter } from '@/services/analytics.service';
 
@@ -21,6 +21,16 @@ const GIFT_PROCESS = [
   { step: '04', title: 'We make it', body: 'Printed, framed, engraved and finished in our own workshop.' },
   { step: '05', title: 'You keep it', body: 'On a wall, on a shelf, or in someone else’s hands.' },
 ];
+
+/**
+ * Hero cluster. Two real pieces, each in a box shaped to its own photograph —
+ * the supplied product photography is square, so the hero gives it a square
+ * box instead of cropping a quarter of it away into a banner.
+ */
+const HERO_MEDIA = [
+  getGiftBySlug('acrylic-photo-panel')?.images[0],
+  getGiftBySlug('crystal-photo-block')?.images[0],
+].filter(Boolean);
 
 /** The four axes a `?filter=` param may seed. */
 const FILTER_AXES = ['occasion', 'relationship', 'creation', 'feeling'];
@@ -123,7 +133,7 @@ export const Gifts = () => {
         title="Personalized Gifts"
         description="Personalized photo gifts by Studioz D — frames, albums, memory boxes, hampers and keepsakes built from your own photographs. Choose a memory, add your words, make it yours."
         path="/gifts"
-        image="/assets/images/gifts/studioz-d-gift-wood-frame-01.svg"
+        image="/assets/images/gifts/studioz-d-gift-framed-print-wide.webp"
         schemas={[
           breadcrumbSchema(trail),
           collectionPageSchema({
@@ -142,9 +152,12 @@ export const Gifts = () => {
       <PageHero
         eyebrow="Customized Gifts"
         title="Made from your story."
+        accent="your story"
         lede="Choose a memory. Add your words. Make it yours."
-        image="/assets/images/gifts/studioz-d-gift-wood-frame-03.svg"
-        imageAlt="Personalized wood photo frame styled on a wall by Studioz D"
+        railLabel="Gifts"
+        railIndex="02"
+        media={HERO_MEDIA}
+        facets={['Frames', 'Acrylic', 'Crystal', 'Engraving', 'Hampers', 'Corporate']}
         breadcrumbs={trail}
       />
 
@@ -232,7 +245,7 @@ export const Gifts = () => {
         headingLines={['Some things', 'should not stay on a drive.']}
         copy="Tell us the occasion, the person and roughly what you are picturing. We will come back with options, a proof and a timeline."
         primary={{ label: 'Start a Conversation', to: '/contact' }}
-        secondary={{ label: 'See Gift Work', to: '/works/gifts' }}
+        secondary={{ label: 'See Our Work', to: '/works' }}
         whatsappMessage="Hello Studioz D, I would like to enquire about a personalized gift."
       />
     </>

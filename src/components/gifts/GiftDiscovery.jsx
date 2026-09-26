@@ -31,7 +31,9 @@ const TileGrid = ({ categories }) => (
           <OptimizedImage
             src={category.image}
             alt={`${category.label} personalized gifts by Studioz D`}
-            aspect="4/5"
+            /* Square, because the supplied gift photography is square. A
+               4:5 tile would crop a quarter off every product. */
+            aspect="1/1"
             sizes={SIZES.quarter}
             className="w-full"
             imgClassName="transition-transform duration-[900ms] ease-editorial hoverable:group-hover:scale-[1.05]"

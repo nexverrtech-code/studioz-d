@@ -127,6 +127,9 @@ export const JournalDetails = () => {
         lede={article.excerpt}
         image={article.coverImage}
         imageAlt={article.coverAlt}
+        layout="immersive"
+        railLabel="Journal"
+        railIndex={`${article.readingMinutes} min`}
         breadcrumbs={trail}
         minHeight="46svh"
       >

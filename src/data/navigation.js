@@ -1,22 +1,78 @@
 /**
  * Navigation model.
  *
+ * Studioz D is one brand with two businesses, so there is no single correct
+ * nav bar. The header shows the nav for the world the visitor is currently in
+ * (see `hooks/useWorld.js`), because putting twelve photography services and
+ * thirty gift categories in one menu helps nobody.
+ *
  * Desktop, tablet and mobile all read from this file, but each renders it with
  * its own layout — the mobile drawer is not a squeezed desktop bar.
  */
 
-/** Primary bar (desktop). Contact lives in the CTA, not the list. */
-export const primaryNav = [
-  { label: 'Home', to: '/' },
-  { label: 'Services', to: '/services' },
-  { label: 'Works', to: '/works' },
+/**
+ * The studio's two creative worlds. Declared here rather than in the hook so
+ * this module stays dependency-free — the build's asset scanner imports it
+ * directly in Node, where the `@/` alias does not resolve.
+ */
+export const WORLDS = {
+  LANDING: 'landing',
+  PHOTOGRAPHY: 'photography',
+  GIFTS: 'gifts',
+};
+
+/**
+ * The landing bar. Shown on the gateway and on shared pages (contact, FAQ,
+ * legal) where the visitor has not committed to a world yet. It names both
+ * worlds rather than favouring either.
+ */
+export const landingNav = [
+  { label: 'Photography', to: '/services' },
   { label: 'Gifts', to: '/gifts' },
+  { label: 'Works', to: '/works' },
   { label: 'About', to: '/about' },
-  { label: 'Journal', to: '/journal' },
+  { label: 'Contact', to: '/contact' },
 ];
 
-/** Mobile drawer adds Contact as a full row, since there is room for it. */
-export const mobileNav = [...primaryNav, { label: 'Contact', to: '/contact' }];
+/** Inside the photography world. */
+export const photographyNav = [
+  { label: 'Photography', to: '/services' },
+  { label: 'Works', to: '/works' },
+  { label: 'About', to: '/about' },
+  { label: 'Journal', to: '/journal' },
+  { label: 'Gifts', to: '/gifts', crossWorld: true },
+];
+
+/** Inside the gifts world. */
+export const giftsNav = [
+  { label: 'Gifts', to: '/gifts' },
+  { label: 'Occasions', to: '/gifts#gift-group-occasion' },
+  { label: 'Creations', to: '/gifts#gift-group-creation' },
+  { label: 'Personalized', to: '/gifts/personalized' },
+  { label: 'Photography', to: '/services', crossWorld: true },
+];
+
+const NAV_BY_WORLD = {
+  [WORLDS.LANDING]: landingNav,
+  [WORLDS.PHOTOGRAPHY]: photographyNav,
+  [WORLDS.GIFTS]: giftsNav,
+};
+
+export const navForWorld = (world) => NAV_BY_WORLD[world] ?? landingNav;
+
+/**
+ * Mobile drawer. Always starts with Home so there is a way back to the
+ * gateway, and always ends with Contact.
+ */
+export const mobileNavForWorld = (world) => [
+  { label: 'Home', to: '/' },
+  ...navForWorld(world),
+  { label: 'Contact', to: '/contact' },
+];
+
+/** Kept for any consumer that still wants the flat list. */
+export const primaryNav = landingNav;
+export const mobileNav = mobileNavForWorld(WORLDS.LANDING);
 
 /**
  * Optional mega-menu payload for the desktop Services / Gifts entries.

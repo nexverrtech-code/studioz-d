@@ -20,8 +20,11 @@ export const StorySection = ({
   cta,
   image,
   imageAlt,
+  /** Pass the photograph's own ratio so the block never crops it. */
+  imageAspect = '4/5',
   secondaryImage,
   secondaryImageAlt,
+  secondaryAspect = '1/1',
   reverse = false,
   tone = 'light',
   className,
@@ -51,7 +54,7 @@ export const StorySection = ({
             <OptimizedImage
               src={image}
               alt={imageAlt}
-              aspect="4/5"
+              aspect={imageAspect}
               sizes={SIZES.half}
               className="w-full"
             />
@@ -69,7 +72,7 @@ export const StorySection = ({
                 <OptimizedImage
                   src={secondaryImage}
                   alt={secondaryImageAlt ?? ''}
-                  aspect="1/1"
+                  aspect={secondaryAspect}
                   sizes={SIZES.thumb}
                   className="w-full border-4 border-ivory-50"
                 />

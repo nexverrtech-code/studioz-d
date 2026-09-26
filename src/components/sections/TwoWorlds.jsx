@@ -1,48 +1,136 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { OptimizedImage } from '@/components/common/OptimizedImage';
-import { SectionHeading } from '@/components/common/SectionHeading';
+import { Reveal, RevealText } from '@/components/motion/Reveal';
 import { useCanHover } from '@/hooks/useMediaQuery';
-import { SIZES } from '@/utils/images';
 import { cn } from '@/utils/cn';
+import { trackCta } from '@/services/analytics.service';
+
+/**
+ * Two Worlds — the gateway's most important section.
+ *
+ * Studioz D is two businesses under one name. Rather than showing both
+ * catalogues at once and asking the visitor to work it out, the landing page
+ * asks a single question and then commits to the answer.
+ *
+ * Desktop: two panels that start 50/50 and shift to roughly 58/42 when one is
+ * focused. Driven by `flex-basis`, so the pair always sums to 100% and the row
+ * can never overflow its container regardless of the ratio.
+ *
+ * Touch: two stacked, complete blocks. Nothing is behind a hover, because
+ * there is no hover — the supporting copy and CTA are always visible.
+ */
 
 const WORLDS = [
   {
     id: 'photography',
     label: 'Photography',
     action: 'Capture it.',
-    copy: 'Weddings, portraits, families, products and films — photographed as they happen, edited as a story.',
+    /** Short, scannable. Not a services list — this is a signpost. */
+    facets: ['Photography', 'Films', 'Stories', 'People', 'Brands'],
     to: '/services',
     cta: 'Explore Photography',
-    image: '/assets/images/works/studioz-d-wedding-bride-silk-saree-smiling.webp',
-    alt: 'Bride in a traditional silk saree smiling beside a window, photographed by Studioz D',
+    /*
+     * Two files, because the two presentations are genuinely different shapes.
+     * The desktop panel is a wide box (roughly 3:2, and it widens further on
+     * hover); the touch card is 4:5. One file could only serve one of them —
+     * the other would lose half of itself to the crop.
+     */
+    image: '/assets/images/works/studioz-d-pre-wedding-rocks-wave-gown.webp',
+    alt: 'Couple on wet rocks as a wave breaks behind them, the gown caught in the spray, photographed by Studioz D',
+    imageTall: '/assets/images/works/studioz-d-pre-wedding-sunset-lift-silhouette.webp',
+    altTall: 'Couple silhouetted against a sunset as he lifts her off the ground, photographed by Studioz D',
+    position: 'center 45%',
   },
   {
     id: 'gifts',
     label: 'Customized Gifts',
     action: 'Keep it.',
-    copy: 'Frames, albums, hampers and keepsakes built from your own photographs, personalized with your words.',
+    facets: ['Personalized', 'Meaningful', 'Made for you'],
     to: '/gifts',
     cta: 'Explore Gifts',
-    // NOTE: the gifting side of the studio has supplied no photography yet,
-    // so this panel still uses a generated placeholder. Swap it the moment
-    // real product shots exist — see README §2.
-    image: '/assets/images/gifts/studioz-d-gift-wood-frame-03.svg',
-    alt: 'Personalized wood photo frame styled on a wall by Studioz D',
+    /**
+     * A composite, not a product shot: one of the studio's own photographs
+     * presented framed, which is exactly what the gifting service does with
+     * it. Regenerate with `npm run mockups`; replace when real product
+     * photography exists.
+     */
+    image: '/assets/images/gifts/studioz-d-gift-framed-print-panel.webp',
+    alt: 'A Studioz D bridal portrait printed, matted and framed on a wall',
+    imageTall: '/assets/images/gifts/studioz-d-gift-framed-print.webp',
+    altTall: 'A Studioz D bridal portrait printed, matted and framed on a wall',
+    position: 'center 50%',
   },
 ];
 
-/**
- * Two Worlds.
- *
- * Desktop (hover-capable): two panels that respond to hover — the focused
- * side expands, the other recedes. Driven by flex-basis so the pair always
- * sums to 100% and nothing can spill outside the row.
- *
- * Touch: two stacked, complete cards. No hover dependency, no hidden content,
- * both fully tappable.
- */
+/** The content block shared by both presentations, so they cannot drift. */
+const PanelContent = ({ world, tone, expanded }) => {
+  const light = tone === 'light';
+
+  return (
+    <>
+      <span
+        className={cn(
+          'text-[0.62rem] font-semibold uppercase tracking-widest-xl',
+          light ? 'text-champagne-400' : 'text-champagne-700'
+        )}
+      >
+        {world.label}
+      </span>
+
+      <span
+        className={cn(
+          'font-display leading-[0.95]',
+          light ? 'text-ivory-50' : 'text-ink-900',
+          'text-[clamp(2rem,1.5rem+2.6vw,3.6rem)]'
+        )}
+      >
+        {world.action}
+      </span>
+
+      {/* Facet list — a signpost, not a menu. */}
+      <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+        {world.facets.map((facet, index) => (
+          <span key={facet} className="flex items-center gap-3">
+            {index > 0 && (
+              <span
+                className={cn('h-px w-3', light ? 'bg-ivory-100/30' : 'bg-ink-300')}
+                aria-hidden="true"
+              />
+            )}
+            <span
+              className={cn(
+                'text-[0.7rem] uppercase tracking-widest',
+                light ? 'text-ivory-200/75' : 'text-ink-400'
+              )}
+            >
+              {facet}
+            </span>
+          </span>
+        ))}
+      </span>
+
+      <span
+        className={cn(
+          'mt-1 inline-flex items-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-widest-xl',
+          light ? 'text-ivory-100' : 'text-ink-900'
+        )}
+      >
+        {world.cta}
+        <ArrowRight
+          className={cn(
+            'h-4 w-4 transition-transform duration-500 ease-editorial',
+            expanded && 'translate-x-1.5'
+          )}
+          strokeWidth={1.7}
+          aria-hidden="true"
+        />
+      </span>
+    </>
+  );
+};
+
 export const TwoWorlds = () => {
   const [active, setActive] = useState(null);
   const canHover = useCanHover();
@@ -50,19 +138,33 @@ export const TwoWorlds = () => {
   return (
     <section className="section" aria-labelledby="two-worlds-title">
       <div className="shell">
-        <SectionHeading
-          eyebrow="Two Halves, One Studio"
-          title="Two ways to keep a moment"
-          id="two-worlds-title"
-          lede="One side photographs it while it is happening. The other makes sure it does not stay stuck on a hard drive."
-          className="mb-8"
-        />
+        <div className="mb-8 flex flex-col gap-4 sm:mb-10">
+          <Reveal direction="fade" duration={0.5}>
+            <p className="eyebrow flex items-center gap-3">
+              <span className="h-px w-8 shrink-0 bg-ink-300" aria-hidden="true" />
+              Two Creative Worlds
+            </p>
+          </Reveal>
+
+          <h2
+            id="two-worlds-title"
+            className="max-w-[20ch] font-display text-[clamp(1.8rem,1.35rem+2.1vw,3rem)] uppercase leading-[1.02] text-ink-900"
+          >
+            <RevealText text="Two ways to keep a moment." />
+          </h2>
+
+          <Reveal direction="up" delay={0.12}>
+            <p className="lede">
+              Choose how you want Studioz D to become part of your story.
+            </p>
+          </Reveal>
+        </div>
       </div>
 
       {/* ------------------------------------------------- Desktop panels */}
-      {canHover ? (
+      {canHover && (
         <div
-          className="shell hidden lg:flex lg:gap-5"
+          className="shell hidden lg:flex lg:gap-4"
           onMouseLeave={() => setActive(null)}
         >
           {WORLDS.map((world) => {
@@ -77,11 +179,11 @@ export const TwoWorlds = () => {
                 onMouseEnter={() => setActive(world.id)}
                 onFocus={() => setActive(world.id)}
                 onBlur={() => setActive(null)}
+                onClick={() => trackCta(world.cta, 'two-worlds')}
                 aria-label={`${world.label} — ${world.cta}`}
                 className="group relative min-w-0 overflow-hidden transition-[flex-basis] duration-700 ease-editorial"
                 style={{
-                  // Basis sums to 100 in every state, so the row can never
-                  // overflow its container.
+                  // Always sums to 100, so the row can never overflow.
                   flexBasis: isActive ? '58%' : isDimmed ? '42%' : '50%',
                   flexGrow: 0,
                   flexShrink: 1,
@@ -90,13 +192,15 @@ export const TwoWorlds = () => {
                 <OptimizedImage
                   src={world.image}
                   alt={world.alt}
-                  aspect="4/3"
-                  sizes={SIZES.half}
-                  className="w-full"
+                  aspect="4/5"
+                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  objectPosition={world.position}
+                  className="h-[clamp(26rem,46vh,34rem)] w-full"
                   imgClassName={cn(
                     'transition-transform duration-[1100ms] ease-editorial',
-                    isActive && 'scale-[1.06]'
+                    isActive && 'scale-[1.05]'
                   )}
+                  style={{ aspectRatio: 'auto' }}
                 />
 
                 <span
@@ -104,73 +208,47 @@ export const TwoWorlds = () => {
                   className={cn(
                     'pointer-events-none absolute inset-0 transition-colors duration-700',
                     isDimmed
-                      ? 'bg-ink-950/65'
-                      : 'bg-gradient-to-t from-ink-950/85 via-ink-950/25 to-transparent'
+                      ? 'bg-ink-950/70'
+                      : 'bg-gradient-to-t from-ink-950/90 via-ink-950/45 to-ink-950/5'
                   )}
                 />
 
-                <span className="absolute inset-x-0 bottom-0 flex flex-col gap-3 p-8">
-                  <span className="text-[0.62rem] font-semibold uppercase tracking-widest-xl text-champagne-400">
-                    {world.label}
-                  </span>
-                  <span className="font-display text-fluid-4xl leading-none text-ivory-50">
-                    {world.action}
-                  </span>
-                  <span
-                    className={cn(
-                      'max-w-[42ch] text-fluid-sm text-ivory-200/85 transition-all duration-500 ease-editorial',
-                      isActive
-                        ? 'max-h-24 opacity-100'
-                        : 'max-h-0 overflow-hidden opacity-0'
-                    )}
-                  >
-                    {world.copy}
-                  </span>
-                  <span className="mt-1 inline-flex items-center gap-2 text-[0.66rem] font-semibold uppercase tracking-widest-xl text-ivory-100">
-                    {world.cta}
-                    <ArrowUpRight
-                      className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                      strokeWidth={1.6}
-                      aria-hidden="true"
-                    />
-                  </span>
+                <span
+                  className={cn(
+                    'absolute inset-x-0 bottom-0 flex flex-col items-start gap-3 p-7 transition-transform duration-700 ease-editorial xl:p-9',
+                    isActive && '-translate-y-1'
+                  )}
+                >
+                  <PanelContent world={world} tone="light" expanded={isActive} />
                 </span>
               </Link>
             );
           })}
         </div>
-      ) : null}
+      )}
 
-      {/* ------------------------------------------- Touch / small screens */}
-      <div className={cn('shell grid gap-6 sm:grid-cols-2', canHover && 'lg:hidden')}>
+      {/* --------------------------------------- Touch / small screens -- */}
+      <div className={cn('shell grid gap-5 sm:grid-cols-2', canHover && 'lg:hidden')}>
         {WORLDS.map((world) => (
           <Link
             key={world.id}
             to={world.to}
-            className="group flex h-full flex-col"
+            onClick={() => trackCta(world.cta, 'two-worlds')}
             aria-label={`${world.label} — ${world.cta}`}
+            className="group flex h-full flex-col"
           >
             <OptimizedImage
-              src={world.image}
-              alt={world.alt}
-              aspect="4/3"
-              sizes={SIZES.half}
+              src={world.imageTall ?? world.image}
+              alt={world.altTall ?? world.alt}
+              aspect="4/5"
+              sizes="(min-width: 640px) 50vw, 100vw"
+              objectPosition={world.position}
               className="w-full"
               imgClassName="transition-transform duration-[900ms] ease-editorial hoverable:group-hover:scale-[1.04]"
             />
-            <div className="flex flex-1 flex-col gap-3 pt-5">
-              <span className="text-[0.6rem] font-semibold uppercase tracking-widest-xl text-champagne-700">
-                {world.label}
-              </span>
-              <span className="font-display text-fluid-3xl leading-none text-ink-900">
-                {world.action}
-              </span>
-              <p className="text-fluid-sm text-ink-400">{world.copy}</p>
-              <span className="mt-auto inline-flex items-center gap-2 pt-3 text-[0.64rem] font-semibold uppercase tracking-widest-xl text-ink-900">
-                {world.cta}
-                <ArrowUpRight className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
-              </span>
-            </div>
+            <span className="flex flex-1 flex-col items-start gap-3 pt-5">
+              <PanelContent world={world} tone="dark" expanded={false} />
+            </span>
           </Link>
         ))}
       </div>

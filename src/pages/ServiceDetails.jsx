@@ -58,6 +58,8 @@ export const ServiceDetails = () => {
         lede={service.tagline}
         image={service.heroImage}
         imageAlt={`${service.title} by Studioz D`}
+        layout="immersive"
+        railLabel={service.group}
         breadcrumbs={trail}
         minHeight="50svh"
       >

@@ -254,7 +254,8 @@ const dimensionsFor = (relPath, seed) => {
   if (name.includes('gift-category')) return [1280, 1600];
   if (name.includes('/gifts/')) return [1400, 1400];
   if (name.includes('-hero')) return [1920, 1080];
-  if (name.includes('-card')) return [1280, 1600];
+  // Service cards render in a 3:2 box (see components/cards/ServiceCard.jsx).
+  if (name.includes('-card')) return [1600, 1067];
   if (name.includes('/journal/')) return [1600, 1067];
   if (name.includes('/og/')) return [1200, 630];
   return RATIOS[seed % RATIOS.length];
@@ -405,6 +406,69 @@ const buildShareImage = () => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="
 </svg>
 `;
 
+
+/* ------------------------------------------------- Responsive variants -- */
+
+/**
+ * Verifies that every referenced RASTER image has the responsive siblings
+ * `OptimizedImage` will ask for.
+ *
+ * This is not cosmetic. The component emits an AVIF/WebP srcSet derived purely
+ * from the filename, so a `.webp` shipped without its `-640.webp` siblings
+ * makes the browser select a candidate that 404s — and a failed srcSet
+ * candidate does NOT fall back to `src`. The image renders blank with no
+ * error anywhere. That shipped once already, on the landing page.
+ */
+const RESPONSIVE_WIDTHS = [480, 640, 960, 1280, 1600, 1920];
+
+const checkVariants = async (references) => {
+  const problems = [];
+
+  for (const reference of references) {
+    const ext = path.extname(reference).toLowerCase();
+    // Vectors are never given a srcSet, so they need no siblings.
+    if (ext === '.svg' || ext === '.gif') continue;
+    // Variants are themselves variants; do not recurse.
+    if (/-\d{3,4}\.(webp|avif|jpe?g|png)$/i.test(reference)) continue;
+    // Social share cards are referenced only from <meta>, never rendered
+    // through OptimizedImage, so they need no responsive siblings.
+    if (reference.includes('/og/')) continue;
+
+    const abs = path.join(PUBLIC, reference.replace(/^\//, ''));
+    if (!(await exists(abs))) continue; // handled by the generator above
+
+    const stem = reference.replace(/\.[^.]+$/, '');
+    const { width } = await imageWidth(abs);
+
+    // Only widths at or below the source are generated, so only those are
+    // required. A missing smaller width is a real break.
+    const required = RESPONSIVE_WIDTHS.filter((w) => !width || w <= width);
+    const missing = [];
+    for (const w of required) {
+      const variant = path.join(PUBLIC, `${stem}-${w}${ext}`.replace(/^\//, ''));
+      if (!(await exists(variant))) missing.push(`${w}${ext}`);
+    }
+    if (missing.length === required.length && required.length > 0) {
+      problems.push({ reference, missing: `all ${required.length} widths` });
+    } else if (missing.length > 0) {
+      problems.push({ reference, missing: missing.join(', ') });
+    }
+  }
+
+  return problems;
+};
+
+/** Reads an image's pixel width without pulling in a decoder for the whole file. */
+const imageWidth = async (file) => {
+  try {
+    const sharp = (await import('sharp')).default;
+    const meta = await sharp(file).metadata();
+    return { width: meta.width };
+  } catch {
+    return { width: null };
+  }
+};
+
 /* ------------------------------------------------------------------- Main */
 
 const run = async () => {
@@ -437,6 +501,25 @@ const run = async () => {
   console.log(
     `Studioz D images — ${created} generated, ${skipped} already present, ${references.length} referenced.`
   );
+
+  const variantProblems = await checkVariants(references);
+  if (variantProblems.length > 0) {
+    console.error(
+      `
+  Missing responsive variants — these images will render BLANK in the browser:
+`
+    );
+    for (const problem of variantProblems) {
+      console.error(`    ${problem.reference}`);
+      console.error(`      missing: ${problem.missing}`);
+    }
+    console.error(
+      `
+  Generate them with \`npm run photos\` (photographs) or \`npm run mockups\` (gift mockups).
+`
+    );
+    process.exitCode = 1;
+  }
 };
 
 run().catch((error) => {

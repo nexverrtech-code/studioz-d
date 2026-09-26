@@ -75,7 +75,8 @@ export const NotFound = () => {
                 <OptimizedImage
                   src={work.coverImage}
                   alt={`${work.title} — ${work.category} photography by Studioz D`}
-                  aspect="4/5"
+                  /* Project covers are 3:2 files; a 4:5 box cut 47% of them. */
+                  aspect="3/2"
                   sizes={SIZES.third}
                   className="w-full"
                   imgClassName="transition-transform duration-[900ms] ease-editorial hoverable:group-hover:scale-[1.04]"

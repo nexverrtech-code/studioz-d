@@ -8,7 +8,9 @@ import { cn } from '@/utils/cn';
  * Project card, used by related-work rails and category grids.
  * Caption always sits below the image — never hidden behind a hover.
  */
-export const WorkCard = ({ work, priority = false, aspect = '4/5', className }) => (
+// 3:2 by default: eleven of the thirteen project covers are 3:2 files, so a
+// portrait box would crop nearly half the width off most of them.
+export const WorkCard = ({ work, priority = false, aspect = '3/2', className }) => (
   <Link
     to={`/works/${work.slug}`}
     data-cursor="story"

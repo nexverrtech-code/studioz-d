@@ -2,7 +2,8 @@ import { useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, ArrowUpRight, Instagram, Mail, MessageCircle } from 'lucide-react';
-import { mobileNav } from '@/data/navigation';
+import { mobileNavForWorld } from '@/data/navigation';
+import { useWorld, WORLDS } from '@/hooks/useWorld';
 import { Logo } from './Logo';
 import { cn } from '@/utils/cn';
 import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
@@ -31,6 +32,10 @@ export const MobileDrawer = ({ open, onClose }) => {
   const closeRef = useRef(null);
   const containerRef = useFocusTrap(open, { initialFocusRef: closeRef });
   const reducedMotion = usePrefersReducedMotion();
+
+  // Same world-aware list as the desktop bar, plus Home and Contact.
+  const world = useWorld();
+  const mobileNav = mobileNavForWorld(world);
 
   useLockBodyScroll(open);
   useEscapeKey(open, onClose);
@@ -77,7 +82,14 @@ export const MobileDrawer = ({ open, onClose }) => {
               className="flex shrink-0 items-center justify-between border-b border-ink-100 px-gutter"
               style={{ minHeight: 'var(--sd-header-h)', paddingTop: 'var(--sd-safe-t)' }}
             >
-              <Logo onClick={onClose} />
+              <div className="flex min-w-0 items-center gap-3">
+                <Logo onClick={onClose} />
+                {world !== WORLDS.LANDING && (
+                  <span className="shrink-0 border-l border-ink-200 pl-3 text-[0.56rem] font-semibold uppercase tracking-widest-xl text-ink-400">
+                    {world === WORLDS.GIFTS ? 'Gifts' : 'Photography'}
+                  </span>
+                )}
+              </div>
               <button
                 ref={closeRef}
                 type="button"

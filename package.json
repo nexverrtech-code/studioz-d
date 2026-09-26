@@ -14,7 +14,9 @@
     "sitemap": "node scripts/generate-sitemap.mjs",
     "check:css": "node scripts/check-tailwind.mjs",
     "brand": "node scripts/prepare-brand.mjs",
-    "photos": "node scripts/import-photos.mjs"
+    "photos": "node scripts/import-photos.mjs",
+    "mockups": "node scripts/make-gift-mockups.mjs",
+    "gifts": "node scripts/import-gifts.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

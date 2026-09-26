@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 1600" width="1280" height="1600" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1067" width="1600" height="1067" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Studioz D placeholder image">
   <title>Studioz D — placeholder</title>
 
     <defs>
@@ -8,10 +8,10 @@
         <stop offset="100%" stop-color="#554C46"/>
       </linearGradient>
     </defs>
-    <rect width="1280" height="1600" fill="url(#layers-1fi2sn)"/>
-    <path d="M0 214.75795270502567 L1280 179.7625607341528 L1280 336.27095841020343 L0 371.26635038107634 Z" fill="#FDFBF7" opacity="0.18"/>
-    <path d="M0 419.4201183617115 L1280 411.39437458872794 L1280 649.464830147326 L0 657.4905739203095 Z" fill="#DCC0C0" opacity="0.22"/>
-    <path d="M0 728.5867358893156 L1280 722.9939653986693 L1280 1004.9206914940477 L0 1010.513461984694 Z" fill="#FDFBF7" opacity="0.32"/>
-    <path d="M0 935.5015469789505 L1280 931.7468884789944 L1280 1176.389895876646 L0 1180.1445543766022 Z" fill="#DCC0C0" opacity="0.18"/>
-    <path d="M0 1193.1971785277128 L1280 1157.297911966443 L1280 1308.101242276132 L0 1344.0005088374019 Z" fill="#FDFBF7" opacity="0.34"/>
+    <rect width="1600" height="1067" fill="url(#layers-1fi2sn)"/>
+    <path d="M0 143.216709710164 L1600 99.4724697465729 L1600 203.8440074467892 L0 247.5882474103803 Z" fill="#FDFBF7" opacity="0.18"/>
+    <path d="M0 279.70079143246636 L1600 269.6686117162369 L1600 428.43184676687696 L0 438.4640264831064 Z" fill="#DCC0C0" opacity="0.22"/>
+    <path d="M0 485.8762794961874 L1600 478.88531638287947 L1600 666.8952018477348 L0 673.8861649610428 Z" fill="#FDFBF7" opacity="0.32"/>
+    <path d="M0 623.8625941415876 L1600 619.1692710166424 L1600 782.3155765749514 L0 787.0088996998966 Z" fill="#DCC0C0" opacity="0.18"/>
+    <path d="M0 795.7133684306684 L1600 750.8392852290813 L1600 851.4062561293551 L0 896.2803393309423 Z" fill="#FDFBF7" opacity="0.34"/>
 </svg>

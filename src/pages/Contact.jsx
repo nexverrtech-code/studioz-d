@@ -17,7 +17,19 @@ import {
   hasAddress,
 } from '@/config/site';
 import { faqGroups } from '@/data/faq';
+import { getAllPhotos } from '@/data/works';
+import { getGiftBySlug } from '@/data/gifts';
 import { breadcrumbSchema, organizationSchema, localBusinessSchema } from '@/utils/seo';
+
+/**
+ * One photograph and one gift, side by side — the two halves of the studio,
+ * stated by the hero rather than described in it. Both entries carry their own
+ * real dimensions, so each gets a box shaped to the image it holds.
+ */
+const HERO_MEDIA = [
+  getAllPhotos().find((photo) => photo.orientation === 'portrait'),
+  getGiftBySlug('infinity-name-lamp')?.images[0],
+].filter(Boolean);
 import { trackWhatsApp, trackEmail, trackPhone } from '@/services/analytics.service';
 
 export const Contact = () => {
@@ -80,9 +92,12 @@ export const Contact = () => {
       <PageHero
         eyebrow="Contact"
         title="Let's make something worth remembering."
+        accent="worth remembering"
         lede="Have a shoot in mind? Planning a celebration? Looking for a personalized gift? Tell us what you're imagining."
+        railLabel="Contact"
+        media={HERO_MEDIA}
+        facets={['Weddings', 'Portraits', 'Events', 'Personalized Gifts']}
         breadcrumbs={trail}
-        variant="plain"
       />
 
       <section className="section-sm pb-section">

@@ -293,7 +293,7 @@ export const works = [
     ],
     behindTheFrame:
       'Exposed for the sky, about four stops under the subjects. Everything in these frames is shape.',
-    coverImage: '/assets/images/works/studioz-d-pre-wedding-sunset-lift-silhouette.webp',
+    coverImage: '/assets/images/works/studioz-d-pre-wedding-sunset-shore-walk.webp',
     images: [
       img('studioz-d-pre-wedding-sunset-lift-silhouette.webp', '4/5', 'Silhouette of a man lifting his partner in the surf against a deep orange sunset', 'The lift'),
       img('studioz-d-pre-wedding-sunset-shore-walk.webp', '3/2', 'Couple walking along the shoreline in silhouette, the sun low and reflecting off the wet sand', 'Along the edge'),
@@ -319,7 +319,7 @@ export const works = [
     ],
     behindTheFrame:
       'Four setups, four lighting approaches, one afternoon into night. The boat frame is a long exposure with the couple holding still.',
-    coverImage: '/assets/images/works/studioz-d-pre-wedding-bougainvillea-close.webp',
+    coverImage: '/assets/images/works/studioz-d-pre-wedding-boat-night.webp',
     images: [
       img('studioz-d-pre-wedding-newspapers-bokeh.webp', '3/2', 'Couple lying together on a floor covered in newspapers, shot through out-of-focus warm lights', 'Their idea'),
       img('studioz-d-pre-wedding-boat-night.webp', '3/2', 'Couple sitting in a red boat on still water at night, an ornate balustrade bridge lit behind them', 'Held still'),

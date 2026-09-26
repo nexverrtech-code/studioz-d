@@ -85,7 +85,7 @@ export const services = [
     summary:
       'A relaxed shoot built around who you are together, in locations that mean something — or simply photograph beautifully.',
     heroImage: '/assets/images/works/studioz-d-pre-wedding-wave-kiss.webp',
-    cardImage: '/assets/images/works/studioz-d-pre-wedding-sunset-lift-silhouette.webp',
+    cardImage: '/assets/images/works/studioz-d-pre-wedding-beach-saree-waves.webp',
     intro:
       'A pre-wedding shoot is the one session where nothing else is competing for attention. No timings to keep, no relatives waiting. That space is what makes the photographs work — people relax, and what they actually look like together starts to show.',
     whatWeCapture: [
@@ -600,7 +600,7 @@ export const services = [
     summary:
       'For the sessions that do not fit a category — anniversaries, reunions, farewells, personal projects.',
     heroImage: '/assets/images/works/studioz-d-pre-wedding-newspapers-bokeh.webp',
-    cardImage: '/assets/images/works/studioz-d-pre-wedding-double-exposure.webp',
+    cardImage: '/assets/images/works/studioz-d-pre-wedding-orange-wall-leaves.webp',
     intro:
       'Some of the most meaningful sessions we shoot have no standard name. A grandmother in her kitchen. A workshop before it closes. Four friends who have not been in one city since college. Tell us what it is and we will build the session around it.',
     whatWeCapture: [

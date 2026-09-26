@@ -38,8 +38,13 @@ export const About = () => {
         eyebrow="About Studioz D"
         title="We chase the moment before it disappears."
         lede="Studioz D is a creative photography and personalized-gifting studio built around one simple idea — meaningful moments deserve meaningful treatment."
+        accent="the moment"
         image="/assets/images/works/studioz-d-reception-stage-couple-seated.webp"
         imageAlt="Bride and groom seated together at a green-lit reception, photographed by Studioz D"
+        layout="immersive"
+        railLabel="The Studio"
+        railIndex="01"
+        facets={['Photography', 'Films', 'Personalized Gifts']}
         breadcrumbs={trail}
         minHeight="48svh"
       />
@@ -87,6 +92,7 @@ export const About = () => {
         paragraphs={philosophy.body}
         image="/assets/images/works/studioz-d-wedding-bride-silk-saree-window.webp"
         imageAlt="Bride in a silk saree at a shuttered window, photographed by Studioz D"
+        imageAspect="3/2"
       />
 
       {/* Approach */}
@@ -141,7 +147,8 @@ export const About = () => {
             <OptimizedImage
               src="/assets/images/works/studioz-d-pre-wedding-candlelit-hall.webp"
               alt="Couple in a warm hall lined with lit wall lamps, photographed by Studioz D"
-              aspect="4/3"
+              /* 3:2 — the ratio of the file, so nothing is cropped. */
+              aspect="3/2"
               sizes={SIZES.half}
               className="w-full"
             />

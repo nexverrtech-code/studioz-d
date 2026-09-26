@@ -69,6 +69,7 @@ export const PrivacyPolicy = () => {
         eyebrow="Legal"
         title="Privacy Policy"
         lede="What this website collects, why it collects it, and what happens to it afterwards."
+        railLabel="Privacy"
         breadcrumbs={trail}
         variant="plain"
       />
@@ -193,6 +194,7 @@ export const Terms = () => {
         eyebrow="Legal"
         title="Terms"
         lede="How this website may be used, what its content means, and what an enquiry does and does not commit either of us to."
+        railLabel="Terms"
         breadcrumbs={trail}
         variant="plain"
       />

@@ -80,6 +80,8 @@ export const GiftDetails = () => {
               width={gift.images[activeImage]?.width}
               height={gift.images[activeImage]?.height}
               aspect="1/1"
+              /* contain, not cover: the gallery must never crop a product. */
+              objectFit="contain"
               sizes={SIZES.half}
               priority
               className="w-full bg-ivory-100"

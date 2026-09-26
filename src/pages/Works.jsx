@@ -7,11 +7,9 @@ import { SectionHeading } from '@/components/common/SectionHeading';
 import { GalleryFilters } from '@/components/gallery/GalleryFilters';
 import { MasonryGallery } from '@/components/gallery/MasonryGallery';
 import { GalleryLightbox } from '@/components/gallery/GalleryLightbox';
-import { FeaturedGallery } from '@/components/gallery/FeaturedGallery';
-import { PhotoWall } from '@/components/gallery/PhotoWall';
-import { HorizontalPhotoStory } from '@/components/gallery/HorizontalPhotoStory';
 import { GalleryEmptyState } from '@/components/common/States';
 import { CtaSection } from '@/components/sections/CtaSection';
+import { FeaturedProjects } from '@/components/sections/FeaturedProjects';
 import { WorkCard } from '@/components/cards/WorkCard';
 import { RevealGroup, RevealItem } from '@/components/motion/Reveal';
 import {
@@ -20,8 +18,6 @@ import {
   filterWorks,
   getCategoryBySegment,
   getCategoryById,
-  getWallPhotos,
-  getStoryPhotos,
   routableWorkCategories,
 } from '@/data/works';
 import { breadcrumbSchema, collectionPageSchema } from '@/utils/seo';
@@ -71,6 +67,24 @@ export const Works = ({ categorySegment: segmentProp }) => {
 
   const shown = photos.slice(0, visible);
   const hasMore = visible < photos.length;
+
+  // Hero uses the strongest frame from the current view, so a category page
+  // leads with its own work rather than a generic cover.
+  const heroPhoto = photos[0];
+  const heroImage = heroPhoto?.src;
+  const heroAlt = heroPhoto?.alt ?? '';
+
+  // Two projects, presented large. Never more — this is a feature, not a grid.
+  const featuredProjects = projects.filter((project) => project.featured).slice(0, 2);
+
+  /**
+   * Hero signposts: the categories actually represented in the current view,
+   * so the strip describes the work on screen rather than an aspiration.
+   */
+  const heroFacets = useMemo(
+    () => [...new Set(photos.map((photo) => photo.category))].slice(0, 6),
+    [photos]
+  );
 
   const onFilterChange = (id) => {
     trackFilter('works', id);
@@ -132,12 +146,20 @@ export const Works = ({ categorySegment: segmentProp }) => {
         ]}
       />
 
+      {/* Compact image hero. Kept short on purpose — the photography is the
+          point, and it should not sit below the fold. */}
       <PageHero
         eyebrow={routeCategory ? routeCategory.label : 'The Portfolio'}
         title={title}
         lede={lede}
         breadcrumbs={trail}
-        variant="plain"
+        image={heroImage}
+        imageAlt={heroAlt}
+        layout="immersive"
+        railLabel={routeCategory ? routeCategory.label : 'Portfolio'}
+        railIndex={String(photos.length).padStart(2, '0')}
+        facets={heroFacets}
+        minHeight="clamp(19rem, 42svh, 30rem)"
       />
 
       {/* Category navigation */}
@@ -156,20 +178,21 @@ export const Works = ({ categorySegment: segmentProp }) => {
         </div>
       </div>
 
-      {/* Featured selection — only on the unfiltered view, where it acts as
-          an overview rather than a duplicate of the grid below. */}
-      {!isFiltered && (
+      {/* Featured work — two real projects, presented large. Only on the
+          unfiltered view, where it is an overview rather than a duplicate of
+          the grid below. */}
+      {!isFiltered && featuredProjects.length > 0 && (
         <section className="section-sm" aria-labelledby="works-featured-title">
           <div className="shell">
             <SectionHeading
-              eyebrow="Featured"
+              eyebrow="Featured Work"
               title="Start here"
               id="works-featured-title"
               className="mb-7"
               titleClassName="text-fluid-2xl"
             />
-            <FeaturedGallery photos={photos.slice(0, 8)} />
           </div>
+          <FeaturedProjects projects={featuredProjects} />
         </section>
       )}
 
@@ -226,44 +249,12 @@ export const Works = ({ categorySegment: segmentProp }) => {
             <RevealGroup className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
               {projects.map((project) => (
                 <RevealItem key={project.slug} className="min-w-0">
-                  <WorkCard work={project} />
+                  <WorkCard work={project} aspect="3/2" />
                 </RevealItem>
               ))}
             </RevealGroup>
           </div>
         </section>
-      )}
-
-      {/* The Wall + horizontal story — overview page only, to keep the
-          filtered views focused on the photographs. */}
-      {!isFiltered && (
-        <>
-          <section className="section-sm" aria-labelledby="wall-title">
-            <div className="shell">
-              <SectionHeading
-                eyebrow="The Studioz D Wall"
-                title="Five frames, full width"
-                id="wall-title"
-                className="mb-7"
-                titleClassName="text-fluid-2xl"
-              />
-            </div>
-            <PhotoWall photos={getWallPhotos(5)} />
-          </section>
-
-          <section className="section-sm" aria-labelledby="story-rail-title">
-            <div className="shell">
-              <SectionHeading
-                eyebrow="One Frame Each"
-                title="A pass through the whole portfolio"
-                id="story-rail-title"
-                className="mb-7"
-                titleClassName="text-fluid-2xl"
-              />
-            </div>
-            <HorizontalPhotoStory photos={getStoryPhotos(9)} />
-          </section>
-        </>
       )}
 
       <CtaSection

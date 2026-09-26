@@ -20,7 +20,9 @@ export const JournalCard = ({ article, featured = false, priority = false, class
       <OptimizedImage
         src={article.coverImage}
         alt={article.coverAlt}
-        aspect={featured ? '16/9' : '4/3'}
+        /* Cover photographs are 3:2 files; the featured banner keeps that
+           ratio rather than cropping a sixth of the height away. */
+        aspect={featured ? '3/2' : '4/3'}
         sizes={featured ? SIZES.half : SIZES.third}
         priority={priority}
         className="w-full"

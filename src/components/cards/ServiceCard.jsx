@@ -20,7 +20,8 @@ export const ServiceCard = ({ service, priority = false, className, compact = fa
     <OptimizedImage
       src={service.cardImage}
       alt={`${service.title} by Studioz D`}
-      aspect={compact ? '4/3' : '4/5'}
+      /* Service hero images are 3:2 photographs; a 4:5 box cut 47% of them. */
+      aspect={compact ? '4/3' : '3/2'}
       sizes={SIZES.third}
       priority={priority}
       className="w-full"

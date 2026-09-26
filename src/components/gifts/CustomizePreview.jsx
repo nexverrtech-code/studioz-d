@@ -78,8 +78,10 @@ export const CustomizePreview = ({ gift }) => {
                 : (image?.alt ?? gift.name)
             }
             aspect="1/1"
+            /* contain: the preview must show the whole piece, never a crop. */
+            objectFit="contain"
             sizes={SIZES.half}
-            className="w-full"
+            className="w-full bg-ivory-100"
           />
 
           {/* Overlay only appears once there is something to show, so an

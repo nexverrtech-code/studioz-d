@@ -114,6 +114,7 @@ export const SitemapPage = () => {
         eyebrow="Sitemap"
         title="Everything, in one list."
         lede={`All ${totalPages} pages on this site, grouped by section.`}
+        railLabel="Sitemap"
         breadcrumbs={trail}
         variant="plain"
       />
