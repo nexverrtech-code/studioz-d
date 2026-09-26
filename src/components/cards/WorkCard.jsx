@@ -13,7 +13,6 @@ import { cn } from '@/utils/cn';
 export const WorkCard = ({ work, priority = false, aspect = '3/2', className }) => (
   <Link
     to={`/works/${work.slug}`}
-    data-cursor="story"
     className={cn('group flex h-full w-full max-w-full flex-col', className)}
     aria-label={`Open ${work.title} — ${work.category} project`}
   >

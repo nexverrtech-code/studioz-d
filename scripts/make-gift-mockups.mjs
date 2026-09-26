@@ -182,7 +182,7 @@ const run = async () => {
       width: 1600,
       height: 1067,
       frame: '#2A2522',
-      scale: 0.42,
+      scale: 0.46,
     })
   );
 

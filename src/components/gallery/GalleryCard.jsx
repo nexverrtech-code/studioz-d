@@ -101,7 +101,6 @@ export const GalleryCard = ({
       <button
         type="button"
         onClick={() => onOpen(index)}
-        data-cursor="view"
         aria-label={`View ${photo.workTitle} — ${photo.category}. ${photo.alt}`}
         className={shared}
       >
@@ -113,7 +112,6 @@ export const GalleryCard = ({
   return (
     <Link
       to={`/works/${photo.workSlug}`}
-      data-cursor="story"
       aria-label={`Open ${photo.workTitle} — ${photo.category} project`}
       className={shared}
     >

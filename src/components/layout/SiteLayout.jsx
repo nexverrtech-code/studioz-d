@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Header } from '@/components/navigation/Header';
 import { Footer } from './Footer';
 import { ContactDock } from './ContactDock';
-import { CustomCursor } from '@/components/common/CustomCursor';
 import { ScrollToTop } from '@/components/common/ScrollToTop';
 import { RouteLoader } from '@/components/common/States';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
@@ -36,7 +35,6 @@ export const SiteLayout = () => {
       </a>
 
       <ScrollToTop />
-      <CustomCursor />
       <Header transparent={transparentHeader} />
 
       <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">

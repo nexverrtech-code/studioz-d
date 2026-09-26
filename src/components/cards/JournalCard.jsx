@@ -13,7 +13,6 @@ export const JournalCard = ({ article, featured = false, priority = false, class
   <article className={cn('flex h-full w-full max-w-full flex-col', className)}>
     <Link
       to={`/journal/${article.slug}`}
-      data-cursor="open"
       className="group flex h-full flex-col"
       aria-label={`Read ${article.title}`}
     >

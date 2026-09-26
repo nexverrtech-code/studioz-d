@@ -5,9 +5,11 @@ import { BrandHero } from '@/components/hero/BrandHero';
 import { TwoWorlds } from '@/components/sections/TwoWorlds';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { WorkCard } from '@/components/cards/WorkCard';
+import { GiftCard } from '@/components/cards/GiftCard';
 import { Reveal, RevealText, RevealGroup, RevealItem } from '@/components/motion/Reveal';
 import { MagneticButton } from '@/components/buttons/MagneticButton';
 import { getFeaturedWorks } from '@/data/works';
+import { getFeaturedGifts } from '@/data/gifts';
 import { organizationSchema, websiteSchema, localBusinessSchema } from '@/utils/seo';
 import { siteConfig } from '@/config/site';
 import { trackCta } from '@/services/analytics.service';
@@ -20,12 +22,24 @@ import { trackCta } from '@/services/analytics.service';
  * — which meant a visitor had to scroll past one business to find the other.
  *
  * Now it does four things and stops: says who the studio is, asks which world
- * you want, proves the work is real, and offers a way in. The photography
+ * you want, proves BOTH halves are real, and offers a way in. The photography
  * detail lives at /services and the gifting detail at /gifts.
+ *
+ * Balance is the rule here. Every band either covers both businesses (the
+ * hero, Two Worlds, the story, the closing CTA) or is one of a matched pair
+ * (Selected Works / Selected Creations). Nothing on this page belongs to one
+ * half without its counterpart.
  */
 export const Home = () => {
   // Six is enough to prove the work without duplicating the Works page.
   const selectedWorks = getFeaturedWorks(6);
+
+  /*
+   * The gifting half gets a band of its own rather than a link in a paragraph.
+   * Without it this page showed six photographs and no products, which read as
+   * a photography site that also sells something — the opposite of the point.
+   */
+  const selectedCreations = getFeaturedGifts(8);
 
   return (
     <>
@@ -65,7 +79,29 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* 4 — Short studio story */}
+      {/* 4 — Selected creations: the gifting half, at equal weight */}
+      <section className="section" aria-labelledby="selected-creations-title">
+        <div className="shell">
+          <SectionHeading
+            eyebrow="Selected Creations"
+            title="And a few things people kept"
+            id="selected-creations-title"
+            action={{ label: 'View all gifts', to: '/gifts' }}
+            className="mb-8"
+            titleClassName="text-fluid-2xl"
+          />
+
+          <RevealGroup className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 md:grid-cols-3 xl:grid-cols-4">
+            {selectedCreations.map((gift) => (
+              <RevealItem key={gift.slug} className="min-w-0">
+                <GiftCard gift={gift} dense />
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        </div>
+      </section>
+
+      {/* 5 — Short studio story */}
       <section className="section" aria-labelledby="studio-story-title">
         <div className="shell grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
           <h2
@@ -110,7 +146,7 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* 5 — Final CTA, routing back into the two worlds */}
+      {/* 6 — Final CTA, routing back into the two worlds */}
       <section className="bleed bg-ink-900" aria-labelledby="home-cta-title">
         <div className="shell py-section">
           <div className="flex flex-col items-center gap-7 text-center">

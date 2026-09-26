@@ -107,7 +107,6 @@ export const ContactDock = () => {
           rel="noopener noreferrer"
           onClick={() => trackWhatsApp('desktop-float')}
           aria-label="Message Studioz D on WhatsApp"
-          data-cursor="open"
           className={cn(
             'group fixed bottom-6 right-6 z-dock hidden h-14 w-14 items-center justify-center rounded-full bg-ink-900 text-ivory-100 shadow-lift transition-all duration-500 ease-editorial hover:bg-champagne-600 hover:text-ink-950 md:flex',
             // Slides away while scrolling down so it never covers content

@@ -62,7 +62,6 @@ const Frame = ({ image, index, onOpen, sizes, className, imgClassName }) => {
     <motion.button
       type="button"
       onClick={() => onOpen(index)}
-      data-cursor="view"
       aria-label={`View image ${index + 1}: ${image.alt}`}
       className={cn('group block w-full max-w-full text-left', className)}
       initial={reducedMotion ? false : { opacity: 0, y: 28 }}

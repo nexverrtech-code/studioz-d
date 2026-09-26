@@ -30,7 +30,6 @@ export const FeaturedProjects = ({ projects = [], className }) => {
           <Reveal key={project.slug} direction="up" className="shell">
             <Link
               to={`/works/${project.slug}`}
-              data-cursor="story"
               aria-label={`Open ${project.title} — ${project.category}`}
               className={cn(
                 'group grid items-center gap-5 lg:grid-cols-12 lg:gap-10',

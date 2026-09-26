@@ -35,7 +35,6 @@ export const GiftCard = ({ gift, priority = false, className, dense = false }) =
   return (
     <Link
       to={`/gifts/product/${gift.slug}`}
-      data-cursor="open"
       className={cn('group flex h-full w-full max-w-full flex-col', className)}
       aria-label={`${gift.name} — ${gift.description}`}
     >

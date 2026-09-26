@@ -90,7 +90,6 @@ const DeckCard = ({ work, index, total, hovered, setHovered }) => {
       >
         <Link
           to={`/works/${work.slug}`}
-          data-cursor="story"
           onFocus={() => setHovered(index)}
           onBlur={reset}
           className={cn(
@@ -136,7 +135,6 @@ const DeckCard = ({ work, index, total, hovered, setHovered }) => {
 const PlainCard = ({ work, className }) => (
   <Link
     to={`/works/${work.slug}`}
-    data-cursor="story"
     className={cn('group block w-full max-w-full', className)}
     aria-label={`Open ${work.title} — ${work.category}`}
   >

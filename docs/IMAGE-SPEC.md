@@ -170,8 +170,28 @@ photograph. If either file is replaced, **replace both**.
 
 | Slot | Desktop file (landscape) | Phone file (portrait) | Declared in |
 |---|---|---|---|
-| Home hero | `works/studioz-d-wedding-sparkler-entry.webp` — fills a wide band | `works/studioz-d-pre-wedding-rocks-twirl.webp` — 4 : 5 | `src/components/hero/BrandHero.jsx` |
-| Two Worlds panels | `works/studioz-d-pre-wedding-rocks-wave-gown.webp` and `gifts/studioz-d-gift-framed-print-panel.webp` — roughly 3 : 2 | `works/studioz-d-pre-wedding-sunset-lift-silhouette.webp` and `gifts/studioz-d-gift-framed-print.webp` — 4 : 5 | `src/components/sections/TwoWorlds.jsx` (`image` / `imageTall`) |
+| Two Worlds panels | `works/studioz-d-pre-wedding-rocks-wave-gown.webp` and `gifts/studioz-d-gift-framed-print-panel.webp` — roughly 3 : 2 | `works/studioz-d-pre-wedding-rocks-twirl.webp` and `gifts/studioz-d-gift-framed-print.webp` — 4 : 5 | `src/components/sections/TwoWorlds.jsx` (`image` / `imageTall`) |
+
+### 4.4b The landing hero is a scroll scene, not a picture
+
+The hero on `/` is a single photograph that a frame assembles around as you
+scroll — the frame, mat and wall are drawn in the DOM, not composited into a
+file. So there is **one** hero image to supply, and it must be **4 : 5**:
+
+| File | Ratio | Supply at least |
+|---|---|---|
+| `works/studioz-d-pre-wedding-sunset-lift-silhouette.webp` | 4 : 5 | **2000 × 2500** |
+
+It is set in one place, `PHOTO` at the top of
+`src/components/hero/BrandHero.jsx`. Two things matter when replacing it:
+
+- **It must be 4 : 5.** The arrival frame sizes the photograph to cover any
+  viewport up to 1.25 : 1 on that assumption. A landscape file would be
+  cropped to half its width on a phone.
+- **It has to read at both sizes.** It fills the screen on arrival and ends up
+  roughly 360px wide on a wall. A photograph with a single strong shape —
+  a silhouette, a strong colour field — survives that. A busy group shot does
+  not.
 
 ### 4.5 One intentional crop, listed for completeness
 

@@ -19,7 +19,6 @@ export const Logo = ({ tone = 'dark', className, onClick, showWordmark = true })
     onClick={onClick}
     aria-label="Studioz D — home"
     className={cn('group inline-flex shrink-0 items-center gap-2.5', className)}
-    data-cursor="open"
   >
     <picture className="shrink-0">
       <source

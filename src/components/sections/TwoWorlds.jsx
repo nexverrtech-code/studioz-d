@@ -39,8 +39,8 @@ const WORLDS = [
      */
     image: '/assets/images/works/studioz-d-pre-wedding-rocks-wave-gown.webp',
     alt: 'Couple on wet rocks as a wave breaks behind them, the gown caught in the spray, photographed by Studioz D',
-    imageTall: '/assets/images/works/studioz-d-pre-wedding-sunset-lift-silhouette.webp',
-    altTall: 'Couple silhouetted against a sunset as he lifts her off the ground, photographed by Studioz D',
+    imageTall: '/assets/images/works/studioz-d-pre-wedding-rocks-twirl.webp',
+    altTall: 'Couple dancing on rocks as a wave breaks behind them, photographed by Studioz D',
     position: 'center 45%',
   },
   {
@@ -175,25 +175,25 @@ export const TwoWorlds = () => {
               <Link
                 key={world.id}
                 to={world.to}
-                data-cursor="explore"
                 onMouseEnter={() => setActive(world.id)}
                 onFocus={() => setActive(world.id)}
                 onBlur={() => setActive(null)}
                 onClick={() => trackCta(world.cta, 'two-worlds')}
                 aria-label={`${world.label} — ${world.cta}`}
-                className="group relative min-w-0 overflow-hidden transition-[flex-basis] duration-700 ease-editorial"
-                style={{
-                  // Always sums to 100, so the row can never overflow.
-                  flexBasis: isActive ? '58%' : isDimmed ? '42%' : '50%',
-                  flexGrow: 0,
-                  flexShrink: 1,
-                }}
+                /*
+                 * Fixed, equal halves. An earlier version animated the widths
+                 * on hover (50% -> 58/42), which re-cropped the photograph
+                 * live and read as the card stretching. The two businesses are
+                 * equal, so the two panels stay equal; hover is expressed in
+                 * the scrim, the image scale and the arrow instead.
+                 */
+                className="group relative min-w-0 flex-1 basis-0 overflow-hidden"
               >
                 <OptimizedImage
                   src={world.image}
                   alt={world.alt}
                   aspect="4/5"
-                  sizes="(min-width: 1024px) 58vw, 100vw"
+                  sizes="(min-width: 1024px) 50vw, 100vw"
                   objectPosition={world.position}
                   className="h-[clamp(26rem,46vh,34rem)] w-full"
                   imgClassName={cn(
@@ -209,7 +209,7 @@ export const TwoWorlds = () => {
                     'pointer-events-none absolute inset-0 transition-colors duration-700',
                     isDimmed
                       ? 'bg-ink-950/70'
-                      : 'bg-gradient-to-t from-ink-950/90 via-ink-950/45 to-ink-950/5'
+                      : 'bg-gradient-to-t from-ink-950/90 via-ink-950/25 to-transparent'
                   )}
                 />
 

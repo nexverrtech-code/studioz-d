@@ -13,7 +13,6 @@ import { cn } from '@/utils/cn';
 export const ServiceCard = ({ service, priority = false, className, compact = false }) => (
   <Link
     to={`/services/${service.slug}`}
-    data-cursor="open"
     className={cn('group flex h-full w-full max-w-full flex-col', className)}
     aria-label={`${service.title} — ${service.summary}`}
   >

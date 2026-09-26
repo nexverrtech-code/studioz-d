@@ -24,7 +24,6 @@ const TileGrid = ({ categories }) => (
       <RevealItem key={category.id} className="min-w-0">
         <Link
           to={categoryHref(category)}
-          data-cursor="open"
           className="group flex h-full flex-col"
           aria-label={`${category.label} gifts — ${category.blurb}`}
         >

@@ -106,12 +106,12 @@ The studio supplied 20 product photographs, imported with `npm run gifts`. All
 22 products and all 33 gift categories now use real imagery — there is not a
 single generated placeholder left anywhere in `src/data/gifts.js`.
 
-Five files in `public/assets/images/gifts/` are still composites, produced by
+Five files in `public/assets/images/gifts/` are composites, produced by
 `npm run mockups`: they place **the studio's own photographs into a frame on a
 wall**, which is literally what the gifting service does with them. They cover
-the framed-print products and the landing page's gifts panel, where a square
-product photograph would not fit the shape. Not invented products, not stock,
-not AI.
+the framed-print products and the landing page's gifts panel — places where a
+square product photograph would not fit the shape. Not invented products, not
+stock, not AI.
 
 Every ratio the site uses, every file location, and everything still missing is
 documented in [`docs/IMAGE-SPEC.md`](docs/IMAGE-SPEC.md).
@@ -304,6 +304,32 @@ on touch devices and under reduced motion.
 
 `prefers-reduced-motion` is honoured globally in CSS **and** in JS — reduced
 motion removes movement without ever leaving content invisible.
+
+**No custom cursor.** There was one; it is gone, along with every `data-cursor`
+hook that fed it. The system pointer is the system pointer.
+
+### The landing hero is a scroll scene
+
+`components/hero/BrandHero.jsx` is the one place with a pinned scroll
+animation. You arrive on a full-bleed photograph; as you scroll it pulls back,
+a mat and frame assemble around it, the black falls away to a lit wall, and the
+image ends up as an object hanging there. One gesture that says both halves of
+the business — photograph the moment, then make it into something you keep.
+
+Two implementation notes worth keeping:
+
+- **It scales down, never up.** The artwork is laid out at its largest size and
+  scaled to its final size. Browsers rasterise before the transform, so scaling
+  a small box up would show a soft photograph for the whole animation.
+- **Progress comes from `hooks/useSectionProgress.js`, not `useScroll`.**
+  Framer's `useScroll` resolves its own scroll container and reports a flat 0
+  for a tall target with `['start start', 'end end']` — exactly the pinned case.
+  The hook measures the rect itself on a frame loop, bounded by an
+  IntersectionObserver, with a scroll listener alongside it for the cases where
+  `requestAnimationFrame` is throttled.
+
+Under reduced motion the section collapses to its end state — the framed print
+on the wall, same words, no pinning.
 
 ---
 
