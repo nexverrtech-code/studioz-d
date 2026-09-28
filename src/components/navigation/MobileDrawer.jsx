@@ -1,9 +1,10 @@
 import { useRef } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { X, ArrowUpRight, Instagram, Mail, MessageCircle } from 'lucide-react';
-import { mobileNavForWorld } from '@/data/navigation';
-import { useWorld, WORLDS } from '@/hooks/useWorld';
+import { mobileNavForWorld, worldSwitch } from '@/data/navigation';
+import { useWorld } from '@/hooks/useWorld';
+import { OptimizedImage } from '@/components/common/OptimizedImage';
 import { Logo } from './Logo';
 import { cn } from '@/utils/cn';
 import { useLockBodyScroll } from '@/hooks/useLockBodyScroll';
@@ -22,8 +23,11 @@ import { trackWhatsApp, trackEmail, trackCta } from '@/services/analytics.servic
 /**
  * Full-screen mobile / tablet navigation.
  *
- * Purpose-built rather than a shrunken desktop bar: large tap rows, numbered
- * index, direct contact channels, and a CTA pinned above the safe area.
+ * Purpose-built rather than a shrunken desktop bar. It opens on the studio's
+ * two worlds as a pair of image tiles — the same choice the landing page and
+ * the header switch offer — with the current one marked. Below that come the
+ * numbered rows for everything else, direct contact channels, and a CTA
+ * pinned above the safe area.
  *
  * Accessibility: scroll locked, focus trapped, Escape closes, and the panel is
  * a labelled dialog.
@@ -82,14 +86,7 @@ export const MobileDrawer = ({ open, onClose }) => {
               className="flex shrink-0 items-center justify-between border-b border-ink-100 px-gutter"
               style={{ minHeight: 'var(--sd-header-h)', paddingTop: 'var(--sd-safe-t)' }}
             >
-              <div className="flex min-w-0 items-center gap-3">
-                <Logo onClick={onClose} />
-                {world !== WORLDS.LANDING && (
-                  <span className="shrink-0 border-l border-ink-200 pl-3 text-[0.56rem] font-semibold uppercase tracking-widest-xl text-ink-400">
-                    {world === WORLDS.GIFTS ? 'Gifts' : 'Photography'}
-                  </span>
-                )}
-              </div>
+              <Logo onClick={onClose} />
               <button
                 ref={closeRef}
                 type="button"
@@ -101,8 +98,47 @@ export const MobileDrawer = ({ open, onClose }) => {
               </button>
             </div>
 
-            {/* Scrollable link list */}
-            <nav className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-gutter py-6">
+            {/* Scrollable body */}
+            <nav
+              aria-label="Site"
+              className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-gutter py-6"
+            >
+              {/* The two worlds, as tiles. Each image is 3:2 in a 3:2 box. */}
+              <ul className="mb-7 grid grid-cols-2 gap-3">
+                {worldSwitch.map((item) => {
+                  const current = world === item.id;
+                  return (
+                    <li key={item.id} className="min-w-0">
+                      <Link
+                        to={item.to}
+                        onClick={onClose}
+                        aria-current={current ? 'true' : undefined}
+                        className={cn(
+                          'group flex h-full flex-col gap-2.5 border p-2 transition-colors',
+                          current ? 'border-ink-900' : 'border-ink-100 hover:border-ink-300'
+                        )}
+                      >
+                        <OptimizedImage
+                          src={item.image}
+                          alt=""
+                          aspect="3/2"
+                          sizes="(min-width: 480px) 12rem, 45vw"
+                          className="w-full"
+                        />
+                        <span className="flex min-w-0 flex-col gap-1 px-1 pb-0.5">
+                          <span className="font-display text-fluid-lg leading-none text-ink-900">
+                            {item.label}
+                          </span>
+                          <span className="text-[0.54rem] font-semibold uppercase tracking-widest text-champagne-700">
+                            {current ? 'You are here' : item.lead}
+                          </span>
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+
               <ul className="flex flex-col">
                 {mobileNav.map((item, index) => (
                   <li key={item.to} className="border-b border-ink-100/70 last:border-b-0">
@@ -140,6 +176,14 @@ export const MobileDrawer = ({ open, onClose }) => {
 
               <div className="mt-8 flex flex-col gap-3">
                 <p className="eyebrow">Direct</p>
+                {!hasWhatsApp() && !hasEmail() && !siteConfig.social.instagram && (
+                  <p className="text-fluid-sm text-ink-500">
+                    <NavLink to="/contact" onClick={onClose} className="link-underline text-ink-900">
+                      Send an enquiry
+                    </NavLink>{' '}
+                    — tell us what you are planning.
+                  </p>
+                )}
                 <div className="flex flex-wrap gap-2">
                   {hasWhatsApp() && (
                     <a

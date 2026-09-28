@@ -77,6 +77,14 @@ the data module.
 
 `npm run build` fails if any referenced image is missing its variants.
 
+**The full ladder is always required.** The site advertises every width from
+480 to 1920 for every photograph, whatever its size, and a high-density screen
+will ask for the top of that ladder. For a photograph narrower than 1920 px the
+build writes those top rungs itself, at the photograph's own native size — no
+upscaling, just the largest real resolution under the name the browser asked
+for. Before this was fixed, 80 advertised files did not exist, and any of them
+would have rendered as a blank image on a retina screen.
+
 ---
 
 ## 3. Every image slot, with the ratio and size it wants
@@ -123,7 +131,7 @@ the data module.
 Everything on the gifts side now uses real photography. **22 of 22 products and
 33 of 33 categories.** The gaps are all on the photography side.
 
-### 4.1 Six services have no photography at all — 12 files
+### 4.1 Five services have no photography at all — 10 files
 
 These render as abstract generated placeholders. Drop real files in
 `public/assets/images/services/` under exactly these names, then run
@@ -132,7 +140,6 @@ These render as abstract generated placeholders. Drop real files in
 | Service | Page | Hero file — needs **2400 × 1600 (3 : 2), landscape** | Card file — needs **1600 × 1067 (3 : 2)** |
 |---|---|---|---|
 | Maternity | `/services/maternity-photography` | `studioz-d-maternity-photography-hero.svg` → `.webp` | `studioz-d-maternity-photography-card.svg` → `.webp` |
-| Baby & Family | `/services/baby-family-photography` | `studioz-d-baby-family-photography-hero.svg` → `.webp` | `studioz-d-baby-family-photography-card.svg` → `.webp` |
 | Product | `/services/product-photography` | `studioz-d-product-photography-hero.svg` → `.webp` | `studioz-d-product-photography-card.svg` → `.webp` |
 | Commercial | `/services/commercial-photography` | `studioz-d-commercial-photography-hero.svg` → `.webp` | `studioz-d-commercial-photography-card.svg` → `.webp` |
 | Cinematic Films | `/services/cinematic-films` | `studioz-d-cinematic-films-hero.svg` → `.webp` | `studioz-d-cinematic-films-card.svg` → `.webp` |
@@ -140,6 +147,11 @@ These render as abstract generated placeholders. Drop real files in
 
 After adding the files, change the extension in `src/data/services.js` from
 `.svg` to `.webp` on the matching `heroImage` / `cardImage` line.
+
+**Baby & Family is done.** The baby-shoots folder supplied seven real
+photographs: they now form the **First Portraits** collection at
+`/works/first-portraits`, open a new **Baby & Family** category at
+`/works/baby-family`, and supply the service page's hero and card.
 
 ### 4.2 Team portraits — `/about`
 
@@ -149,18 +161,51 @@ set in `src/data/about.js`. Six people are listed. Supply portraits at
 `public/assets/images/about/studioz-d-team-<name>.webp` and add the path to each
 member's `image` field.
 
-### 4.3 Gift photography that would benefit from a second angle
+### 4.3 Gift photography — what the second batch delivered
 
-Every product renders correctly today. These would improve if a second or
-better frame existed:
+Four re-shoots were requested. Each file sent back was compared against the
+existing images by perceptual hash as well as by eye:
 
-| Product | Page | Why | What to supply |
-|---|---|---|---|
-| Rotating Photo Cube Lamp | `/gifts/product/rotating-photo-cube` | The supplied file is an **advertising creative with headline text and feature badges printed into the image** ("Turn Memories Into A Gift", "360° ROTATION"…). It works, but it is a poster, not a product photograph. | A clean shot of the lit cube, no overlaid text. **1400 × 1400** |
-| Corporate Leather Range | `/gifts/product/corporate-leather-range` | The file is a five-up grid of five separate photographs. Legible at full size, busy as a small card. | One hero shot of the range. **1400 × 1400** |
-| Personalized Story Frame | `/gifts/product/story-frame` | File is 1800 × 2400 (3 : 4). The card grid is square, so the card **letterboxes** it rather than cropping. | Optional 1 : 1 alternate. **1400 × 1400** |
-| Caricature Standee | `/gifts/product/caricature-standee` | Same — 3 : 4 file, letterboxed in the square card. | Optional 1 : 1 alternate. **1400 × 1400** |
-| All 20 supplied gift files | everywhere | They are **1800 × 1776** — 1.4% off square. The square tile trims 24 px of width, which is invisible. | Nothing needed. Shoot future products at a true **1 : 1** to keep it exact. |
+| Requested | Sent as | Result |
+|---|---|---|
+| Caricature Standee, square | `Caricature Standee.jpg`, 1400 × 1400 | **Delivered.** A genuine 1 : 1 re-shoot. Now the product's first image and the Engagement category tile — the card fills its square instead of being letterboxed. The taller original stays as the second gallery image. |
+| Rotating Photo Cube Lamp, clean, no text | `Rotating Photo Cube Lamp.jpg`, 1400 × 1400 | **Not delivered.** The same advertising creative as before — headline, tagline and feature badges still printed into the image — resized to square. |
+| Corporate Leather Gift Range, one range shot | `Corporate Leather Gift Range.jpg`, 1400 × 1400 | **Not delivered.** This is the navy corporate hamper (notebook, mug, bottle, keyring, pen) already used for **Corporate Gift Hamper**, under a new name. The leather range still uses the five-up grid. |
+| Personalized Story Frame, square | `Personalized Frame.jpg`, 1400 × 1400 | **Not delivered.** This is the black-and-white friends **collage** frame already used for **Collage Photo Frame**, not the story frame with the name layout. The story frame is still its 3 : 4 original, letterboxed in the card. |
+
+Still needed, at **1400 × 1400, 1 : 1**:
+
+- **Rotating Photo Cube Lamp** — the lit cube on its own, no text or graphics.
+- **Corporate Leather Range** — one photograph of the leather sets together.
+- **Personalized Story Frame** — the framed name layout (the "LAYA KEERTHI" style piece).
+
+The other three square files in the batch — crystal block, acrylic frame,
+infinity lamp — are the same photographs already on the site, at a lower
+resolution than the originals, so the originals were kept.
+
+All other gift photographs are **1800 × 1776**, 1.4% off square. The square
+tile trims 24 px of width, which is invisible. Nothing is needed there; future
+products shot at a true 1 : 1 keep it exact.
+
+### 4.3b The photography folders — what was new
+
+The five folders held 79 photographs. Compared by perceptual hash against the
+43 already on the site:
+
+| Folder | Sent | Already on the site | New | Where the new ones went |
+|---|---|---|---|---|
+| Outdoor | 13 | 13 | 0 | — every frame was a re-send |
+| Groom Portraits | 7 | 1 | 6 | **The Other Mirror** — `/works/the-other-mirror`, Groom filter |
+| Couple Portraits | 28 | 24 | 4 | **Wherever They Stood** — `/works/wherever-they-stood` |
+| Bridal Portraits | 24 | 3 | 21 | **The Getting-Ready Room** — `/works/the-getting-ready-room`, new `/works/bridal` |
+| Baby Shoots | 7 | 0 | 7 | **First Portraits** — `/works/first-portraits`, new `/works/baby-family` |
+
+Re-sends were left out so no photograph appears twice. Three baby photographs
+were exported sideways (shot in portrait, saved without the orientation flag)
+and were turned upright on import; the originals in Drive are unchanged.
+
+The portfolio is now **17 projects, 81 photographs**. The four new projects are
+collections from several sessions, not single events, and their copy says so.
 
 ### 4.4 Art direction — two slots use a different file per breakpoint
 

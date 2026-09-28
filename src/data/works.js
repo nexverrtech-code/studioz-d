@@ -8,10 +8,21 @@
  *
  * WHAT THE SUPPLIED WORK COVERS
  * -----------------------------
- * Weddings, pre-weddings, engagements, receptions and portraits. There is no
- * product, commercial, film, maternity or baby/family work in the set — so
- * those categories are deliberately absent from this taxonomy rather than
- * padded with stand-ins. Add them here when that work exists.
+ * Weddings, pre-weddings, engagements, receptions, bridal and groom portraits,
+ * couple portraits and baby shoots. There is no product, commercial, film or
+ * maternity work in the set — so those categories are deliberately absent from
+ * this taxonomy rather than padded with stand-ins. Add them when it exists.
+ *
+ * COLLECTIONS
+ * -----------
+ * Most projects are one celebration. The last four are COLLECTIONS: frames
+ * from several different sessions grouped by subject (brides, grooms, couples,
+ * babies), because that is how the studio supplied them. Their copy says so,
+ * and they carry no `year` — a single year would be a claim about one event.
+ *
+ * The second batch of photography repeated 41 frames already on the site.
+ * Those were matched by perceptual hash against the existing files and left
+ * out, so no photograph appears twice in the gallery.
  *
  * CLIENT NAMES
  * ------------
@@ -73,6 +84,15 @@ export const workCategories = [
     lede: 'Church aisles, silk sarees and the moment a room turns. Full days, start to finish.',
   },
   {
+    id: 'bridal',
+    label: 'Bridal',
+    segment: 'bridal',
+    heroTitle: 'Bridal Portraits',
+    seoTitle: 'Bridal Portrait Photography',
+    lede: 'The make-up chair, the mirror, the jewellery — and the last quiet minutes before the day begins.',
+  },
+  { id: 'groom', label: 'Groom', segment: null },
+  {
     id: 'pre-wedding',
     label: 'Pre-Weddings',
     segment: 'pre-weddings',
@@ -105,6 +125,14 @@ export const workCategories = [
     lede: 'Where the work is mostly getting someone comfortable enough to stop performing.',
   },
   { id: 'couples', label: 'Couples', segment: null },
+  {
+    id: 'baby',
+    label: 'Baby & Family',
+    segment: 'baby-family',
+    heroTitle: 'Baby & Family',
+    seoTitle: 'Newborn & Baby Photography',
+    lede: 'Newborns, little ones, and the sets built around them.',
+  },
 ];
 
 export const works = [
@@ -142,12 +170,12 @@ export const works = [
     slug: 'before-she-walked-out',
     title: 'Before She Walked Out',
     category: 'Wedding',
-    categories: ['wedding', 'portrait'],
+    categories: ['wedding', 'portrait', 'bridal'],
     primaryCategory: 'wedding',
     year: '2022',
     location: '',
     featured: true,
-    heroRank: 3,
+    heroRank: 7,
     service: 'wedding-photography',
     description:
       'Bridal portraits taken in the last quiet half hour, before anyone else was allowed into the room.',
@@ -231,6 +259,7 @@ export const works = [
     year: '2023',
     location: '',
     featured: true,
+    heroRank: 5,
     service: 'pre-wedding-photography',
     description:
       'A gown-and-suit pre-wedding shoot on the coast, from an overcast dusk through to a proposal on the rocks.',
@@ -257,6 +286,7 @@ export const works = [
     year: '2021',
     location: '',
     featured: true,
+    heroRank: 6,
     service: 'pre-wedding-photography',
     description:
       'A pre-wedding session that started on an empty tree-lined road and finished under festoon lights.',
@@ -457,6 +487,140 @@ export const works = [
     images: [
       img('studioz-d-portrait-motorcycle-banyan.webp', '3/2', 'Woman in a black dress and sunglasses leaning against a Royal Enfield motorcycle beneath a banyan tree', 'Under the banyan'),
       img('studioz-d-portrait-groom-getting-ready.webp', '4/3', 'Groom in a white shirt fastening his cuff, his blue suit hanging in the blurred foreground', 'Half an hour to go'),
+    ],
+  },
+
+  /* ------------------------------------------------------- COLLECTIONS -- */
+  {
+    id: 'work-014',
+    slug: 'the-getting-ready-room',
+    title: 'The Getting-Ready Room',
+    category: 'Bridal',
+    categories: ['bridal', 'portrait', 'wedding'],
+    primaryCategory: 'bridal',
+    year: '',
+    location: '',
+    featured: true,
+    heroRank: 3,
+    service: 'wedding-photography',
+    description:
+      'Bridal portraits from several weddings — the make-up chair, the mirror, the jewellery, and the last quiet minutes before anyone else comes in.',
+    story: [
+      'Most of a wedding day is spent being looked at. The hour before it is the only part that still belongs to the bride — the brush, the earring that will not sit right, the laugh at something said off-camera.',
+      'These come from different weddings and different brides. What they share is the room.',
+    ],
+    behindTheFrame:
+      'Mostly window light, with mirrors and make-up compacts used as a second frame inside the photograph.',
+    coverImage: '/assets/images/works/studioz-d-bridal-gold-headpiece-smile.webp',
+    images: [
+      img('studioz-d-bridal-gold-headpiece-smile.webp', '3/2', 'Bride in a gold headpiece and a yellow and red silk saree smiling as someone adjusts her hair', 'Nearly ready'),
+      img('studioz-d-bridal-makeup-artist-eyes.webp', '3/2', 'Make-up artist brushing a bride’s eyelids as she sits in a gold headpiece and yellow silk saree', 'Eyes closed'),
+      img('studioz-d-bridal-maang-tikka-close.webp', '2/3', 'Close portrait of a bride in a jewelled maang tikka and gold bangle looking up into the light', 'Into the light'),
+      img('studioz-d-bridal-garden-red-silk.webp', '3/2', 'Bride in a red silk saree and layered gold temple jewellery standing in a garden beneath trees', 'Under the trees'),
+      img('studioz-d-bridal-compact-mirror-blush.webp', '3/2', 'Bride smiling in the mirror of a make-up compact as a brush sweeps across her cheek', 'In the compact'),
+      img('studioz-d-bridal-silhouette-jasmine.webp', '2/3', 'Silhouette of a bride with jasmine woven into her braid against a glowing orange backdrop', 'Jasmine'),
+      img('studioz-d-bridal-overhead-eyes-closed.webp', '3/2', 'Overhead view of a bride with her eyes closed, wearing a gold headpiece and a yellow and red silk saree', 'From above'),
+      img('studioz-d-bridal-red-lehenga-orange-wall.webp', '2/3', 'Bride in an embroidered red lehenga and diamond jewellery smiling against a deep orange wall', 'Red on orange'),
+      img('studioz-d-bridal-mirror-heart-hands.webp', '3/2', 'Bride making a heart shape with her hennaed hands, seen in a small mirror among blurred make-up', 'Hands'),
+      img('studioz-d-bridal-leaves-headpiece.webp', '3/2', 'Bride in a red saree adjusting her headpiece, framed by leaves on a garden path', 'On the path'),
+      img('studioz-d-bridal-eyeliner-green-silk.webp', '3/2', 'Make-up artist lining a bride’s eyes, the bride in a gold headpiece and a green and blue silk saree', 'The last line'),
+      img('studioz-d-bridal-blue-room-mirror.webp', '3/2', 'Bride in a red lehenga fixing an earring in a blue-lit room, reflected in a mirror', 'Blue room'),
+      img('studioz-d-bridal-diamond-choker-close.webp', '3/2', 'Close portrait of a smiling bride in a diamond choker and jhumka earrings, a leaf blurred in the foreground', 'Diamonds'),
+      img('studioz-d-bridal-green-silk-bangles.webp', '3/2', 'Bride in a green and blue silk saree with gold jewellery adjusting her bangles', 'Bangles'),
+      img('studioz-d-bridal-flower-garland-smile.webp', '3/2', 'Smiling bride wearing a red flower garland and gold jewellery, guests blurred behind her', 'Garlanded'),
+      img('studioz-d-bridal-doorway-laugh-mirror.webp', '3/2', 'Bride in a red lehenga laughing with a hand to her face in a doorway, reflected in a mirror', 'Caught laughing'),
+      img('studioz-d-bridal-peach-saree-terrace.webp', '3/2', 'Bride in a peach silk saree and silver jewellery standing on a terrace against green trees', 'The terrace'),
+      img('studioz-d-bridal-pink-saree-earring.webp', '3/2', 'Bride in a pink saree and gold jewellery fastening an earring against a red curtain', 'The earring'),
+      img('studioz-d-bridal-white-gown-curtains.webp', '3/2', 'Bride in a white gown and pearl necklace looking out beside sheer white curtains', 'White on white'),
+      img('studioz-d-bridal-two-in-green-silk.webp', '3/2', 'Two women in green silk blouses and gold jewellery looking toward the window, jasmine and red flowers in the nearer one’s braid', 'Side by side'),
+      img('studioz-d-bridal-green-silk-ring-light.webp', '3/2', 'Bride in a green silk saree and pink maang tikka looking down beside a ring light', 'The ring light'),
+    ],
+  },
+  {
+    id: 'work-015',
+    slug: 'the-other-mirror',
+    title: 'The Other Mirror',
+    category: 'Groom',
+    categories: ['groom', 'portrait', 'wedding'],
+    primaryCategory: 'groom',
+    year: '',
+    location: '',
+    featured: false,
+    service: 'wedding-photography',
+    description:
+      'Groom portraits from several weddings — sherwanis, suits, watches, and the getting-ready room nobody else photographs.',
+    story: [
+      'The bride’s room gets an hour of attention. The groom’s room usually gets five minutes and a blurred frame of someone doing up a button.',
+      'These are the portraits that happen when that room is given the same care.',
+    ],
+    behindTheFrame:
+      'Coloured light and mirrors do most of the work — a reflection soft in the foreground, the groom sharp behind it.',
+    coverImage: '/assets/images/works/studioz-d-groom-gold-sherwani-lamp.webp',
+    images: [
+      img('studioz-d-groom-gold-sherwani-lamp.webp', '3/2', 'Groom in a gold brocade sherwani standing between curtained windows, lit by a single wall lamp', 'Gold'),
+      img('studioz-d-groom-white-suit-doorway.webp', '3/2', 'Groom in a white suit and blue shirt buttoning his jacket in a warm-lit doorway, seen past a blurred shoulder', 'Buttoning up'),
+      img('studioz-d-groom-black-sherwani-blue-light.webp', '3/2', 'Groom in a black sequinned sherwani under deep blue light, framed through a mirror', 'Blue'),
+      img('studioz-d-groom-gold-sherwani-watch.webp', '3/2', 'Groom in a gold sherwani fastening his watch in a doorway, a mirrored reflection soft in the foreground', 'The watch'),
+      img('studioz-d-groom-black-sherwani-red-light.webp', '3/2', 'Groom in a black sherwani in magenta and red light, seen twice through a mirror', 'Red'),
+      img('studioz-d-groom-style-watch-layout.webp', '3/2', 'Album layout pairing a groom in a black sherwani under blue light with an inset close-up of his watch, titled Groom Style', 'The details'),
+    ],
+  },
+  {
+    id: 'work-016',
+    slug: 'wherever-they-stood',
+    title: 'Wherever They Stood',
+    category: 'Couples',
+    categories: ['couples', 'wedding', 'engagement'],
+    primaryCategory: 'couples',
+    year: '',
+    location: '',
+    featured: false,
+    service: 'wedding-photography',
+    description:
+      'Couple portraits from four different celebrations — a ceremony, a tractor, a car roof and a stage.',
+    story: [
+      'Not one story but four: a garlanded ceremony, a bright yellow tractor, a car with its roof open, and a stage hung with flowers and lights.',
+      'Four couples, four settings, and the same job every time — find the frame where they forget the camera is there.',
+    ],
+    behindTheFrame:
+      'Shot in whatever light each day had — daylight for the tractor and the car, stage light for the rest.',
+    coverImage: '/assets/images/works/studioz-d-couple-yellow-tractor.webp',
+    images: [
+      img('studioz-d-couple-yellow-tractor.webp', '3/2', 'Couple in traditional dress sitting together on a bright yellow tractor beneath trees', 'Their ride'),
+      img('studioz-d-couple-red-lehenga-gold-sherwani.webp', '3/2', 'Bride in a red embroidered lehenga and groom in a gold sherwani standing close against a backdrop of roses and blue lights', 'Close'),
+      img('studioz-d-wedding-ceremony-garlands.webp', '3/2', 'Bride and groom wearing flower garlands seated during a traditional wedding ceremony, family gathered close around them', 'The ceremony'),
+      img('studioz-d-couple-car-sunroof.webp', '3/2', 'Couple standing up through the sunroof of a white car, the woman in a green and gold silk saree with flowers in her hair', 'Through the roof'),
+    ],
+  },
+  {
+    id: 'work-017',
+    slug: 'first-portraits',
+    title: 'First Portraits',
+    category: 'Baby & Family',
+    categories: ['baby'],
+    primaryCategory: 'baby',
+    year: '',
+    location: '',
+    featured: true,
+    heroRank: 4,
+    service: 'baby-family-photography',
+    description:
+      'Newborn and baby sessions — a floral nest, a tiny guitar, a tub of water and a pair of fairy wings.',
+    story: [
+      'Newborn sessions run on the baby’s timetable. The set is built and warm before they arrive, and the photographs happen in the stretches between feeds.',
+      'Older babies are the opposite problem. The set has to be bright and interesting enough to hold them for a minute — which is all the minute you get.',
+    ],
+    behindTheFrame:
+      'Soft, even light and a colour story per set — autumn leaves, rose prints, blue fur, a pink moon.',
+    coverImage: '/assets/images/works/studioz-d-baby-newborn-floral-nest.webp',
+    images: [
+      img('studioz-d-baby-newborn-floral-nest.webp', '3/2', 'Sleeping newborn wrapped in sage green, curled in a nest of orange leaves and yellow knit on a rose-print backdrop', 'The nest'),
+      img('studioz-d-baby-newborn-tiny-guitar.webp', '2/3', 'Sleeping newborn wrapped in blue with a denim cap, a tiny wooden guitar resting beside them on a blue fur throw', 'Unplugged'),
+      img('studioz-d-baby-windmill-cart.webp', '3/2', 'Baby in a headband sitting in a small wooden cart beside a wooden windmill on a soft pink set', 'The little cart'),
+      img('studioz-d-baby-fairy-wings-moon.webp', '2/3', 'Baby in pink fairy wings holding a wand, sitting on a white crescent-moon prop', 'On the moon'),
+      img('studioz-d-baby-newsboy-cap-stool.webp', '3/2', 'Baby in a checked newsboy cap and braces lying on a wooden folding stool against dark wood panelling', 'Newsboy'),
+      img('studioz-d-baby-bath-tub.webp', '2/3', 'Baby sitting in a small white tub of water wearing a gold chain, a pale blue backdrop behind', 'Bath time'),
+      img('studioz-d-baby-newborn-feet-leaves.webp', '3/2', 'Close-up of a sleeping newborn’s feet in the foreground, the baby wrapped in green among orange leaves', 'Ten toes'),
     ],
   },
 ];

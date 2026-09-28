@@ -59,9 +59,11 @@ button anywhere, not a button that goes nowhere.
 
 ### 2. Photography — real, and what is still missing
 
-**The portfolio is the studio's own work.** 43 photographs were supplied and
-imported with `npm run photos`, which produced responsive AVIF + WebP variants
-at every breakpoint. `src/data/works.js` is built entirely from them.
+**The portfolio is the studio's own work.** 81 photographs, supplied in two
+batches and imported with `npm run photos`, which produced responsive AVIF +
+WebP variants at every breakpoint. `src/data/works.js` is built entirely from
+them. The second batch repeated 41 frames from the first; those were matched by
+perceptual hash and left out, so nothing appears twice.
 
 What the supplied set covers:
 
@@ -72,19 +74,23 @@ What the supplied set covers:
 | Engagements | 1 |
 | Receptions | 1 |
 | Portraits | 1 |
+| Bridal portraits (collection) | 1 |
+| Groom portraits (collection) | 1 |
+| Couple portraits (collection) | 1 |
+| Baby & Family (collection) | 1 |
 
 **What is still a generated placeholder**, because no photographs exist for it:
 
-- every **gift** product and category image (24 products)
-- the **Customized Gifts** panel in the home page's Two Worlds section
-- service cards for **maternity, baby & family, product, commercial,
-  cinematic films and reels**
+- service cards for **maternity, product, commercial, cinematic films and
+  reels** — see `docs/IMAGE-SPEC.md` §4.1 for the exact files and sizes
+- team portraits on `/about`
 - three journal covers on gifting topics
 
-The portfolio taxonomy was reduced to match reality — there are no Product,
-Commercial, Film, Maternity or Baby & Family categories in `/works`, because
-padding a portfolio with stand-ins is worse than a shorter portfolio. Those
-service *pages* still exist, since offering a service is the studio's call.
+The portfolio taxonomy matches reality — there are no Product, Commercial,
+Film or Maternity categories in `/works`, because padding a portfolio with
+stand-ins is worse than a shorter portfolio. Baby & Family became a category
+the moment real baby shoots arrived. The other service *pages* still exist,
+since offering a service is the studio's call.
 
 To add more, it stays one command:
 

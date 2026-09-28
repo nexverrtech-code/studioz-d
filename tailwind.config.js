@@ -169,6 +169,13 @@ export default {
           from: { transform: 'translate3d(0, 0, 0)' },
           to: { transform: 'translate3d(-50%, 0, 0)' },
         },
+        /* Footer slideshow: visible for a quarter of the cycle, crossfading
+           into the next. Assumes 4 slides - see Slideshow in Footer.jsx. */
+        'slide-fade': {
+          '0%, 20%': { opacity: '1' },
+          '25%, 95%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
         'shimmer-x': {
           from: { transform: 'translate3d(-100%, 0, 0)' },
           to: { transform: 'translate3d(100%, 0, 0)' },
@@ -178,6 +185,7 @@ export default {
         grain: 'grain-shift 8s steps(6) infinite',
         marquee: 'marquee-x 38s linear infinite',
         shimmer: 'shimmer-x 1.6s ease-in-out infinite',
+        slideshow: 'slide-fade 16s linear infinite',
       },
     },
   },

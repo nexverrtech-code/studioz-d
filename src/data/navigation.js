@@ -22,34 +22,76 @@ export const WORLDS = {
 };
 
 /**
- * The landing bar. Shown on the gateway and on shared pages (contact, FAQ,
- * legal) where the visitor has not committed to a world yet. It names both
- * worlds rather than favouring either.
+ * The two worlds, as the header's switch presents them.
+ *
+ * This is the one piece of navigation on every page: which half of the studio
+ * you are in, and a single step to the other. Because the switch owns the
+ * cross-world jump, the per-world link lists below no longer repeat
+ * "Photography" and "Gifts" as ordinary items.
+ *
+ * `image` is used by the mobile drawer and the footer, where each world gets a
+ * tile. Both files are 3:2, matching the 3:2 boxes they are shown in.
  */
-export const landingNav = [
-  { label: 'Photography', to: '/services' },
-  { label: 'Gifts', to: '/gifts' },
-  { label: 'Works', to: '/works' },
-  { label: 'About', to: '/about' },
-  { label: 'Contact', to: '/contact' },
+export const worldSwitch = [
+  {
+    id: WORLDS.PHOTOGRAPHY,
+    label: 'Photography',
+    lead: 'Capture it.',
+    to: '/services',
+    enquire: '/contact?interest=photography',
+    enquireLabel: 'Book a shoot',
+    image: '/assets/images/works/studioz-d-pre-wedding-rocks-wave-gown.webp',
+    alt: 'Couple on wet rocks as a wave breaks behind them, photographed by Studioz D',
+    slideAspect: '3/2',
+    slides: [
+      '/assets/images/works/studioz-d-wedding-sparkler-entry.webp',
+      '/assets/images/works/studioz-d-bridal-gold-headpiece-smile.webp',
+      '/assets/images/works/studioz-d-pre-wedding-rocks-wave-gown.webp',
+      '/assets/images/works/studioz-d-baby-newborn-floral-nest.webp',
+    ],
+  },
+  {
+    id: WORLDS.GIFTS,
+    label: 'Gifts',
+    lead: 'Keep it.',
+    to: '/gifts',
+    enquire: '/contact?interest=gift',
+    enquireLabel: 'Order a gift',
+    image: '/assets/images/gifts/studioz-d-gift-framed-print-panel.webp',
+    alt: 'A Studioz D bridal portrait printed, matted and framed on a wall',
+    slideAspect: '1/1',
+    slides: [
+      '/assets/images/gifts/studioz-d-gift-acrylic-photo-panel.webp',
+      '/assets/images/gifts/studioz-d-gift-caricature-standee-square.webp',
+      '/assets/images/gifts/studioz-d-gift-crystal-photo-block.webp',
+      '/assets/images/gifts/studioz-d-gift-infinity-name-lamp.webp',
+    ],
+  },
 ];
 
-/** Inside the photography world. */
-export const photographyNav = [
-  { label: 'Photography', to: '/services' },
+/**
+ * The landing bar. Shown on the gateway and on shared pages (contact, FAQ,
+ * legal) where the visitor has not committed to a world yet. The switch beside
+ * it names both worlds; these are the pages that belong to neither.
+ */
+export const landingNav = [
   { label: 'Works', to: '/works' },
   { label: 'About', to: '/about' },
   { label: 'Journal', to: '/journal' },
-  { label: 'Gifts', to: '/gifts', crossWorld: true },
+];
+
+/** Inside the photography world. The full service list is the switch's menu. */
+export const photographyNav = [
+  { label: 'Works', to: '/works' },
+  { label: 'Journal', to: '/journal' },
+  { label: 'About', to: '/about' },
 ];
 
 /** Inside the gifts world. */
 export const giftsNav = [
-  { label: 'Gifts', to: '/gifts' },
   { label: 'Occasions', to: '/gifts#gift-group-occasion' },
   { label: 'Creations', to: '/gifts#gift-group-creation' },
   { label: 'Personalized', to: '/gifts/personalized' },
-  { label: 'Photography', to: '/services', crossWorld: true },
 ];
 
 const NAV_BY_WORLD = {
@@ -61,8 +103,8 @@ const NAV_BY_WORLD = {
 export const navForWorld = (world) => NAV_BY_WORLD[world] ?? landingNav;
 
 /**
- * Mobile drawer. Always starts with Home so there is a way back to the
- * gateway, and always ends with Contact.
+ * Mobile drawer list. The drawer opens with a tile for each world, so this is
+ * everything else: Home first as the way back to the gateway, Contact last.
  */
 export const mobileNavForWorld = (world) => [
   { label: 'Home', to: '/' },
@@ -147,43 +189,39 @@ export const navFlyouts = {
   },
 };
 
-/** Footer link groups. */
-export const footerNav = {
-  explore: {
-    heading: 'Explore',
-    links: [
-      { label: 'Home', to: '/' },
-      { label: 'Services', to: '/services' },
-      { label: 'Works', to: '/works' },
-      { label: 'Gifts', to: '/gifts' },
-      { label: 'About', to: '/about' },
-      { label: 'Journal', to: '/journal' },
-      { label: 'Contact', to: '/contact' },
-    ],
-  },
-  photography: {
-    heading: 'Photography',
-    links: [
-      { label: 'Wedding', to: '/services/wedding-photography' },
-      { label: 'Pre-Wedding', to: '/services/pre-wedding-photography' },
-      { label: 'Portrait', to: '/services/portrait-photography' },
-      { label: 'Events', to: '/services/event-photography' },
-      { label: 'Products', to: '/services/product-photography' },
-      { label: 'Films', to: '/services/cinematic-films' },
-    ],
-  },
-  gifts: {
-    heading: 'Gifts',
-    links: [
-      { label: 'Birthday', to: '/gifts/birthday' },
-      { label: 'Anniversary', to: '/gifts/anniversary' },
-      { label: 'Wedding', to: '/gifts/wedding' },
-      { label: 'Couples', to: '/gifts/couples' },
-      { label: 'Frames', to: '/gifts/photo-frames' },
-      { label: 'Hampers', to: '/gifts/custom-hampers' },
-      { label: 'Corporate', to: '/gifts/corporate' },
-    ],
-  },
+/**
+ * Footer. Mirrors the landing page's two worlds: one panel each, at equal
+ * weight, then a short column for the pages that belong to neither.
+ * Every link here resolves to a real route.
+ */
+export const footerWorldLinks = {
+  [WORLDS.PHOTOGRAPHY]: [
+    { label: 'Weddings', to: '/services/wedding-photography' },
+    { label: 'Pre-Wedding', to: '/services/pre-wedding-photography' },
+    { label: 'Bridal Portraits', to: '/works/bridal' },
+    { label: 'Baby & Family', to: '/services/baby-family-photography' },
+    { label: 'Portraits', to: '/services/portrait-photography' },
+    { label: 'Films', to: '/services/cinematic-films' },
+  ],
+  [WORLDS.GIFTS]: [
+    { label: 'Photo Frames', to: '/gifts/photo-frames' },
+    { label: 'Memory Gifts', to: '/gifts/memory-gifts' },
+    { label: 'Hampers', to: '/gifts/custom-hampers' },
+    { label: 'Anniversary', to: '/gifts/anniversary' },
+    { label: 'Corporate', to: '/gifts/corporate' },
+    { label: 'Personalized', to: '/gifts/personalized' },
+  ],
+};
+
+export const footerStudio = {
+  heading: 'Studio',
+  links: [
+    { label: 'Works', to: '/works' },
+    { label: 'About', to: '/about' },
+    { label: 'Journal', to: '/journal' },
+    { label: 'FAQ', to: '/faq' },
+    { label: 'Contact', to: '/contact' },
+  ],
 };
 
 export const legalNav = [

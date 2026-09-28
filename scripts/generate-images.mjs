@@ -438,11 +438,13 @@ const checkVariants = async (references) => {
     if (!(await exists(abs))) continue; // handled by the generator above
 
     const stem = reference.replace(/\.[^.]+$/, '');
-    const { width } = await imageWidth(abs);
 
-    // Only widths at or below the source are generated, so only those are
-    // required. A missing smaller width is a real break.
-    const required = RESPONSIVE_WIDTHS.filter((w) => !width || w <= width);
+    // Every rung is required. `buildSources` advertises the full ladder
+    // regardless of how wide the source is, so a 1400px file that stops at
+    // -1280 still has -1600 and -1920 in its srcSet — and on a 2x screen the
+    // browser picks one of those. `completeLadders` below fills the top rungs
+    // at native size before this runs, so a gap here is a genuine break.
+    const required = RESPONSIVE_WIDTHS;
     const missing = [];
     for (const w of required) {
       const variant = path.join(PUBLIC, `${stem}-${w}${ext}`.replace(/^\//, ''));
@@ -456,6 +458,55 @@ const checkVariants = async (references) => {
   }
 
   return problems;
+};
+
+/**
+ * Fills the rungs ABOVE a source's own width.
+ *
+ * The import scripts never upscale, so a 1067px portrait produces -480, -640
+ * and -960 and stops. But the srcSet still lists -1280, -1600 and -1920, and a
+ * high-density screen will ask for them. Here those rungs are written from the
+ * source at its native size: no pixel is invented, the browser simply gets the
+ * largest real resolution under the name it asked for.
+ *
+ * Rungs BELOW the source width are never generated here. A gap there means an
+ * import did not run, which `checkVariants` should still report.
+ */
+const completeLadders = async (references) => {
+  const sharp = (await import('sharp')).default;
+  let written = 0;
+
+  for (const reference of references) {
+    const ext = path.extname(reference).toLowerCase();
+    if (ext !== '.webp') continue;
+    if (/-\d{3,4}\.webp$/i.test(reference)) continue;
+    if (reference.includes('/og/')) continue;
+
+    const abs = path.join(PUBLIC, reference.replace(/^\//, ''));
+    if (!(await exists(abs))) continue;
+
+    const { width } = await imageWidth(abs);
+    if (!width) continue;
+
+    const stem = abs.replace(/\.webp$/i, '');
+    for (const rung of RESPONSIVE_WIDTHS) {
+      if (rung <= width) continue;
+      for (const format of ['webp', 'avif']) {
+        const target = `${stem}-${rung}.${format}`;
+        if (await exists(target)) continue;
+        const pipeline = sharp(abs);
+        await (format === 'webp'
+          ? pipeline.webp({ quality: 82, effort: 5 })
+          : pipeline.avif({ quality: 58, effort: 4 })
+        ).toFile(target);
+        written += 1;
+      }
+    }
+  }
+
+  if (written > 0) {
+    console.log(`  completed ${written} top-rung variant(s) at native size`);
+  }
 };
 
 /** Reads an image's pixel width without pulling in a decoder for the whole file. */
@@ -502,6 +553,7 @@ const run = async () => {
     `Studioz D images — ${created} generated, ${skipped} already present, ${references.length} referenced.`
   );
 
+  await completeLadders(references);
   const variantProblems = await checkVariants(references);
   if (variantProblems.length > 0) {
     console.error(

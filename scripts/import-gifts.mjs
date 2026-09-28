@@ -54,6 +54,9 @@ const MAP = {
   'polaroid_photos.jpg': 'studioz-d-gift-polaroid-prints',
   'pro_1.jpg': 'studioz-d-gift-story-frame',
   'pro_2.jpg': 'studioz-d-gift-caricature-standee',
+  // Second batch: a true 1:1 re-shoot of the standee, so the card grid no
+  // longer has to letterbox the 3:4 original.
+  'Caricature_Standee.jpg': 'studioz-d-gift-caricature-standee-square',
   'pro_3.jpg': 'studioz-d-gift-engraved-wood-photo',
   'pro_4.jpg': 'studioz-d-gift-leather-wallet',
   'pro_4_4.jpg': 'studioz-d-gift-leather-wallet-set',

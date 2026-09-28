@@ -46,6 +46,7 @@ const PHOTOS = {
   'watercolour-frame': [1800, 1776],
   'story-frame': [1800, 2400],
   'caricature-standee': [1800, 2400],
+  'caricature-standee-square': [1400, 1400],
   'engraved-wood-photo': [1800, 1776],
   'leather-wallet': [1800, 1776],
   'leather-wallet-set': [1800, 1776],
@@ -157,7 +158,7 @@ export const giftCategories = [
     headline: 'The start of the story.',
     blurb:
       'Engagement keepsakes for the couple and the families — personalized with names, dates and the words that fit.',
-    image: '/assets/images/gifts/studioz-d-gift-rotating-photo-cube.webp',
+    image: '/assets/images/gifts/studioz-d-gift-caricature-standee-square.webp',
   },
   {
     id: 'baby-shower',
@@ -958,7 +959,11 @@ export const gifts = [
     production: 'Illustrated, proofed, then cut and mounted to order.',
     care: 'Dust with a dry cloth. Keep the base off wet surfaces.',
     images: [
-      photo('caricature-standee', 'A cut-out caricature of a couple in traditional wedding clothes, standing on a wooden base with their names printed underneath'),
+      // Square first: it is what the card grid shows, and it now fills the
+      // tile instead of being letterboxed. The taller original follows in the
+      // product gallery, which shows every image uncropped.
+      photo('caricature-standee-square', 'A cut-out caricature of a couple in traditional wedding clothes on a wooden base, their names printed underneath'),
+      photo('caricature-standee', 'The full caricature standee seen from the front, standing on its wooden base'),
     ],
     related: ['watercolour-portrait-frame', 'story-frame', 'infinity-name-lamp'],
   },

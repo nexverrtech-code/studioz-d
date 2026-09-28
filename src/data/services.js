@@ -297,8 +297,10 @@ export const services = [
     tagline: 'Children do not pose. That is the entire point.',
     summary:
       'Newborn, milestone and family sessions built around play — patient, safe, and shot at the pace of the child.',
-    heroImage: '/assets/images/services/studioz-d-baby-family-photography-hero.svg',
-    cardImage: '/assets/images/services/studioz-d-baby-family-photography-card.svg',
+    // Real work from the studio's baby sessions (see `first-portraits` in
+    // data/works.js). Both are 3:2, matching the hero band and the card.
+    heroImage: '/assets/images/works/studioz-d-baby-newsboy-cap-stool.webp',
+    cardImage: '/assets/images/works/studioz-d-baby-windmill-cart.webp',
     intro:
       'The best family photographs are almost never the ones where everybody was looking at the camera. We shoot around what the family is actually doing, and the frames where everyone is genuinely present tend to be the ones that get framed.',
     whatWeCapture: [

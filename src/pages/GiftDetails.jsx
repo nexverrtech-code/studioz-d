@@ -109,8 +109,10 @@ export const GiftDetails = () => {
                       src={image.src}
                       alt=""
                       aspect="1/1"
+                      /* Same rule as the main viewer: a product is never cropped. */
+                      objectFit="contain"
                       sizes={SIZES.thumb}
-                      className="w-full"
+                      className="w-full bg-ivory-100"
                     />
                   </button>
                 ))}
