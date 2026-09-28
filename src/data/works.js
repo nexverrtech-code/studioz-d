@@ -9,9 +9,9 @@
  * WHAT THE SUPPLIED WORK COVERS
  * -----------------------------
  * Weddings, pre-weddings, engagements, receptions, bridal and groom portraits,
- * couple portraits, baby, maternity, product and commercial work. There is no
- * film or reels work in the set, so those categories are deliberately absent
- * rather than padded with stand-ins. Add them when it exists.
+ * couple portraits, baby, maternity, product and commercial work. Film and
+ * reels are video, so they live on their service pages (`video` in
+ * services.js), not in this photo taxonomy.
  *
  * COLLECTIONS
  * -----------

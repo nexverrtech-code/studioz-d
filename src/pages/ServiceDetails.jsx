@@ -91,6 +91,30 @@ export const ServiceDetails = () => {
         </div>
       </PageHero>
 
+      {/* The film itself — nothing downloads until play */}
+      {service.video && (
+        <section className="section-sm" aria-labelledby="service-film-title">
+          <div className="shell">
+            <SectionHeading
+              eyebrow={`${service.video.label} · ${service.video.duration}`}
+              title={`${service.shortTitle}, in motion`}
+              id="service-film-title"
+              className="mb-6"
+              titleClassName="text-fluid-2xl"
+            />
+            <video
+              src={service.video.src}
+              poster={service.cardImage}
+              aria-label={`${service.video.label} by Studioz D`}
+              controls
+              playsInline
+              preload="none"
+              className="aspect-video w-full bg-ink-950"
+            />
+          </div>
+        </section>
+      )}
+
       {/* Every photograph from this kind of shoot */}
       {photos.length > 0 && (
         <section className="section-sm" aria-labelledby="service-gallery-title">

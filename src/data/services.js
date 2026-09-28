@@ -505,8 +505,12 @@ export const services = [
     tagline: 'Sound, movement and time — the three things a photograph cannot hold.',
     summary:
       'Wedding films, brand stories and documentary shorts, cut for feeling rather than length.',
-    heroImage: '/assets/images/services/studioz-d-cinematic-films-hero.svg',
-    cardImage: '/assets/images/services/studioz-d-cinematic-films-card.svg',
+    heroImage: '/assets/images/services/studioz-d-cinematic-film-sunset.webp',
+    // High-set crop keeps both heads on ultra-wide screens.
+    heroPosition: 'center 20%',
+    heroImageTall: '/assets/images/services/studioz-d-cinematic-film-dunes-tall.webp',
+    cardImage: '/assets/images/services/studioz-d-cinematic-film-arch.webp',
+    video: { src: '/assets/videos/studioz-d-pre-wedding-film.mp4', label: 'Pre-wedding film', duration: '1:11' },
     intro:
       'A film gives you back the things a still leaves out — a voice, a pause, the noise of a room. We shoot with a light footprint and edit with restraint, because the goal is something you will actually rewatch.',
     whatWeCapture: [
@@ -558,8 +562,11 @@ export const services = [
     tagline: 'Short does not mean thrown together.',
     summary:
       'Vertical films for social — shot, cut and paced for a feed, without looking like everything else in it.',
-    heroImage: '/assets/images/services/studioz-d-reels-hero.svg',
-    cardImage: '/assets/images/services/studioz-d-reels-card.svg',
+    heroImage: '/assets/images/services/studioz-d-wedding-teaser-bride.webp',
+    heroPosition: 'center 15%',
+    heroImageTall: '/assets/images/services/studioz-d-wedding-teaser-bride-tall.webp',
+    cardImage: '/assets/images/services/studioz-d-wedding-teaser-temple.webp',
+    video: { src: '/assets/videos/studioz-d-wedding-teaser.mp4', label: 'Wedding teaser', duration: '0:47' },
     intro:
       'Short-form is its own craft. It is vertical, it is silent for the first second, and it has to earn the next five. We shoot native vertical rather than cropping down from a wide frame, and cut to a rhythm that suits the subject.',
     whatWeCapture: [

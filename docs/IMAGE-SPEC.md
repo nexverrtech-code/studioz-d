@@ -131,11 +131,12 @@ would have rendered as a blank image on a retina screen.
 Everything on the gifts side now uses real photography. **22 of 22 products and
 33 of 33 categories.** The gaps are all on the photography side.
 
-### 4.1 Two services have no photography yet — 4 files
+### 4.1 Every service now has real imagery
 
 Maternity, Product and Commercial now use the studio's own photographs (the
 **Before Hello**, **Still Life** and **Campaign Day** collections), with their
-galleries on each service page.
+galleries on each service page. Cinematic Films and Reels use frames from the
+studio's own films, and each page plays its film (see §4.1b).
 
 One supplied product frame was left out: `product 4.jpg` (a bag, sneakers and
 jeans on a white sweep, with a softbox and camera in shot). It shows typical
@@ -143,10 +144,32 @@ AI-generation artefacts — an unbranded camera with distorted lens geometry, a
 malformed tripod head, melted laces and buckle — so it was not presented as
 Studioz D's work. Send a real product shoot to replace it.
 
-| Service | Page | Hero — **2400 × 1600 (3 : 2)** | Card — **1600 × 1067 (3 : 2)** |
+### 4.1b Films — `public/assets/videos/`
+
+| Page | Film | Hero, desktop / phone | Card + player poster |
 |---|---|---|---|
-| Cinematic Films | `/services/cinematic-films` | `studioz-d-cinematic-films-hero.svg` → `.webp` | `studioz-d-cinematic-films-card.svg` → `.webp` |
-| Reels | `/services/reels` | `studioz-d-reels-hero.svg` → `.webp` | `studioz-d-reels-card.svg` → `.webp` |
+| `/services/cinematic-films` | `studioz-d-pre-wedding-film.mp4` — 1:11, 29 MB | sunset silhouettes (16 : 9) / dunes (2 : 3 slice) | the arch (16 : 9) |
+| `/services/reels` | `studioz-d-wedding-teaser.mp4` — 0:47, 20 MB | bride close-up (16 : 9) / same frame (2 : 3 slice) | temple garden (16 : 9) |
+
+- Films are re-encoded from the supplied 1920 × 1080 masters (165 MB and 97 MB)
+  to H.264 1080p at about 3.3 Mbps with `+faststart`, so they stream as they
+  play. The player uses `preload="none"`: nothing downloads until someone
+  presses play.
+- Stills are single frames chosen for sharpness, stored in
+  `public/assets/images/services/studioz-d-cinematic-film-*` and
+  `studioz-d-wedding-teaser-*`. Phone heroes are a 720 × 1080 slice of a frame,
+  cropped, never squeezed. Being video frames, they top out at 1920 × 1080, so
+  they are a touch softer than the photographs on large retina screens.
+- The teaser is landscape. A native **9 : 16** reel would suit the Reels page
+  better. Send one and it replaces the teaser (`video` in `src/data/services.js`).
+- The teaser shows the couple's names and wedding date on screen (the welcome
+  board at 0:02, a title at 0:16). Publish only with the couple's consent.
+
+To add or replace a film, re-encode the master and point `video.src` at it:
+
+```bash
+ffmpeg -i master.mp4 -map_metadata -1 -c:v libx264 -preset slow -crf 23 -maxrate 3500k -bufsize 7000k -pix_fmt yuv420p -g 50 -c:a aac -b:a 128k -movflags +faststart public/assets/videos/studioz-d-<name>.mp4
+```
 
 ### 4.2 Team portraits — `/about`
 

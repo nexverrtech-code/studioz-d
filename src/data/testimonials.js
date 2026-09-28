@@ -35,7 +35,7 @@ export const testimonialTemplate = {
  */
 export const reviewSummary = {
   rating: 4.9,
-  count: 30,
+  count: 530,
   source: 'Google',
   /** Google's own "people often mention" topics for this profile. */
   topics: ['Photo quality', 'Talented photographers', 'Special moments', 'Photo availability'],

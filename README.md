@@ -84,16 +84,13 @@ What the supplied set covers:
 
 **What is still a generated placeholder**, because no photographs exist for it:
 
-- service images for **cinematic films and reels** — see `docs/IMAGE-SPEC.md`
-  §4.1 for the exact files and sizes
 - team portraits on `/about`
 - three journal covers on gifting topics
 
-The portfolio taxonomy matches reality — there are no Product, Commercial,
-Film or Maternity categories in `/works`, because padding a portfolio with
-stand-ins is worse than a shorter portfolio. Baby & Family became a category
-the moment real baby shoots arrived. The other service *pages* still exist,
-since offering a service is the studio's call.
+The portfolio taxonomy matches reality — each `/works` category exists
+because real photographs for it arrived. Films and reels are video, so they
+play on their service pages (`video` in `src/data/services.js`, files in
+`public/assets/videos/`) — see `docs/IMAGE-SPEC.md` §4.1b.
 
 To add more, it stays one command:
 
@@ -155,13 +152,12 @@ Three open decisions for the studio:
 
 Regenerate every brand asset from a new master with `npm run brand`.
 
-### 3. Testimonials are deliberately empty
+### 3. Testimonials are real Google reviews
 
-`src/data/testimonials.js` ships as an empty array and the home-page section
-renders an honest empty state. Add real, permitted quotes and set
-`published: true` — the carousel switches itself on. No `Review` or
-`AggregateRating` structured data is emitted either way; that markup needs a
-verified review source.
+`src/data/testimonials.js` holds reviews supplied by the studio, quoted
+exactly, plus the `reviewSummary` rating and count. Keep that count in step
+with the Google profile. No `Review` or `AggregateRating` structured data is
+emitted; Google does not allow self-serving review markup.
 
 ### 4. Team members are roles, not people
 
