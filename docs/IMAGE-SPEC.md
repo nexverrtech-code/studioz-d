@@ -131,27 +131,22 @@ would have rendered as a blank image on a retina screen.
 Everything on the gifts side now uses real photography. **22 of 22 products and
 33 of 33 categories.** The gaps are all on the photography side.
 
-### 4.1 Five services have no photography at all — 10 files
+### 4.1 Two services have no photography yet — 4 files
 
-These render as abstract generated placeholders. Drop real files in
-`public/assets/images/services/` under exactly these names, then run
-`npm run images` to confirm and `npm run build` to generate variants.
+Maternity, Product and Commercial now use the studio's own photographs (the
+**Before Hello**, **Still Life** and **Campaign Day** collections), with their
+galleries on each service page.
 
-| Service | Page | Hero file — needs **2400 × 1600 (3 : 2), landscape** | Card file — needs **1600 × 1067 (3 : 2)** |
+One supplied product frame was left out: `product 4.jpg` (a bag, sneakers and
+jeans on a white sweep, with a softbox and camera in shot). It shows typical
+AI-generation artefacts — an unbranded camera with distorted lens geometry, a
+malformed tripod head, melted laces and buckle — so it was not presented as
+Studioz D's work. Send a real product shoot to replace it.
+
+| Service | Page | Hero — **2400 × 1600 (3 : 2)** | Card — **1600 × 1067 (3 : 2)** |
 |---|---|---|---|
-| Maternity | `/services/maternity-photography` | `studioz-d-maternity-photography-hero.svg` → `.webp` | `studioz-d-maternity-photography-card.svg` → `.webp` |
-| Product | `/services/product-photography` | `studioz-d-product-photography-hero.svg` → `.webp` | `studioz-d-product-photography-card.svg` → `.webp` |
-| Commercial | `/services/commercial-photography` | `studioz-d-commercial-photography-hero.svg` → `.webp` | `studioz-d-commercial-photography-card.svg` → `.webp` |
 | Cinematic Films | `/services/cinematic-films` | `studioz-d-cinematic-films-hero.svg` → `.webp` | `studioz-d-cinematic-films-card.svg` → `.webp` |
 | Reels | `/services/reels` | `studioz-d-reels-hero.svg` → `.webp` | `studioz-d-reels-card.svg` → `.webp` |
-
-After adding the files, change the extension in `src/data/services.js` from
-`.svg` to `.webp` on the matching `heroImage` / `cardImage` line.
-
-**Baby & Family is done.** The baby-shoots folder supplied seven real
-photographs: they now form the **First Portraits** collection at
-`/works/first-portraits`, open a new **Baby & Family** category at
-`/works/baby-family`, and supply the service page's hero and card.
 
 ### 4.2 Team portraits — `/about`
 
@@ -215,6 +210,8 @@ photograph. If either file is replaced, **replace both**.
 
 | Slot | Desktop file (landscape) | Phone file (portrait) | Declared in |
 |---|---|---|---|
+| Photography page hero (`/services`) | `works/studioz-d-pre-wedding-beach-horse.webp` | `works/studioz-d-pre-wedding-golden-hour-close.webp` | `src/pages/Services.jsx` (`image` / `imageTall`) |
+| Wedding service hero | `works/studioz-d-wedding-church-party.webp` (crop set low, `center 70%`) | `works/studioz-d-bridal-red-lehenga-orange-wall.webp` | `src/data/services.js` (`heroImage` / `heroImageTall`) |
 | Two Worlds panels | `works/studioz-d-pre-wedding-rocks-wave-gown.webp` and `gifts/studioz-d-gift-framed-print-panel.webp` — roughly 3 : 2 | `works/studioz-d-pre-wedding-rocks-twirl.webp` and `gifts/studioz-d-gift-framed-print.webp` — 4 : 5 | `src/components/sections/TwoWorlds.jsx` (`image` / `imageTall`) |
 
 ### 4.4b The landing hero is a scroll scene, not a picture

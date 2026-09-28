@@ -4,9 +4,9 @@ import { Seo } from '@/components/seo/Seo';
 import { BrandHero } from '@/components/hero/BrandHero';
 import { TwoWorlds } from '@/components/sections/TwoWorlds';
 import { SectionHeading } from '@/components/common/SectionHeading';
-import { WorkCard } from '@/components/cards/WorkCard';
-import { GiftCard } from '@/components/cards/GiftCard';
-import { Reveal, RevealText, RevealGroup, RevealItem } from '@/components/motion/Reveal';
+import { CardDeck } from '@/components/sections/CardDeck';
+import { Testimonials } from '@/components/sections/Testimonials';
+import { Reveal, RevealText } from '@/components/motion/Reveal';
 import { MagneticButton } from '@/components/buttons/MagneticButton';
 import { getFeaturedWorks } from '@/data/works';
 import { getFeaturedGifts } from '@/data/gifts';
@@ -41,6 +41,26 @@ export const Home = () => {
    */
   const selectedCreations = getFeaturedGifts(8);
 
+  /* Both decks take the same card shape; each keeps its photographs' ratio. */
+  const workCards = selectedWorks.map((work) => ({
+    key: work.slug,
+    to: `/works/${work.slug}`,
+    image: work.coverImage,
+    alt: `${work.title} — ${work.category} photography by Studioz D`,
+    eyebrow: work.category,
+    title: work.title,
+    cta: 'View story',
+  }));
+  const giftCards = selectedCreations.map((gift) => ({
+    key: gift.slug,
+    to: `/gifts/product/${gift.slug}`,
+    image: gift.images[0]?.src,
+    alt: gift.images[0]?.alt ?? gift.name,
+    eyebrow: gift.category,
+    title: gift.name,
+    cta: 'Customize',
+  }));
+
   return (
     <>
       <Seo
@@ -57,25 +77,21 @@ export const Home = () => {
       {/* 2 — Two Worlds: the choice this page exists to offer */}
       <TwoWorlds />
 
+      {/* Real Google reviews, just before the work they describe */}
+      <Testimonials />
+
       {/* 3 — Selected works: a tease, not the gallery */}
       <section className="bleed bg-ivory-100 section" aria-labelledby="selected-works-title">
         <div className="shell">
           <SectionHeading
             eyebrow="Selected Works"
-            title="A few moments we were trusted with"
+            title="Moments we were trusted with"
             id="selected-works-title"
             action={{ label: 'View all works', to: '/works' }}
-            className="mb-8"
+            className="mb-4"
             titleClassName="text-fluid-2xl"
           />
-
-          <RevealGroup className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-3">
-            {selectedWorks.map((work, index) => (
-              <RevealItem key={work.slug} className="min-w-0">
-                <WorkCard work={work} aspect="3/2" priority={index < 3} />
-              </RevealItem>
-            ))}
-          </RevealGroup>
+          <CardDeck cards={workCards} aspect="3/2" />
         </div>
       </section>
 
@@ -84,20 +100,13 @@ export const Home = () => {
         <div className="shell">
           <SectionHeading
             eyebrow="Selected Creations"
-            title="And a few things people kept"
+            title="Things people kept"
             id="selected-creations-title"
             action={{ label: 'View all gifts', to: '/gifts' }}
-            className="mb-8"
+            className="mb-4"
             titleClassName="text-fluid-2xl"
           />
-
-          <RevealGroup className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 md:grid-cols-3 xl:grid-cols-4">
-            {selectedCreations.map((gift) => (
-              <RevealItem key={gift.slug} className="min-w-0">
-                <GiftCard gift={gift} dense />
-              </RevealItem>
-            ))}
-          </RevealGroup>
+          <CardDeck cards={giftCards} aspect="1/1" />
         </div>
       </section>
 
@@ -122,15 +131,8 @@ export const Home = () => {
           <div className="flex flex-col gap-5">
             <Reveal direction="up">
               <p className="max-w-prose text-fluid-lg leading-relaxed text-ink-600">
-                Studioz D photographs the moments people plan for years and remember for
-                decades — weddings, the quiet sessions before them, and the faces in between.
-              </p>
-            </Reveal>
-            <Reveal direction="up" delay={0.08}>
-              <p className="max-w-prose text-fluid-base leading-relaxed text-ink-500">
-                Then, through personalized creations, those photographs move off a hard drive
-                and into a room. Printed, framed, engraved — something you can actually hold.
-                That second half is the part most studios skip.
+                We photograph the moments you plan for years — then print, frame and engrave
+                them into something you can hold.
               </p>
             </Reveal>
             <Reveal direction="up" delay={0.14}>

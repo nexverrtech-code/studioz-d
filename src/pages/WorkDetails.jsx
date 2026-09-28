@@ -168,7 +168,7 @@ export const WorkDetails = () => {
               title="Related work"
               id="related-work-title"
               action={{ label: 'All works', to: '/works' }}
-              className="mb-8"
+              className="mb-5"
               titleClassName="text-fluid-2xl"
             />
             <RevealGroup className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">

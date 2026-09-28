@@ -181,6 +181,24 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://studiozd.com/works/maternity</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://studiozd.com/works/product</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://studiozd.com/works/commercial</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://studiozd.com/works/the-vow-made-aloud</loc>
     <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
@@ -278,6 +296,24 @@
   </url>
   <url>
     <loc>https://studiozd.com/works/first-portraits</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://studiozd.com/works/before-hello</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://studiozd.com/works/still-life</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://studiozd.com/works/campaign-day</loc>
     <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

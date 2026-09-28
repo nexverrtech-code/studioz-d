@@ -9,9 +9,9 @@
  * WHAT THE SUPPLIED WORK COVERS
  * -----------------------------
  * Weddings, pre-weddings, engagements, receptions, bridal and groom portraits,
- * couple portraits and baby shoots. There is no product, commercial, film or
- * maternity work in the set — so those categories are deliberately absent from
- * this taxonomy rather than padded with stand-ins. Add them when it exists.
+ * couple portraits, baby, maternity, product and commercial work. There is no
+ * film or reels work in the set, so those categories are deliberately absent
+ * rather than padded with stand-ins. Add them when it exists.
  *
  * COLLECTIONS
  * -----------
@@ -132,6 +132,30 @@ export const workCategories = [
     heroTitle: 'Baby & Family',
     seoTitle: 'Newborn & Baby Photography',
     lede: 'Newborns, little ones, and the sets built around them.',
+  },
+  {
+    id: 'maternity',
+    label: 'Maternity',
+    segment: 'maternity',
+    heroTitle: 'Maternity',
+    seoTitle: 'Maternity Photography',
+    lede: 'The last weeks before hello.',
+  },
+  {
+    id: 'product',
+    label: 'Product',
+    segment: 'product',
+    heroTitle: 'Product',
+    seoTitle: 'Product Photography',
+    lede: 'Styled and lit so the product does the talking.',
+  },
+  {
+    id: 'commercial',
+    label: 'Commercial',
+    segment: 'commercial',
+    heroTitle: 'Commercial',
+    seoTitle: 'Commercial Photography',
+    lede: 'Campaign imagery on built sets.',
   },
 ];
 
@@ -621,6 +645,81 @@ export const works = [
       img('studioz-d-baby-newsboy-cap-stool.webp', '3/2', 'Baby in a checked newsboy cap and braces lying on a wooden folding stool against dark wood panelling', 'Newsboy'),
       img('studioz-d-baby-bath-tub.webp', '2/3', 'Baby sitting in a small white tub of water wearing a gold chain, a pale blue backdrop behind', 'Bath time'),
       img('studioz-d-baby-newborn-feet-leaves.webp', '3/2', 'Close-up of a sleeping newborn’s feet in the foreground, the baby wrapped in green among orange leaves', 'Ten toes'),
+    ],
+  },
+  {
+    id: 'work-018',
+    slug: 'before-hello',
+    title: 'Before Hello',
+    category: 'Maternity',
+    categories: ['maternity'],
+    primaryCategory: 'maternity',
+    year: '',
+    location: '',
+    featured: false,
+    service: 'maternity-photography',
+    description:
+      'Maternity sessions from several families — silk sarees, a garden, a stone wall and a lot of laughing.',
+    story: [
+      'The last weeks before a baby arrives go fast. These sessions slow them down for an hour.',
+    ],
+    behindTheFrame: 'Window light and a single soft source, indoors and out.',
+    coverImage: '/assets/images/works/studioz-d-maternity-husband-cradling-bump.webp',
+    images: [
+      img('studioz-d-maternity-husband-cradling-bump.webp', '3/2', 'Husband cradling his wife’s bump, both smiling, against a maroon wall and wooden doors', 'Both hands'),
+      img('studioz-d-maternity-pink-saree-stone-wall.webp', '2/3', 'Expectant mother in a pink silk saree looking down at her bump, lit against a dark stone wall', 'Looking down'),
+      img('studioz-d-maternity-blue-saree-spotlights.webp', '3/2', 'Expectant mother in a blue and green silk saree holding her bump in a dark room lit by small spotlights', 'Spotlit'),
+      img('studioz-d-maternity-red-silk-saree.webp', '2/3', 'Expectant mother in a red silk saree and gold jewellery, one hand resting on her bump', 'In red'),
+      img('studioz-d-maternity-garden-couple-green-saree.webp', '3/2', 'Couple in a garden, the husband lifting his wife’s chin as she holds her bump in a green and gold saree', 'In the garden'),
+      img('studioz-d-maternity-green-saree-stone-wall.webp', '2/3', 'Expectant mother in a green saree and pink embroidered blouse against a dark stone wall', 'Stone and silk'),
+      img('studioz-d-maternity-couple-laughing-blue-saree.webp', '3/2', 'Expectant couple laughing together, the mother in a blue silk saree raising her hennaed hands', 'Laughing'),
+      img('studioz-d-maternity-husband-peeking-pillar.webp', '2/3', 'Husband peeking around a stone pillar towards his wife in a green saree', 'Peeking'),
+      img('studioz-d-maternity-white-dress-ivy-wall.webp', '3/2', 'Expectant mother in a white dress and flower crown standing against a wall of green ivy', 'Against the ivy'),
+      img('studioz-d-maternity-garden-couple-portrait.webp', '2/3', 'Couple in a garden, the husband behind his wife as she holds her bump in a green saree', 'Together'),
+      img('studioz-d-maternity-pink-saree-window.webp', '3/2', 'Expectant mother in a pink and orange silk saree standing by a bright window', 'By the window'),
+      img('studioz-d-maternity-blue-saree-reflection.webp', '2/3', 'Expectant mother in a blue silk saree smiling, her reflection soft in the foreground', 'Reflection'),
+      img('studioz-d-maternity-blue-saree-mirror.webp', '3/2', 'Expectant mother in a blue silk saree and orange blouse, seen past a mirror in the foreground', 'The mirror'),
+    ],
+  },
+  {
+    id: 'work-019',
+    slug: 'still-life',
+    title: 'Still Life',
+    category: 'Product',
+    categories: ['product'],
+    primaryCategory: 'product',
+    year: '',
+    location: '',
+    featured: false,
+    service: 'product-photography',
+    description: 'Product stills for skincare, essential oils and a kitchen appliance.',
+    story: ['Styled, lit and shot so the product is the only thing you look at.'],
+    behindTheFrame: 'Studio light on stone, marble and wood surfaces.',
+    coverImage: '/assets/images/works/studioz-d-product-essential-oils-flat-lay.webp',
+    images: [
+      img('studioz-d-product-essential-oils-flat-lay.webp', '3/2', 'Flat lay of essential oil bottles, a brush and a tin of balm on grey stone', 'The flat lay'),
+      img('studioz-d-product-skincare-tube-stones.webp', '3/2', 'Skincare tube balanced between two round stones on white marble', 'Balanced'),
+      img('studioz-d-product-blender-green-juice.webp', '3/2', 'Blender of green juice surrounded by celery, lettuce, lemon and ginger on a wooden table', 'Fresh'),
+    ],
+  },
+  {
+    id: 'work-020',
+    slug: 'campaign-day',
+    title: 'Campaign Day',
+    category: 'Commercial',
+    categories: ['commercial'],
+    primaryCategory: 'commercial',
+    year: '',
+    location: '',
+    featured: false,
+    service: 'commercial-photography',
+    description: 'Fashion campaign portraits made on a styled studio set.',
+    story: ['Built sets, directed poses and colour that holds together across a campaign.'],
+    behindTheFrame: 'Studio sets with controlled, directional light.',
+    coverImage: '/assets/images/works/studioz-d-commercial-red-outfit-staircase.webp',
+    images: [
+      img('studioz-d-commercial-red-outfit-staircase.webp', '3/2', 'Model in a red outfit posing on a wooden staircase beside dried pampas grass', 'The staircase'),
+      img('studioz-d-commercial-red-lehenga-set.webp', '3/2', 'Model in a red lehenga standing in a styled set with a carved cabinet and patterned rug', 'The set'),
     ],
   },
 ];

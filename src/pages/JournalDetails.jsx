@@ -159,7 +159,7 @@ export const JournalDetails = () => {
               eyebrow="Related"
               title="Where to go from here"
               id="article-links"
-              className="mb-7"
+              className="mb-5"
               titleClassName="text-fluid-2xl"
             />
 
@@ -196,7 +196,7 @@ export const JournalDetails = () => {
               title="More from the journal"
               id="article-related"
               action={{ label: 'All articles', to: '/journal' }}
-              className="mb-8"
+              className="mb-5"
               titleClassName="text-fluid-2xl"
             />
             <RevealGroup className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2">

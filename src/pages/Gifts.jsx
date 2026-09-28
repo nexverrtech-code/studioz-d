@@ -169,7 +169,7 @@ export const Gifts = () => {
             title="Four ways to find the right one"
             id="gift-discovery-heading"
             lede="Occasion, person, object, or simply what you want to say."
-            className="mb-9"
+            className="mb-5"
           />
           <GiftDiscovery />
         </div>
@@ -182,8 +182,7 @@ export const Gifts = () => {
             eyebrow="Every Creation"
             title="The full catalogue"
             id="gift-catalogue-heading"
-            lede="Filter by occasion, person, creation type or feeling. Everything is made to order."
-            className="mb-7"
+            className="mb-5"
             titleClassName="text-fluid-2xl"
           />
 
@@ -216,7 +215,7 @@ export const Gifts = () => {
                 <RevealGroup className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 md:grid-cols-3 xl:grid-cols-4">
                   {results.map((gift, index) => (
                     <RevealItem key={gift.slug} className="min-w-0">
-                      <GiftCard gift={gift} priority={index < 4} />
+                      <GiftCard gift={gift} priority={index < 4} dense />
                     </RevealItem>
                   ))}
                 </RevealGroup>
@@ -233,7 +232,7 @@ export const Gifts = () => {
             eyebrow="How It Works"
             title="Five steps, and you see it before we make it"
             id="gift-process-heading"
-            className="mb-9"
+            className="mb-5"
             titleClassName="text-fluid-2xl"
           />
           <ProcessSteps steps={GIFT_PROCESS} columns={5} />

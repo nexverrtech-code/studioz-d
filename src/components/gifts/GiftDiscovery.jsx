@@ -71,7 +71,6 @@ const LinkList = ({ categories }) => (
             <span className="font-display text-fluid-lg leading-tight text-ink-900">
               {category.label}
             </span>
-            <span className="clamp-1 text-fluid-xs text-ink-400">{category.headline}</span>
           </span>
           <ArrowUpRight
             className="h-4 w-4 shrink-0 text-ink-300 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-ink-900"

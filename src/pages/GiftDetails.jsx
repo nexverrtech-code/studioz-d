@@ -134,7 +134,7 @@ export const GiftDetails = () => {
             </div>
 
             <p className="max-w-prose text-fluid-base leading-relaxed text-ink-600">
-              {gift.longDescription}
+              {gift.description}
             </p>
 
             {/* Price row — honest placeholder, no invented figure */}
@@ -217,7 +217,7 @@ export const GiftDetails = () => {
             eyebrow="The Details"
             title="What it is made of, and how"
             id="gift-specs"
-            className="mb-7"
+            className="mb-5"
             titleClassName="text-fluid-2xl"
           />
           <dl className="grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
@@ -243,7 +243,7 @@ export const GiftDetails = () => {
               title="See it with your words on it"
               id="gift-customize"
               lede="A live preview, right here in your browser. Nothing is uploaded or stored."
-              className="mb-8"
+              className="mb-5"
               titleClassName="text-fluid-2xl"
             />
             <CustomizePreview gift={gift} />
@@ -260,7 +260,7 @@ export const GiftDetails = () => {
               title="Related creations"
               id="gift-related"
               action={{ label: 'All gifts', to: '/gifts' }}
-              className="mb-8"
+              className="mb-5"
               titleClassName="text-fluid-2xl"
             />
             <RevealGroup className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 lg:grid-cols-4">

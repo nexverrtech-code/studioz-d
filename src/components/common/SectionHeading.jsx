@@ -27,13 +27,13 @@ export const SectionHeading = ({
   return (
     <div
       className={cn(
-        'flex flex-col gap-6',
+        'flex flex-col gap-4',
         centered ? 'items-center text-center' : 'items-start',
         !centered && action && 'md:flex-row md:items-end md:justify-between md:gap-10',
         className
       )}
     >
-      <div className={cn('flex max-w-full flex-col gap-4', centered && 'items-center')}>
+      <div className={cn('flex max-w-full flex-col gap-3', centered && 'items-center')}>
         {eyebrow && (
           <Reveal direction="fade" duration={0.5}>
             <p

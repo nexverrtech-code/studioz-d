@@ -188,7 +188,7 @@ export const Works = ({ categorySegment: segmentProp }) => {
               eyebrow="Featured Work"
               title="Start here"
               id="works-featured-title"
-              className="mb-7"
+              className="mb-5"
               titleClassName="text-fluid-2xl"
             />
           </div>
@@ -203,7 +203,7 @@ export const Works = ({ categorySegment: segmentProp }) => {
             eyebrow={isFiltered ? activeCategory?.label : 'Full Gallery'}
             title={isFiltered ? `Every frame in ${activeCategory?.label}` : 'Everything, in one place'}
             id="works-gallery-title"
-            className="mb-7"
+            className="mb-5"
             titleClassName="text-fluid-2xl"
           />
 
@@ -241,8 +241,7 @@ export const Works = ({ categorySegment: segmentProp }) => {
               eyebrow="The Projects"
               title="Every frame came from a story"
               id="works-projects-title"
-              lede="Open a project to see the full set, the context and how the day unfolded."
-              className="mb-8"
+              className="mb-5"
               titleClassName="text-fluid-2xl"
             />
 

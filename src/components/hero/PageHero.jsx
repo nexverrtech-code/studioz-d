@@ -4,6 +4,7 @@ import { OptimizedImage } from '@/components/common/OptimizedImage';
 import { Breadcrumbs } from '@/components/common/Breadcrumbs';
 import { Reveal, RevealText } from '@/components/motion/Reveal';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { SIZES } from '@/utils/images';
 import { cn } from '@/utils/cn';
 
@@ -192,6 +193,12 @@ export const PageHero = ({
   imageAlt = '',
   /** [{ src, alt, aspect, width, height, position }] — up to two are used. */
   media,
+  /**
+   * Immersive only: { src, alt, position } shown below 640px, where the
+   * backdrop is a 2:3 portrait box. Pass a portrait photograph so phones get a
+   * whole frame instead of the middle third of a landscape one.
+   */
+  imageTall,
   /** `split` | `immersive` | `plain`. Inferred when omitted. */
   layout,
   /** Legacy alias: `variant="image"` meant a full-bleed photograph. */
@@ -211,6 +218,7 @@ export const PageHero = ({
 }) => {
   const sectionRef = useRef(null);
   const reducedMotion = usePrefersReducedMotion();
+  const isPhone = useMediaQuery('(max-width: 639px)');
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -231,6 +239,7 @@ export const PageHero = ({
         : 'plain');
 
   const isImmersive = resolved === 'immersive' && list.length > 0;
+  const backdrop = isPhone && imageTall ? imageTall : list[0];
   const isSplit = resolved === 'split' && list.length > 0;
   const light = isImmersive;
   const centered = align === 'center';
@@ -254,10 +263,11 @@ export const PageHero = ({
             style={reducedMotion ? undefined : { y: backdropY }}
           >
             <OptimizedImage
-              src={list[0].src}
-              alt={list[0].alt ?? imageAlt}
+              key={backdrop.src}
+              src={backdrop.src}
+              alt={backdrop.alt ?? imageAlt}
               sizes={SIZES.full}
-              objectPosition={list[0].position ?? 'center'}
+              objectPosition={backdrop.position ?? 'center'}
               priority
               className="h-full w-full"
               imgClassName="h-full w-full"

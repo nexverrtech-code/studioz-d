@@ -64,10 +64,14 @@ export const Services = () => {
       <PageHero
         eyebrow="Photography"
         title="Created around your story."
-        lede="From photographs that preserve a moment to visual content that helps a brand stand out, Studioz D creates imagery with intention."
+        lede="Photographs that keep a moment, and imagery that helps a brand stand out."
         accent="your story"
-        image="/assets/images/works/studioz-d-wedding-sparkler-entry.webp"
-        imageAlt="Newlyweds walking between cold-spark fountains at their reception, photographed by Studioz D"
+        image="/assets/images/works/studioz-d-pre-wedding-beach-horse.webp"
+        imageAlt="Couple on a beach under a stormy sky beside a painted horse, photographed by Studioz D"
+        imageTall={{
+          src: '/assets/images/works/studioz-d-pre-wedding-golden-hour-close.webp',
+          alt: 'Couple forehead to forehead by the sea at golden hour, photographed by Studioz D',
+        }}
         layout="immersive"
         railLabel="Photography"
         railIndex="01"
@@ -81,8 +85,7 @@ export const Services = () => {
         eyebrow="Our Photography"
         headingLines={['We don’t just take pictures.', 'We notice the moment.']}
         paragraphs={[
-          'The quiet glance before the ceremony. The laugh nobody planned. The hands that find each other in a crowded room. The little details that become the biggest memories.',
-          'Studioz D approaches photography as visual storytelling — observation, composition and cinematic perspective, edited into something that still feels alive years later.',
+          'The glance before the ceremony, the laugh nobody planned — the small details that become the biggest memories.',
         ]}
         image="/assets/images/works/studioz-d-pre-wedding-bougainvillea-close.webp"
         imageAlt="Couple standing close together framed by bougainvillea branches, photographed by Studioz D"
@@ -108,7 +111,7 @@ export const Services = () => {
                 eyebrow={`${String(groupIndex + 1).padStart(2, '0')} — ${group}`}
                 title={GROUP_BLURBS[group]}
                 id={`group-${group}`}
-                className="mb-8"
+                className="mb-5"
                 titleClassName="text-fluid-2xl"
               />
 
@@ -132,7 +135,7 @@ export const Services = () => {
             title="Recent stories"
             id="photography-works"
             action={{ label: 'View all works', to: '/works' }}
-            className="mb-8"
+            className="mb-5"
             titleClassName="text-fluid-2xl"
           />
           <RevealGroup className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
@@ -153,8 +156,7 @@ export const Services = () => {
             title={creativeProcess.heading}
             id="services-process"
             tone="light"
-            lede="The same six steps whether it is a wedding day or a single portrait session."
-            className="mb-9"
+            className="mb-5"
           />
           <ProcessSteps steps={creativeProcess.steps} tone="dark" columns={6} />
         </div>
@@ -168,7 +170,7 @@ export const Services = () => {
             title="Worth knowing before you book"
             id="photography-journal"
             action={{ label: 'Read the journal', to: '/journal' }}
-            className="mb-8"
+            className="mb-5"
             titleClassName="text-fluid-2xl"
           />
           <RevealGroup className="grid grid-cols-1 gap-x-6 gap-y-8 md:grid-cols-3">
@@ -185,7 +187,7 @@ export const Services = () => {
       <CtaSection
         eyebrow="Next Step"
         headingLines={['Tell us what', 'you are picturing.']}
-        copy="A date, a place, or just a rough idea. We will tell you honestly what it would take and whether we are the right studio for it."
+        copy="A date, a place or a rough idea — we will tell you honestly what it takes."
         primary={{ label: 'Start a Conversation', to: '/contact' }}
         secondary={{ label: 'See Our Work', to: '/works' }}
       />

@@ -46,10 +46,6 @@ export const ServiceCard = ({ service, priority = false, className, compact = fa
         />
       </h3>
 
-      {!compact && (
-        <p className="clamp-3 text-fluid-sm text-ink-400">{service.summary}</p>
-      )}
-
       {/* Rule grows on hover — a quiet affordance that needs no extra text. */}
       <span
         aria-hidden="true"

@@ -59,7 +59,7 @@ button anywhere, not a button that goes nowhere.
 
 ### 2. Photography — real, and what is still missing
 
-**The portfolio is the studio's own work.** 81 photographs, supplied in two
+**The portfolio is the studio's own work.** 99 photographs, supplied in two
 batches and imported with `npm run photos`, which produced responsive AVIF +
 WebP variants at every breakpoint. `src/data/works.js` is built entirely from
 them. The second batch repeated 41 frames from the first; those were matched by
@@ -78,11 +78,14 @@ What the supplied set covers:
 | Groom portraits (collection) | 1 |
 | Couple portraits (collection) | 1 |
 | Baby & Family (collection) | 1 |
+| Maternity (collection) | 1 |
+| Product (collection) | 1 |
+| Commercial (collection) | 1 |
 
 **What is still a generated placeholder**, because no photographs exist for it:
 
-- service cards for **maternity, product, commercial, cinematic films and
-  reels** — see `docs/IMAGE-SPEC.md` §4.1 for the exact files and sizes
+- service images for **cinematic films and reels** — see `docs/IMAGE-SPEC.md`
+  §4.1 for the exact files and sizes
 - team portraits on `/about`
 - three journal covers on gifting topics
 

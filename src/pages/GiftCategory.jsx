@@ -105,7 +105,7 @@ export const GiftCategory = () => {
             eyebrow={`${items.length} ${items.length === 1 ? 'creation' : 'creations'}`}
             title={category.title}
             id="gift-category-items"
-            className="mb-8"
+            className="mb-5"
             titleClassName="text-fluid-2xl"
           />
 
@@ -167,7 +167,7 @@ export const GiftCategory = () => {
             <RevealGroup className="grid grid-cols-2 gap-x-4 gap-y-8 sm:gap-x-6 md:grid-cols-3 xl:grid-cols-4">
               {items.map((gift, index) => (
                 <RevealItem key={gift.slug} className="min-w-0">
-                  <GiftCard gift={gift} priority={index < 4} />
+                  <GiftCard gift={gift} priority={index < 4} dense />
                 </RevealItem>
               ))}
             </RevealGroup>
@@ -182,7 +182,7 @@ export const GiftCategory = () => {
               eyebrow="Also Explore"
               title="Nearby collections"
               id="sibling-categories"
-              className="mb-8"
+              className="mb-5"
               titleClassName="text-fluid-2xl"
             />
             <div className="flex flex-wrap gap-2">

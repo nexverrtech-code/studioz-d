@@ -49,7 +49,8 @@ export const Contact = () => {
       id: 'whatsapp',
       icon: MessageCircle,
       label: 'WhatsApp',
-      value: 'Fastest way to reach us',
+      // Digits from config, shown the way people read a mobile: +91 98765 43210.
+      value: `+${siteConfig.contact.whatsappNumber.replace(/(\d+)(\d{5})(\d{5})$/, '$1 $2 $3')}`,
       href: buildWhatsAppLink(
         `Hello ${siteConfig.name}, I would like to talk about a shoot or a personalized gift.`
       ),
@@ -221,7 +222,7 @@ export const Contact = () => {
             title="The questions that come up most"
             id="contact-faq"
             action={{ label: 'Full FAQ', to: '/faq' }}
-            className="mb-7"
+            className="mb-5"
             titleClassName="text-fluid-2xl"
           />
           <FaqAccordion items={contactFaqs} idPrefix="contact" />

@@ -1,19 +1,20 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Navigate, useParams, Link } from 'react-router-dom';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Check, Plus } from 'lucide-react';
 import { Seo } from '@/components/seo/Seo';
 import { PageHero } from '@/components/hero/PageHero';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { ProcessSteps } from '@/components/sections/ProcessSteps';
 import { CtaSection } from '@/components/sections/CtaSection';
 import { FaqAccordion } from '@/components/sections/FaqAccordion';
-import { WorkCard } from '@/components/cards/WorkCard';
+import { MasonryGallery } from '@/components/gallery/MasonryGallery';
+import { GalleryLightbox } from '@/components/gallery/GalleryLightbox';
 import { ServiceCard } from '@/components/cards/ServiceCard';
-import { Reveal, RevealGroup, RevealItem } from '@/components/motion/Reveal';
+import { RevealGroup, RevealItem } from '@/components/motion/Reveal';
 import { Button } from '@/components/buttons/Button';
 import { WhatsAppButton } from '@/components/buttons/ContactButtons';
 import { getServiceBySlug, getRelatedServices } from '@/data/services';
-import { getWorksByService, getRelatedWorks } from '@/data/works';
+import { getAllPhotos } from '@/data/works';
 import { getGiftCategory } from '@/data/gifts';
 import { breadcrumbSchema, serviceSchema, faqSchema } from '@/utils/seo';
 import { trackServiceView } from '@/services/analytics.service';
@@ -22,15 +23,22 @@ export const ServiceDetails = () => {
   const { slug } = useParams();
   const service = getServiceBySlug(slug);
 
+  // Every photograph in the service's portfolio category, twelve at a time.
+  const photos = useMemo(
+    () => (service?.relatedWorkCategory ? getAllPhotos(service.relatedWorkCategory) : []),
+    [service?.relatedWorkCategory]
+  );
+  const [visible, setVisible] = useState(12);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
+
   useEffect(() => {
     if (service) trackServiceView(service);
+    setVisible(12);
   }, [service]);
 
   // An unknown slug is a 404, not an empty page.
   if (!service) return <Navigate to="/404" replace />;
 
-  const relatedWorks = getWorksByService(service.slug, 3);
-  const fallbackWorks = relatedWorks.length > 0 ? relatedWorks : getRelatedWorks('', 3);
   const relatedServices = getRelatedServices(service.slug);
   const giftCategory = service.relatedGiftCategory
     ? getGiftCategory(service.relatedGiftCategory)
@@ -56,8 +64,14 @@ export const ServiceDetails = () => {
         eyebrow={service.group}
         title={service.title}
         lede={service.tagline}
-        image={service.heroImage}
-        imageAlt={`${service.title} by Studioz D`}
+        media={[
+          { src: service.heroImage, alt: `${service.title} by Studioz D`, position: service.heroPosition },
+        ]}
+        imageTall={
+          service.heroImageTall
+            ? { src: service.heroImageTall, alt: `${service.title} by Studioz D` }
+            : undefined
+        }
         layout="immersive"
         railLabel={service.group}
         breadcrumbs={trail}
@@ -77,31 +91,39 @@ export const ServiceDetails = () => {
         </div>
       </PageHero>
 
-      {/* Introduction */}
-      <section className="section">
-        <div className="shell grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
-          <Reveal direction="up">
-            <p className="eyebrow flex items-center gap-3">
-              <span className="h-px w-8 bg-ink-300" aria-hidden="true" />
-              The Approach
-            </p>
-          </Reveal>
-          <Reveal direction="up" delay={0.08}>
-            <p className="max-w-prose text-fluid-lg leading-relaxed text-ink-600">
-              {service.intro}
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      {/* Every photograph from this kind of shoot */}
+      {photos.length > 0 && (
+        <section className="section-sm" aria-labelledby="service-gallery-title">
+          <div className="shell">
+            <SectionHeading
+              eyebrow={`${photos.length} photographs`}
+              title={`${service.shortTitle}, in pictures`}
+              id="service-gallery-title"
+              action={{ label: 'All works', to: '/works' }}
+              className="mb-6"
+              titleClassName="text-fluid-2xl"
+            />
+            <MasonryGallery photos={photos.slice(0, visible)} onOpen={setLightboxIndex} />
+            {visible < photos.length && (
+              <div className="mt-8 flex justify-center">
+                <button type="button" onClick={() => setVisible((v) => v + 12)} className="btn btn-outline">
+                  <Plus className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
+                  Show more ({photos.length - visible})
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* What we capture */}
       <section className="bleed bg-ivory-100 section" aria-labelledby="capture-title">
         <div className="shell">
           <SectionHeading
             eyebrow="What We Capture"
-            title="Everything on this list, every time"
+            title="Every time"
             id="capture-title"
-            className="mb-8"
+            className="mb-6"
             titleClassName="text-fluid-2xl"
           />
 
@@ -123,74 +145,20 @@ export const ServiceDetails = () => {
         </div>
       </section>
 
-      {/* Experience */}
-      <section className="section" aria-labelledby="experience-title">
-        <div className="shell">
-          <SectionHeading
-            eyebrow="The Experience"
-            title="What it is actually like to work with us"
-            id="experience-title"
-            className="mb-8"
-            titleClassName="text-fluid-2xl"
-          />
-
-          <RevealGroup className="grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-3">
-            {service.experience.map((item, index) => (
-              <RevealItem
-                key={item.title}
-                className="flex min-w-0 flex-col gap-3 border-t border-ink-200 pt-6"
-              >
-                <span className="text-[0.66rem] font-semibold tabular-nums tracking-widest-xl text-champagne-700">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                <h3 className="font-display text-fluid-xl leading-tight text-ink-900">
-                  {item.title}
-                </h3>
-                <p className="text-fluid-sm leading-relaxed text-ink-400">{item.body}</p>
-              </RevealItem>
-            ))}
-          </RevealGroup>
-        </div>
-      </section>
-
       {/* Process */}
       <section className="bleed bg-ink-900 section" aria-labelledby="service-process-title">
         <div className="shell">
           <SectionHeading
             eyebrow="The Process"
-            title="From first conversation to finished work"
+            title="Start to finish"
             id="service-process-title"
             tone="light"
-            className="mb-9"
+            className="mb-6"
             titleClassName="text-fluid-2xl"
           />
           <ProcessSteps steps={service.process} tone="dark" columns={5} />
         </div>
       </section>
-
-      {/* Featured work */}
-      {fallbackWorks.length > 0 && (
-        <section className="section" aria-labelledby="service-work-title">
-          <div className="shell">
-            <SectionHeading
-              eyebrow="Featured Work"
-              title="Recent stories"
-              id="service-work-title"
-              action={{ label: 'All works', to: '/works' }}
-              className="mb-8"
-              titleClassName="text-fluid-2xl"
-            />
-
-            <RevealGroup className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-              {fallbackWorks.map((work) => (
-                <RevealItem key={work.slug} className="min-w-0">
-                  <WorkCard work={work} />
-                </RevealItem>
-              ))}
-            </RevealGroup>
-          </div>
-        </section>
-      )}
 
       {/* Cross-link to gifting */}
       {giftCategory && (
@@ -221,7 +189,7 @@ export const ServiceDetails = () => {
               eyebrow="Questions"
               title={`${service.shortTitle} — the things people ask`}
               id="service-faq-title"
-              className="mb-7"
+              className="mb-5"
               titleClassName="text-fluid-2xl"
             />
             <FaqAccordion items={service.faq} idPrefix={`svc-${service.slug}`} />
@@ -237,7 +205,7 @@ export const ServiceDetails = () => {
               eyebrow="Also Consider"
               title="Related services"
               id="related-services-title"
-              className="mb-8"
+              className="mb-5"
               titleClassName="text-fluid-2xl"
             />
             <RevealGroup className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-3">
@@ -250,6 +218,13 @@ export const ServiceDetails = () => {
           </div>
         </section>
       )}
+
+      <GalleryLightbox
+        photos={photos}
+        index={lightboxIndex}
+        onClose={() => setLightboxIndex(null)}
+        onNavigate={setLightboxIndex}
+      />
 
       <CtaSection
         eyebrow={service.shortTitle}

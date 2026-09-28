@@ -67,14 +67,6 @@ export const About = () => {
                 everyday life.
               </p>
             </Reveal>
-            <Reveal direction="up" delay={0.08}>
-              <p className="max-w-prose text-fluid-base leading-relaxed text-ink-500">
-                That second half is the part most studios skip. A photograph that lives only on
-                a hard drive is a photograph nobody looks at. Printing it, framing it, building
-                it into something that sits in a room — that is where a picture becomes a
-                memory you actually keep.
-              </p>
-            </Reveal>
             <Reveal direction="up" delay={0.14}>
               <p className="font-display text-fluid-2xl leading-snug text-ink-900">
                 {siteConfig.promise.capture} {siteConfig.promise.create}{' '}
@@ -89,7 +81,7 @@ export const About = () => {
       <StorySection
         eyebrow={philosophy.eyebrow}
         headingLines={['A moment is only unrepeatable', 'if someone was paying attention.']}
-        paragraphs={philosophy.body}
+        paragraphs={philosophy.body.slice(0, 1)}
         image="/assets/images/works/studioz-d-wedding-bride-silk-saree-window.webp"
         imageAlt="Bride in a silk saree at a shuttered window, photographed by Studioz D"
         imageAspect="3/2"
@@ -102,11 +94,11 @@ export const About = () => {
             eyebrow={approach.eyebrow}
             title={approach.heading}
             id="approach-title"
-            className="mb-9"
+            className="mb-5"
           />
 
           <RevealGroup className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-            {approach.pillars.map((pillar, index) => (
+            {approach.pillars.slice(0, 3).map((pillar, index) => (
               <RevealItem
                 key={pillar.title}
                 className="flex min-w-0 flex-col gap-3 border-t border-ink-200 pt-6"
@@ -132,7 +124,7 @@ export const About = () => {
             title={creativeProcess.heading}
             id="about-process-title"
             tone="light"
-            className="mb-9"
+            className="mb-5"
           />
           <ProcessSteps steps={creativeProcess.steps} tone="dark" columns={6} />
         </div>
@@ -162,7 +154,7 @@ export const About = () => {
               titleClassName="text-fluid-2xl"
             />
 
-            {studio.body.map((paragraph, index) => (
+            {studio.body.slice(0, 1).map((paragraph, index) => (
               <Reveal key={index} direction="up" delay={index * 0.06}>
                 <p className="max-w-prose text-fluid-base leading-relaxed text-ink-500">
                   {paragraph}
@@ -199,7 +191,7 @@ export const About = () => {
             title={behindTheScenes.heading}
             id="bts-title"
             lede={behindTheScenes.body[0]}
-            className="mb-8"
+            className="mb-5"
           />
 
           <RevealGroup className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -216,11 +208,6 @@ export const About = () => {
             ))}
           </RevealGroup>
 
-          <Reveal direction="up" delay={0.14}>
-            <p className="mt-10 max-w-prose text-fluid-base text-ink-500">
-              {behindTheScenes.body[1]}
-            </p>
-          </Reveal>
         </div>
       </section>
 
@@ -231,8 +218,8 @@ export const About = () => {
             eyebrow="Our Team"
             title="Six roles, one room"
             id="team-title"
-            lede="The studio runs as a small team with clear responsibilities — which is why the same person who photographs a day is never the one being rushed to edit it."
-            className="mb-9"
+            lede="A small team with clear roles — whoever shoots your day is never rushed to edit it."
+            className="mb-5"
           />
 
           <RevealGroup className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">

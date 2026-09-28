@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Quote, Star } from 'lucide-react';
 import { SectionHeading } from '@/components/common/SectionHeading';
 import { Button } from '@/components/buttons/Button';
-import { getPublishedTestimonials } from '@/data/testimonials';
+import { getPublishedTestimonials, reviewSummary } from '@/data/testimonials';
+import { siteConfig } from '@/config/site';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { pad2 } from '@/utils/format';
 
@@ -19,7 +20,7 @@ import { pad2 } from '@/utils/format';
  * way; that markup needs a verified review source.
  */
 export const Testimonials = () => {
-  const entries = getPublishedTestimonials();
+  const entries = getPublishedTestimonials(20);
   const [index, setIndex] = useState(0);
   const reducedMotion = usePrefersReducedMotion();
 
@@ -64,21 +65,50 @@ export const Testimonials = () => {
   return (
     <section className="section" aria-labelledby="testimonials-title">
       <div className="shell">
-        <SectionHeading
-          eyebrow="In Their Words"
-          title="What clients say"
-          id="testimonials-title"
-          className="mb-8"
-        />
+        <div className="mb-6 flex flex-col items-center gap-3 text-center">
+          <SectionHeading
+            eyebrow="In Their Words"
+            title="What clients say"
+            id="testimonials-title"
+            align="center"
+            titleClassName="text-fluid-2xl"
+          />
+          {/* The aggregate, shown beside the quotes so the selection is honest. */}
+          <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-fluid-sm text-ink-500">
+            <span className="flex items-center gap-0.5" aria-hidden="true">
+              {[0, 1, 2, 3, 4].map((star) => (
+                <Star key={star} className="h-4 w-4 fill-champagne-500 text-champagne-500" strokeWidth={1} />
+              ))}
+            </span>
+            <span className="font-semibold text-ink-900">{reviewSummary.rating}</span>
+            {siteConfig.social.googleBusiness ? (
+              <a
+                href={siteConfig.social.googleBusiness}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline"
+              >
+                {reviewSummary.count} {reviewSummary.source} reviews
+              </a>
+            ) : (
+              <span>
+                {reviewSummary.count} {reviewSummary.source} reviews
+              </span>
+            )}
+          </p>
+          <p className="text-[0.62rem] uppercase tracking-widest text-ink-300">
+            Often mentioned: {reviewSummary.topics.join(' · ')}
+          </p>
+        </div>
 
         <div className="relative mx-auto max-w-3xl">
           <Quote
-            className="mx-auto mb-8 h-8 w-8 text-champagne-600"
+            className="mx-auto mb-5 h-7 w-7 text-champagne-600"
             strokeWidth={1.1}
             aria-hidden="true"
           />
 
-          <div className="min-h-[13rem]">
+          <div className="min-h-[10rem]">
             <AnimatePresence mode="wait">
               <motion.blockquote
                 key={current.id}
@@ -88,7 +118,7 @@ export const Testimonials = () => {
                 transition={{ duration: reducedMotion ? 0 : 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="flex flex-col items-center gap-6 text-center"
               >
-                <p className="font-display text-fluid-2xl leading-snug text-ink-900">
+                <p className="font-display text-fluid-xl leading-snug text-ink-900">
                   “{current.quote}”
                 </p>
                 <footer className="flex flex-col gap-1">
@@ -106,7 +136,7 @@ export const Testimonials = () => {
           </div>
 
           {entries.length > 1 && (
-            <div className="mt-8 flex items-center justify-center gap-6">
+            <div className="mt-6 flex items-center justify-center gap-6">
               <button
                 type="button"
                 onClick={() => go(index - 1)}

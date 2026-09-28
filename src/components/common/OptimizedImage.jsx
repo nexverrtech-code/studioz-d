@@ -32,6 +32,8 @@ export const OptimizedImage = ({
   /** Rendered above the image inside the same frame (captions, overlays). */
   children,
   onLoad,
+  /** Applied to the WRAPPER box, never the <img> (see below). */
+  style,
   ...rest
 }) => {
   const [status, setStatus] = useState('loading');
@@ -55,7 +57,10 @@ export const OptimizedImage = ({
   return (
     <div
       className={cn('relative overflow-hidden bg-ivory-200', className)}
-      style={{ aspectRatio: ratio }}
+      // `style` merges into the wrapper. It used to fall through `...rest` onto
+      // the <img>, where it replaced objectFit and silently STRETCHED every
+      // full-bleed hero instead of cropping it.
+      style={{ aspectRatio: ratio, ...style }}
       data-status={status}
     >
       {/* Skeleton sits behind the image and is revealed only while loading. */}

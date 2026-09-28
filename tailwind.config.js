@@ -116,8 +116,8 @@ export default {
          * caps are ~30% lower while the mobile floor barely moves, since
          * small screens were never the problem.
          */
-        section: 'clamp(2.5rem, 1.85rem + 2.6vw, 4.5rem)',
-        'section-sm': 'clamp(1.75rem, 1.45rem + 1.3vw, 2.75rem)',
+        section: 'clamp(2rem, 1.5rem + 2vw, 3.5rem)',
+        'section-sm': 'clamp(1.5rem, 1.25rem + 1vw, 2.25rem)',
         /** Horizontal gutter: 16 / 24 / 32 / 48px by breakpoint, unchanged. */
         gutter: 'clamp(1rem, 0.55rem + 2.2vw, 2rem)',
         'safe-b': 'env(safe-area-inset-bottom, 0px)',

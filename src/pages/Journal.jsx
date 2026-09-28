@@ -95,7 +95,7 @@ export const Journal = () => {
               eyebrow="Start Here"
               title="The one most people read first"
               id="journal-featured"
-              className="mb-7"
+              className="mb-5"
               titleClassName="text-fluid-2xl"
             />
             <div className="max-w-4xl">
@@ -116,7 +116,7 @@ export const Journal = () => {
             }
             title={`${articles.length} ${articles.length === 1 ? 'article' : 'articles'}`}
             id="journal-all"
-            className="mb-7"
+            className="mb-5"
             titleClassName="text-fluid-2xl"
           />
 
