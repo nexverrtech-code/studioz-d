@@ -19,3 +19,7 @@ import-*-snippet.txt
 
 # Raw client photographs staged for import (never committed)
 incoming/
+
+# Large video assets — stored outside GitHub
+src/assets/videos/studioz-d-pre-wedding-film.mp4
+src/assets/videos/studioz-d-wedding-teaser.mp4
