@@ -510,7 +510,8 @@ export const services = [
     heroPosition: 'center 20%',
     heroImageTall: '/assets/images/services/studioz-d-cinematic-film-dunes-tall.webp',
     cardImage: '/assets/images/services/studioz-d-cinematic-film-arch.webp',
-    video: { src: '/assets/videos/studioz-d-pre-wedding-film.mp4', label: 'Pre-wedding film', duration: '1:11' },
+    video: { src: 'https://video.nexverrtech.com/studioz-d-pre-wedding-film.mp4', label: 'Pre-wedding film', duration: '1:11' },
+    //https://video.studiozd.com/
     intro:
       'A film gives you back the things a still leaves out — a voice, a pause, the noise of a room. We shoot with a light footprint and edit with restraint, because the goal is something you will actually rewatch.',
     whatWeCapture: [
@@ -566,7 +567,8 @@ export const services = [
     heroPosition: 'center 15%',
     heroImageTall: '/assets/images/services/studioz-d-wedding-teaser-bride-tall.webp',
     cardImage: '/assets/images/services/studioz-d-wedding-teaser-temple.webp',
-    video: { src: '/assets/videos/studioz-d-wedding-teaser.mp4', label: 'Wedding teaser', duration: '0:47' },
+    video: { src: 'https://video.nexverrtech.com/studioz-d-wedding-teaser.mp4', label: 'Wedding teaser', duration: '0:47' },
+    //https://video.studiozd.com/
     intro:
       'Short-form is its own craft. It is vertical, it is silent for the first second, and it has to earn the next five. We shoot native vertical rather than cropping down from a wide frame, and cut to a rhythm that suits the subject.',
     whatWeCapture: [

@@ -1,0 +1,3 @@
+[35m.gitignore[m[36m:[m[32m24[m[36m:[msrc/assets/videos/[1;31mstudioz-d-pre-wedding-film[m.mp4
+[35mdocs/IMAGE-SPEC.md[m[36m:[m[32m151[m[36m:[m| `/services/cinematic-films` | `[1;31mstudioz-d-pre-wedding-film[m.mp4` — 1:11, 29 MB | sunset silhouettes (16 : 9) / dunes (2 : 3 slice) | the arch (16 : 9) |
+[35msrc/data/services.js[m[36m:[m[32m513[m[36m:[m    video: { src: '/assets/videos/[1;31mstudioz-d-pre-wedding-film[m.mp4', label: 'Pre-wedding film', duration: '1:11' },
