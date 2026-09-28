@@ -569,6 +569,8 @@ export const services = [
     cardImage: '/assets/images/services/studioz-d-wedding-teaser-temple.webp',
     video: { src: 'https://video.nexverrtech.com/studioz-d-wedding-teaser.mp4', label: 'Wedding teaser', duration: '0:47' },
     //https://video.studiozd.com/
+    //npm run build
+    //npm run build
     intro:
       'Short-form is its own craft. It is vertical, it is silent for the first second, and it has to earn the next five. We shoot native vertical rather than cropping down from a wide frame, and cut to a rhythm that suits the subject.',
     whatWeCapture: [
